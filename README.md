@@ -1,2 +1,2 @@
-## QuantumCheckers
+# QuantumCheckers
 
