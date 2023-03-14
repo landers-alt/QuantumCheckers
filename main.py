@@ -1,5 +1,7 @@
 # Author(s): Noah Klaus
 # Project: Quantum Checkers (though name has not been decided on as of 2/24/23)
+# Common Issue(s): On line 22 (as of 3/3/23), the path to the google chrome app on a normal mac OS is listed. If you have changed the
+# location of your chrome instance, you must fix this. If it isn't on line 22, check for "chrome_path" as a variable.
 # Known Bugs: None As Of 2/28/23
 
 # *FOR TESTING*
@@ -20,7 +22,6 @@ dsuURL = 'https://www.desu.edu/' # DSU's URL
 chrome_path = 'open -a /Applications/Google\ Chrome.app %s' # The path to chrome on most Macs
 def openGithub(): # Opens github
     webbrowser.get(chrome_path).open(gitHubURL)
-
 def openDSUWebsite(): # Opens DSU's website
     webbrowser.get(chrome_path).open(dsuURL)
 # END - WEB SURFING
@@ -36,6 +37,16 @@ screen = pygame.display.set_mode(normalScreenRatio)
 caption = pygame.display.set_caption("Quantum Checkers") # Changes window caption
 # Changes window icon (NOT IMPLEMENTED YET, MAKE 32x32 SIZED IMAGE)
 # icon = pygame.display.set_icon(32x32image)
+
+    # START - SCOREBOARD SCREEN INFORMATION
+# List that stores the (x,y) location in a tuple of where each level's score should be put on
+scoreTextLocationList = [(190, 140), (190,188), (190,236), (190, 284), (190, 332), (422, 140), (422,188), (422,236), (422, 284), (422, 332), (654, 140), (654,188), (654,236), (654, 284), (654, 332)]
+black = (0,0,0) # The color black in RGB notation
+scoreTextBackgroundColor = (239,239,239) # The color of the score board menu background
+scoreTextBackground = pygame.Surface((45,30)) # Makes the shape that will be the background of the score board text
+scoreTextBackground.fill(scoreTextBackgroundColor) # Fills in the background of the surface that was just made
+scoreTextFont = pygame.font.SysFont("timesnewroman", 23) # Stores the font times new roman in size 12 in a variable
+    # START - SCOREBOARD SCREEN INFORMATION
 # END - SCREEN
 
 
@@ -62,6 +73,14 @@ def displayHowToPlayMenu(): # Displays the rough outline of the how to play menu
 def displayScoreBoardMenu(): # Displays the rough outline of the scoreboard menu
     howToPlayMenuBackground = pygame.image.load('Assets/Scoreboard Menu.png').convert()
     screen.blit(howToPlayMenuBackground, (0,0))
+    # Placing of the text for the score board background
+    for locationTuple in scoreTextLocationList:
+        screen.blit(scoreTextBackground, locationTuple)
+    scoreTextListIndex = 0
+    for locationTuple in scoreTextLocationList:
+        scoreText = scoreTextFont.render(str(populateScoreBoardTextList()[scoreTextListIndex]), True, black)
+        screen.blit(scoreText, locationTuple)
+        scoreTextListIndex += 1 # Increments the scoreTextListIndex every for loop cycle
     pygame.display.update()
 
 def displayCreditsMenu(): # Displays the rough outline of a credits menu
@@ -180,11 +199,41 @@ def creditsMenuDSUButton_click(event):  # Git Hub Button
                 print("DSU Button Has Been Clicked")
                 return True
     # STOP - Credits Menu Buttons
+
+    # START - Scoreboard File Reading Methods
+        # Writes to the file in order to update the player's high score for any respective level
+        # Takes "level" and "score" as perameters, "level" denotes what line of the file should be changed, which also denotes
+        # what level to change the score of. "Score" denotes what integer value is to be placed on the respective line in the file
+def updateScoreBoardTextList(level, score):
+    if (level > 0 and level < 15 and score >= 0 and score <= 100):
+        with open('scoreBoard.txt', 'r') as file:
+            lines = file.readlines()
+        lines[level - 1] = str(score) + '\n'
+        with open('scoreBoard.txt', 'w') as file:
+            file.writelines(lines)
+    else:
+        print("ERROR: The value(s) inputted into the 'updateScoreBoardTextList' function are not valid.")
+        print("       The values inputted into the function were: " + "level: " + str(level) + " score: " + str(score))
+        raise Exception("Invalid Input in Function Call")
+
+    # Populates a list of score board values based on the player's high score on each level
+def populateScoreBoardTextList():
+    with open('scoreBoard.txt') as f:
+        # Initializes a list to hold the scores of the user for the various levels in the game
+        scoreBoardTextList = []
+        # Loops thru each line in the file
+        for line in f:
+            # Appends the text from the file into a list to be used in order to display the scoreboard
+            scoreBoardTextList.append(line.strip())
+    return scoreBoardTextList
+    # STOP - Scoreboard File Reading Methods
 # END - METHODS
 
 
 
 # START - GAME LOOP
+# Populates the score board text list so that the scoreboard menu works correctly
+populateScoreBoardTextList()
 # Places the main menu screen on the game window to initialize the game
 displayMainMenu()
 # Initializing the FSM in the "mainMenu" state because the game starts on the main menu
@@ -217,6 +266,8 @@ while running:
                     if ( mainMenuScoreBoardButton_click(event) ):
                         displayScoreBoardMenu() # Displays the scoreboard menu
                         state = "scoreBoardMenu" # State change
+                        # UPDATES THE LIST HOLDING THE SCORE BOARD TEXT VALUES
+                        # INSERT FUNCTION CALL THAT READS THE TEXT FILE THAT HOLDS THE SCOREBOARD TEXT
                         break
                     if ( mainMenuCreditsButton_click(event) ): # If the credits button is clicked
                         displayCreditsMenu() # Displays the credits menu
