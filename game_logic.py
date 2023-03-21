@@ -1,12 +1,10 @@
 import copy
 from io import BytesIO
 
-import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.patches import Circle, Rectangle
-from qiskit import (Aer, ClassicalRegister, QuantumCircuit, QuantumRegister,
-                    execute)
+from qiskit import ClassicalRegister, QuantumCircuit, QuantumRegister
 from qiskit_aer.backends.aer_simulator import AerSimulator
 
 SUPPORTED_GATES = ['x', 'y', 'z', 'h', 'cz']
@@ -33,10 +31,11 @@ class QuantumGame():
         self.circle_radius = circle_radius or 0.6
 
         self.grid_figure = plt.figure(figsize=(8, 5), dpi=100)
+        self.grid_figure.subplots_adjust(left=0, right=1, bottom=0, top=1)
         self.ax = self.grid_figure.add_subplot(111)
         self.ax.set_xlim(-3.5, 4.5)
         self.ax.set_ylim(-1.5, 3.5)
-        plt.axis('off')
+        self.ax.set_axis_off()
 
         self.box_coords = {
             'ZI':(-0.5, -0.5),
@@ -85,7 +84,7 @@ class QuantumGame():
     def draw_grid(self) -> BytesIO:
         self.update_grid()
         out_buffer = BytesIO()
-        self.grid_figure.savefig(out_buffer, transparent=True, pad_inches=0)
+        self.grid_figure.savefig(out_buffer, transparent=True)
         out_buffer.seek(0)
 
         return out_buffer
