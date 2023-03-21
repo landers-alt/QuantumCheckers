@@ -1,14 +1,13 @@
 import copy
-
-from qiskit_aer.backends.aer_simulator import AerSimulator
-from qiskit import Aer, ClassicalRegister, QuantumRegister, QuantumCircuit
-import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib as mpl
-from matplotlib.patches import Circle, Rectangle
 from io import BytesIO
 
-SUPPORTED_GATES = ['x', 'y', 'z', 'h', 'cx', 'cz']
+import matplotlib.pyplot as plt
+import numpy as np
+from matplotlib.patches import Circle, Rectangle
+from qiskit import ClassicalRegister, QuantumCircuit, QuantumRegister
+from qiskit_aer.backends.aer_simulator import AerSimulator
+
+SUPPORTED_GATES = ['x', 'y', 'z', 'h', 'cz']
 
 class QuantumGame():
     def __init__(self,
@@ -31,19 +30,22 @@ class QuantumGame():
         self.rectangle_length = rectangle_length or 0.98*np.sqrt(2)
         self.circle_radius = circle_radius or 0.6
 
-        self.grid_figure = plt.figure(figsize=(6, 6))
+        self.grid_figure = plt.figure(figsize=(8, 5), dpi=100)
+        self.grid_figure.subplots_adjust(left=0, right=1, bottom=0, top=1)
         self.ax = self.grid_figure.add_subplot(111)
-        plt.axis('off')
+        self.ax.set_xlim(-3.5, 4.5)
+        self.ax.set_ylim(-1.5, 3.5)
+        self.ax.set_axis_off()
 
         self.box_coords = {
-            'ZI':(-1, 2),
-            'XI':(-2, 3),
-            'IZ':( 1, 2),
-            'IX':( 2, 3),
-            'ZZ':( 0, 3),
-            'ZX':( 1, 4),
-            'XZ':(-1, 4),
-            'XX':( 0, 5)
+            'ZI':(-0.5, -0.5),
+            'XI':(-1.5, 0.5),
+            'IZ':( 1.5, -0.5),
+            'IX':( 2.5, 0.5),
+            'ZZ':( 0.5, 0.5),
+            'ZX':( 1.5, 1.5),
+            'XZ':(-0.5, 1.5),
+            'XX':( 0.5, 2.5)
         }
 
         for qbit, gate in initialize:
@@ -51,8 +53,9 @@ class QuantumGame():
 
     def create_circuit(self) -> QuantumCircuit:
 
-        q = QuantumRegister(2, 'q')
-        qc = QuantumCircuit(q)
+        self.qr = QuantumRegister(2, 'q')
+        self.cr = ClassicalRegister(2)
+        qc = QuantumCircuit(self.qr, self.cr)
 
         return qc
 
@@ -81,7 +84,7 @@ class QuantumGame():
     def draw_grid(self) -> BytesIO:
         self.update_grid()
         out_buffer = BytesIO()
-        self.grid_figure.savefig(out_buffer)
+        self.grid_figure.savefig(out_buffer, transparent=True)
         out_buffer.seek(0)
 
         return out_buffer
@@ -95,6 +98,9 @@ class QuantumGame():
         self.probabilities = {}
 
         corr = ['ZZ','ZX','XZ','XX']
+        identities = ['ZI', 'XI', 'IZ', 'IX']
+
+        results = {}
         for basis in corr:
             temp_circuit = copy.deepcopy(self.circuit)
             for i in range(2):
@@ -102,15 +108,29 @@ class QuantumGame():
                     temp_circuit.h(i)
 
             temp_circuit.barrier()
-            temp_circuit.measure_all()
+            temp_circuit.measure(self.qr, self.cr)
 
             job = self.backend.run(temp_circuit, shots=self.shots, **kwargs)
-            self.probabilities[basis] = job.result().get_counts()
+            results[basis] = job.result().get_counts()
 
-            for key, value in self.probabilities[basis].items():
-                self.probabilities[basis][key] = value/self.shots
+            for key, value in results[basis].items():
+                results[basis][key] = value/self.shots
 
-        self.probabilities['ZI'] = 0
-        self.probabilities['XI'] = 0
-        self.probabilities['IX'] = 0
-        self.probabilities['IZ'] = 0
+        probabilities = {}
+        for identity in identities:
+            probabilities[identity] = 0
+            for basis, counts in results.items():
+                if basis[(identity.index('I') + 1) % 2] != identity[(identity.index('I') + 1) % 2]:
+                    continue
+                for string, count in counts.items():
+                    if string[identity.index('I')] == '1':
+                        probabilities[identity] += count/2
+
+        for basis in corr:
+            probabilities[basis] = 0
+            for string, probability in results[basis].items():
+                if string[0] != string[1]:
+                    probabilities[basis] += probability
+
+        for basis, probability in probabilities.items():
+            self.probabilities[basis] = 1-2*probability
