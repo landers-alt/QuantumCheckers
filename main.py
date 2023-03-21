@@ -10,8 +10,11 @@
 
 # START - IMPORTS
 import time
+from io import BytesIO
 import pygame
 import webbrowser
+from game_logic import QuantumGame
+from game_logic import SUPPORTED_GATES
 # END - IMPORTS
 
 
@@ -53,6 +56,12 @@ scoreTextFont = pygame.font.SysFont("timesnewroman", 23) # Stores the font times
 
 # START - METHODS
     # START - Display Methods
+def displayWhiteScreen(): # Displays a white image on the entire screen
+    # Creation of a white image (800x500) & placing the image on the screen
+    whiteBackground = pygame.image.load('Assets/800x500WHITE.png').convert()
+    screen.blit(whiteBackground, (0,0))
+    pygame.display.update()
+
 def displayMainMenu(): # Displays the rough outline of a main menu
     # Creation of the main menu's background & placing of image on the screen
     mainMenuBackground = pygame.image.load('Assets/Main Menu.png').convert()
@@ -219,30 +228,40 @@ def updateScoreBoardTextList(level, score):
     # Populates a list of score board values based on the player's high score on each level
 def populateScoreBoardTextList():
     with open('scoreBoard.txt') as f:
-        # Initializes a list to hold the scores of the user for the various levels in the game
-        scoreBoardTextList = []
-        # Loops thru each line in the file
-        for line in f:
-            # Appends the text from the file into a list to be used in order to display the scoreboard
-            scoreBoardTextList.append(line.strip())
+        scoreBoardTextList = [] # Initializes a list to hold the scores of the user for the various levels in the game
+        for line in f: # Loops thru each line in the file
+            scoreBoardTextList.append(line.strip()) # Appends the text from the file into a list to be used in order to display the scoreboard
     return scoreBoardTextList
     # STOP - Scoreboard File Reading Methods
 # END - METHODS
 
 
 
+# START - TESTING
+
+def bytes_to_pygame_image(bytes_io):
+    # Read the bytes from the BytesIO object
+    image_bytes = bytes_io.getvalue()
+
+    # Load the image from the bytes into a pygame Surface
+    surface = pygame.image.load(BytesIO(image_bytes))
+
+    # Convert the surface to a pygame compatible image
+    image = surface.convert()
+
+    return image
+
+# END - TESTING
+
+
+
 # START - GAME LOOP
-# Populates the score board text list so that the scoreboard menu works correctly
-populateScoreBoardTextList()
-# Places the main menu screen on the game window to initialize the game
-displayMainMenu()
-# Initializing the FSM in the "mainMenu" state because the game starts on the main menu
-state = "mainMenu"
-# Clock (used in game loop to limit frame rate)
-clock = pygame.time.Clock()
-# Init. loop variable
-running = True
-while running:
+populateScoreBoardTextList() # Populates the score board text list so that the scoreboard menu works correctly
+displayMainMenu() # Places the main menu screen on the game window to initialize the game
+state = "mainMenu" # Initializing the FSM in the "mainMenu" state because the game starts on the main menu
+clock = pygame.time.Clock() # Clock (used in game loop to limit frame rate)
+running = True # Init. loop variable
+while running: # GAME LOOP
     for event in pygame.event.get(): # For loop to check for user input (events)
         if event.type == pygame.QUIT: # If the "quit" button is clicked in the mac os's game window
             running = False
@@ -256,6 +275,14 @@ while running:
                 # Main Menu Button Control Flow
                 if ( state == "mainMenu" ):
                     if ( mainMenuStartGameButton_click(event) ): # If the start game button is clicked
+                        # START - TRYING TO MERGE FRONT AND BACKEND
+                        game = QuantumGame( [(0,"x"), (1, "x")], ['x', 'y', 'z', 'h', 'cx', 'cz'], 1024 )
+                        image = game.draw_grid()
+                        newImage = bytes_to_pygame_image(image)
+                        screen.blit(newImage, (0,0))
+                        # END - TRYING TO MERGE FRONT AND BACKEND
+
+                        displayWhiteScreen()
                         displayStartGameMenu() # Displays the start game menu
                         state = "startGameMenu" # State change
                         break
@@ -266,8 +293,6 @@ while running:
                     if ( mainMenuScoreBoardButton_click(event) ):
                         displayScoreBoardMenu() # Displays the scoreboard menu
                         state = "scoreBoardMenu" # State change
-                        # UPDATES THE LIST HOLDING THE SCORE BOARD TEXT VALUES
-                        # INSERT FUNCTION CALL THAT READS THE TEXT FILE THAT HOLDS THE SCOREBOARD TEXT
                         break
                     if ( mainMenuCreditsButton_click(event) ): # If the credits button is clicked
                         displayCreditsMenu() # Displays the credits menu
@@ -302,8 +327,8 @@ while running:
                 # Scoreboard Menu Button Control Flow
                 if ( state == "scoreBoardMenu" ):
                     if ( scoreBoardMenuBackButton_click(event) ): # Back Button On How To Play Menu
-                        displayMainMenu()  # Displays the main menu
-                        state = "mainMenu"  # State change
+                        displayMainMenu() # Displays the main menu
+                        state = "mainMenu" # State change
                         break
 
                 # Credits Menu Button Control Flow
@@ -321,8 +346,6 @@ while running:
             #
             # STOP - BUTTON CONTROL FLOW
 
-    # Update the screen
-    pygame.display.update()
-    # Clock: Sets the frame rate to 60
-    clock.tick(60)
+    pygame.display.update() # Update the screen
+    clock.tick(60) # Sets the frame rate to 60
 # END - GAME LOOP

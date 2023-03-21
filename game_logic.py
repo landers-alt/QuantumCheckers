@@ -111,4 +111,3 @@ class QuantumGame():
                 self.probabilities[basis][key] = value/self.shots
 
         job = self.backend.run(self.circuit, shots=self.shots, **kwargs)
-
