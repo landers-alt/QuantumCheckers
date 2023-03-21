@@ -1,4 +1,4 @@
-# Author(s): Noah Klaus
+# Author(s): Noah Klaus, London Anderson
 # Project: Quantum Checkers (though name has not been decided on as of 2/24/23)
 # Common Issue(s): On line 22 (as of 3/3/23), the path to the google chrome app on a normal mac OS is listed. If you have changed the
 # location of your chrome instance, you must fix this. If it isn't on line 22, check for "chrome_path" as a variable.
@@ -237,21 +237,17 @@ def populateScoreBoardTextList():
 
 
 
-# START - TESTING
-
+    # START - IMAGE CONVERSION
 def bytes_to_pygame_image(bytes_io):
     # Read the bytes from the BytesIO object
     image_bytes = bytes_io.getvalue()
-
     # Load the image from the bytes into a pygame Surface
     surface = pygame.image.load(BytesIO(image_bytes))
-
     # Convert the surface to a pygame compatible image
     image = surface.convert()
 
     return image
-
-# END - TESTING
+    # END - IMAGE CONVERSION
 
 
 

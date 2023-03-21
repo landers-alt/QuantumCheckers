@@ -73,7 +73,7 @@ class QuantumGame():
             prob = (1-self.probabilities[pauli])/2
             color=(prob,prob,prob)
             points[pauli] = self.ax.add_patch(Circle(self.box_coords[pauli], self.circle_radius, color=color, zorder=10))
-        
+
         for pauli in self.box_coords:
             color = (60/255,120/255,216/255) if 'I' not in pauli else (17/255,85/255,204/255)
             self.ax.add_patch(Rectangle((self.box_coords[pauli][0], self.box_coords[pauli][1]-1), self.rectangle_length, self.rectangle_length, angle=45, color=color))
