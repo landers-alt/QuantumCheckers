@@ -56,6 +56,12 @@ scoreTextFont = pygame.font.SysFont("timesnewroman", 23) # Stores the font times
 
 # START - METHODS
     # START - Display Methods
+def displayBlankGameScreen(): # Displays the blank game screen
+    # Creation of the blank game screen & placing of image on the screen
+    gamePlayBlankScreen = pygame.image.load('Assets/Third Iteration of Gameplay UI.png').convert()
+    screen.blit(gamePlayBlankScreen, (0,0))
+    pygame.display.update()
+
 def displayWhiteScreen(): # Displays a white image on the entire screen
     # Creation of a white image (800x500) & placing the image on the screen
     whiteBackground = pygame.image.load('Assets/800x500WHITE.png').convert()
@@ -123,7 +129,6 @@ def mainMenuHowToPlayButton_click(event): # How To Play Button
 def mainMenuScoreBoardButton_click(event): # How To Play Button
     x, y = pygame.mouse.get_pos()
     if event.type == pygame.MOUSEBUTTONDOWN:
-        print("X: " + str(x) + " Y: " + str(y))
         if (x > 545 and x < 750) and (y > 228 and y < 280):
            print("Play Button Has Been Clicked")
            return True
@@ -233,6 +238,51 @@ def populateScoreBoardTextList():
             scoreBoardTextList.append(line.strip()) # Appends the text from the file into a list to be used in order to display the scoreboard
     return scoreBoardTextList
     # STOP - Scoreboard File Reading Methods
+
+    # START - Gameplay Buttons
+def levelSelectButton(event): # Level Select Button
+    x, y = pygame.mouse.get_pos()
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        if (state == "gamePlay"):
+            if (x > 15 and x < 125) and (y > 16 and y < 60):
+                print("Level Select Button Has Been Clicked")
+                return True
+
+def leftGateUpButton(event): # Changes the left gate to the previous
+    x, y = pygame.mouse.get_pos()
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        if (state == "gamePlay"):
+            if (x > 70 and x < 90) and (y > 282 and y < 297):
+                print("Left Gate Up Selector Has Been Clicked")
+                return True
+
+def leftGateDownButton(event):  # Changes the left gate to the previous
+    x, y = pygame.mouse.get_pos()
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        if (state == "gamePlay"):
+            if (x > 70 and x < 90) and (y > 384 and y < 400):
+                print("Left Gate Down Selector Has Been Clicked")
+                return True
+
+def leftGateSelectButton(event): # Changes the left qubit based on the selected logic gate
+    x, y = pygame.mouse.get_pos()
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        if (state == "gamePlay"):
+            if (x > 32 and x < 127) and (y > 302 and y < 380):
+                print("Left Gate Selector Has Been Clicked")
+                return True
+
+def resetLevelButton(event, level): # Resets the level based on whatever level the player is currently on
+    # MISSING IMPLEMENTATION OF LEVEL-DEPENDENT RESET
+    x, y = pygame.mouse.get_pos()
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        print("X: " + str(x) + " Y: " + str(y)) # FOR TESTING ONLY
+        if (state == "gamePlay"):
+            if (x > 358 and x < 442) and (y > 406 and y < 483):
+                print("Reset Level Button Has Been Clicked")
+                return True
+    # STOP  - Gameplay Buttons
+
 # END - METHODS
 
 
@@ -252,6 +302,11 @@ def bytes_to_pygame_image(bytes_io):
 
 
 # START - GAME LOOP
+gatePossibilitiesList = ['x', 'y', 'z', 'h', 'cz']
+leftGateState = 0 # Init. the state of the left gate selector
+rightGateState = 0 # Init. the state of the right gate selector
+level = 0 # Variable that indicates the current level the player is on
+
 populateScoreBoardTextList() # Populates the score board text list so that the scoreboard menu works correctly
 displayMainMenu() # Places the main menu screen on the game window to initialize the game
 state = "mainMenu" # Initializing the FSM in the "mainMenu" state because the game starts on the main menu
@@ -272,15 +327,20 @@ while running: # GAME LOOP
                 if ( state == "mainMenu" ):
                     if ( mainMenuStartGameButton_click(event) ): # If the start game button is clicked
                         # START - TRYING TO MERGE FRONT AND BACKEND
-                        game = QuantumGame( [(0,"x"), (1, "x")], ['x', 'y', 'z', 'h', 'cx', 'cz'], 1024 )
-                        image = game.draw_grid()
-                        newImage = bytes_to_pygame_image(image)
-                        screen.blit(newImage, (0,0))
+                        #game = QuantumGame( [(0,"x"), (1, "x")], ['x', 'y', 'z', 'h', 'cx', 'cz'], 1024 )
+                        #image = game.draw_grid()
+                        #newImage = bytes_to_pygame_image(image)
+                        #screen.blit(newImage, (0,0))
                         # END - TRYING TO MERGE FRONT AND BACKEND
 
-                        displayWhiteScreen()
-                        displayStartGameMenu() # Displays the start game menu
-                        state = "startGameMenu" # State change
+                        # TESTING ONLY START
+                        # The below two lines should be reimplemented to have the level select menu to work
+                        # displayStartGameMenu() # Displays the start game menu (LEVEL SELECT MENU)
+                        # state = "startGameMenu" # State change
+
+                        state = "gamePlay"
+                        displayBlankGameScreen()
+                        # TESTING ONLY STOP
                         break
                     if ( mainMenuHowToPlayButton_click(event) ):
                         displayHowToPlayMenu() # Displays the how to play menu
@@ -339,6 +399,46 @@ while running: # GAME LOOP
                     if ( creditsMenuDSUButton_click(event) ): # DSU Hypertext-lookalike Button
                         openDSUWebsite() # Opens DSU's website
                         break
+
+                # Gameplay Button Control Flow
+                if (state == "gamePlay"):
+                    # LEVEL SELECT BUTTON
+                    if ( levelSelectButton(event) ): # Level Select Button
+                        state = "mainMenu" # THIS SHOULD EVENTUALLY BE MIGRATED TO AN ACTUAL LEVEL SELECT MENU
+                        displayMainMenu()
+                        break
+                    # LEFT GATE BUTTONS
+                    if ( leftGateUpButton(event)): # Left Gate Up Button (MOVING UP MEANS GOING LEFT IN THE LIST, SUBTRACTING)
+                        if ( leftGateState == 0 ):
+                            leftGateState = len(gatePossibilitiesList) - 1 # Makes the left gate state loop back to end of list
+                        elif ( leftGateState != 0 and leftGateState > 0):
+                            leftGateState -= 1 # De-increments the leftGateState
+                        # FOR TESTING ONLY
+                        print("State After Click: " + gatePossibilitiesList[leftGateState]) # Prints the state after button click of left gate selector
+                        # FOR TESTING ONLY
+                    if ( leftGateDownButton(event)): # Left Gate Down Button (MOVING DOWN MEANS GOING RIGHT IN THE LIST, ADDING)
+                        if (leftGateState == len(gatePossibilitiesList) - 1):
+                            leftGateState = 0  # Makes the left gate state loop back to end of list
+                        elif (leftGateState != len(gatePossibilitiesList) - 1 and leftGateState < len(gatePossibilitiesList) - 1):
+                            leftGateState += 1  # De-increments the leftGateState
+                        # FOR TESTING ONLY
+                        print("State After Click: " + gatePossibilitiesList[leftGateState])  # Prints the state after button click of left gate selector
+                        # FOR TESTING ONLY
+                    if ( leftGateSelectButton(event)): # Left Gate Select Button
+                        print(" --> Not implemented yet")
+                        # This will cause the image of the Qubits to change given the current logic gate selected
+                    # RESET LEVEL BUTTON
+                    if ( resetLevelButton(event, level) ): # Reset Level Button
+                        # IMPLEMENT RESETTING THE ACTUAL IMAGE OF THE QUBITS BASED ON THE LEVEL THE PLAYER IS ON
+                        leftGateState  = 0 # Resets both gate states
+                        rightGateState = 0
+
+                    # RIGHT GATE BUTTONS
+
+                    # EXIT LEVEL BUTTON
+
+
+
             #
             # STOP - BUTTON CONTROL FLOW
 
