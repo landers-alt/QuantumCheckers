@@ -253,7 +253,7 @@ def leftGateUpButton(event): # Changes the left gate to the previous
     if event.type == pygame.MOUSEBUTTONDOWN:
         if (state == "gamePlay"):
             if (x > 70 and x < 90) and (y > 282 and y < 297):
-                print("Left Gate Up Selector Has Been Clicked")
+                print("Left Gate Up Button Has Been Clicked")
                 return True
 
 def leftGateDownButton(event):  # Changes the left gate to the previous
@@ -261,7 +261,7 @@ def leftGateDownButton(event):  # Changes the left gate to the previous
     if event.type == pygame.MOUSEBUTTONDOWN:
         if (state == "gamePlay"):
             if (x > 70 and x < 90) and (y > 384 and y < 400):
-                print("Left Gate Down Selector Has Been Clicked")
+                print("Left Gate Down Button Has Been Clicked")
                 return True
 
 def leftGateSelectButton(event): # Changes the left qubit based on the selected logic gate
@@ -280,6 +280,30 @@ def resetLevelButton(event, level): # Resets the level based on whatever level t
         if (state == "gamePlay"):
             if (x > 358 and x < 442) and (y > 406 and y < 483):
                 print("Reset Level Button Has Been Clicked")
+                return True
+
+def rightGateUpButton(event):
+    x, y = pygame.mouse.get_pos()
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        if (state == "gamePlay"):
+            if (x > 706 and x < 728) and (y > 280 and y < 297):
+                print("Right Gate Up Button Has Been Clicked")
+                return True
+
+def rightGateDownButton(event):
+    x, y = pygame.mouse.get_pos()
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        if (state == "gamePlay"):
+            if (x > 706 and x < 728) and (y > 382 and y < 400):
+                print("Right Gate Down Button Has Been Clicked")
+                return True
+
+def rightGateSelectButton(event):
+    x, y = pygame.mouse.get_pos()
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        if (state == "gamePlay"):
+            if (x > 669 and x < 765) and (y > 300 and y < 378):
+                print("Right Gate Select Button Has Been Clicked")
                 return True
     # STOP  - Gameplay Buttons
 
@@ -414,7 +438,7 @@ while running: # GAME LOOP
                         elif ( leftGateState != 0 and leftGateState > 0):
                             leftGateState -= 1 # De-increments the leftGateState
                         # FOR TESTING ONLY
-                        print("State After Click: " + gatePossibilitiesList[leftGateState]) # Prints the state after button click of left gate selector
+                        print("Gate After Click: " + gatePossibilitiesList[leftGateState]) # Prints the state after button click of left gate selector
                         # FOR TESTING ONLY
                     if ( leftGateDownButton(event)): # Left Gate Down Button (MOVING DOWN MEANS GOING RIGHT IN THE LIST, ADDING)
                         if (leftGateState == len(gatePossibilitiesList) - 1):
@@ -422,11 +446,12 @@ while running: # GAME LOOP
                         elif (leftGateState != len(gatePossibilitiesList) - 1 and leftGateState < len(gatePossibilitiesList) - 1):
                             leftGateState += 1  # De-increments the leftGateState
                         # FOR TESTING ONLY
-                        print("State After Click: " + gatePossibilitiesList[leftGateState])  # Prints the state after button click of left gate selector
+                        print("Gate After Click: " + gatePossibilitiesList[leftGateState])  # Prints the state after button click of left gate selector
                         # FOR TESTING ONLY
                     if ( leftGateSelectButton(event)): # Left Gate Select Button
                         print(" --> Not implemented yet")
                         # This will cause the image of the Qubits to change given the current logic gate selected
+
                     # RESET LEVEL BUTTON
                     if ( resetLevelButton(event, level) ): # Reset Level Button
                         # IMPLEMENT RESETTING THE ACTUAL IMAGE OF THE QUBITS BASED ON THE LEVEL THE PLAYER IS ON
@@ -434,6 +459,27 @@ while running: # GAME LOOP
                         rightGateState = 0
 
                     # RIGHT GATE BUTTONS
+                    if (rightGateUpButton(event)):  # Left Gate Up Button (MOVING UP MEANS GOING LEFT IN THE LIST, SUBTRACTING)
+                        if (leftGateState == 0):
+                            leftGateState = len(gatePossibilitiesList) - 1  # Makes the left gate state loop back to end of list
+                        elif (leftGateState != 0 and leftGateState > 0):
+                            leftGateState -= 1  # De-increments the leftGateState
+                        # FOR TESTING ONLY
+                        print("Gate After Click: " + gatePossibilitiesList[
+                            leftGateState])  # Prints the state after button click of left gate selector
+                        # FOR TESTING ONLY
+                    if (rightGateDownButton(event)):  # Left Gate Down Button (MOVING DOWN MEANS GOING RIGHT IN THE LIST, ADDING)
+                        if (leftGateState == len(gatePossibilitiesList) - 1):
+                            leftGateState = 0  # Makes the left gate state loop back to end of list
+                        elif (leftGateState != len(gatePossibilitiesList) - 1 and leftGateState < len(
+                                gatePossibilitiesList) - 1):
+                            leftGateState += 1  # De-increments the leftGateState
+                        # FOR TESTING ONLY
+                        print("Gate After Click: " + gatePossibilitiesList[leftGateState])  # Prints the state after button click of left gate selector
+                        # FOR TESTING ONLY
+                    if (rightGateSelectButton(event)):  # Left Gate Select Button
+                        print(" --> Not implemented yet")
+                        # This will cause the image of the Qubits to change given the current logic gate selected
 
                     # EXIT LEVEL BUTTON
 
