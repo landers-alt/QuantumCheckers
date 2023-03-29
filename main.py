@@ -2,7 +2,7 @@
 # Project: Quantum Checkers (though name has not been decided on as of 2/24/23)
 # Common Issue(s): On line 22 (as of 3/3/23), the path to the google chrome app on a normal mac OS is listed. If you have changed the
 # location of your chrome instance, you must fix this. If it isn't on line 22, check for "chrome_path" as a variable.
-# Known Bugs: None As Of 2/28/23
+# Known Bugs: None As Of 3/29/23
 
 # *FOR TESTING*
 #print("X: " + str(x) + " Y: " + str(y)) # Helps with finding cursor for allocating space for buttons
@@ -32,14 +32,15 @@ def openDSUWebsite(): # Opens DSU's website
 
 
 # START - SCREEN
+    # START - PYGAME WINDOW INIT.
 pygame.init() # Init. Pygame
 normalScreenRatio = (800,500) # Screen ratio and game window creation
 normalWidth = normalScreenRatio[0]
 normalHeight = normalScreenRatio[1]
 screen = pygame.display.set_mode(normalScreenRatio)
 caption = pygame.display.set_caption("Quantum Checkers") # Changes window caption
-# Changes window icon (NOT IMPLEMENTED YET, MAKE 32x32 SIZED IMAGE)
-# icon = pygame.display.set_icon(32x32image)
+#icon = pygame.display.set_icon(32x32image) # Changes window icon (NOT IMPLEMENTED YET, MAKE 32x32 SIZED IMAGE)
+    # STOP - PYGAME WINDOW INIT.
 
     # START - SCOREBOARD SCREEN INFORMATION
 # List that stores the (x,y) location in a tuple of where each level's score should be put on
@@ -49,7 +50,7 @@ scoreTextBackgroundColor = (239,239,239) # The color of the score board menu bac
 scoreTextBackground = pygame.Surface((45,30)) # Makes the shape that will be the background of the score board text
 scoreTextBackground.fill(scoreTextBackgroundColor) # Fills in the background of the surface that was just made
 scoreTextFont = pygame.font.SysFont("timesnewroman", 23) # Stores the font times new roman in size 12 in a variable
-    # START - SCOREBOARD SCREEN INFORMATION
+    # STOP - SCOREBOARD SCREEN INFORMATION
 # END - SCREEN
 
 
@@ -86,10 +87,9 @@ def displayHowToPlayMenu(): # Displays the rough outline of the how to play menu
     pygame.display.update()
 
 def displayScoreBoardMenu(): # Displays the rough outline of the scoreboard menu
-    howToPlayMenuBackground = pygame.image.load('Assets/Scoreboard Menu.png').convert()
-    screen.blit(howToPlayMenuBackground, (0,0))
-    # Placing of the text for the score board background
-    for locationTuple in scoreTextLocationList:
+    howToPlayMenuBackground = pygame.image.load('Assets/Scoreboard Menu.png').convert() # Image shit
+    screen.blit(howToPlayMenuBackground, (0,0)) # Menu Image Is Put on the Screen
+    for locationTuple in scoreTextLocationList: # Placing of the text for the score board background
         screen.blit(scoreTextBackground, locationTuple)
     scoreTextListIndex = 0
     for locationTuple in scoreTextLocationList:
@@ -216,7 +216,7 @@ def creditsMenuDSUButton_click(event):  # Git Hub Button
 
     # START - Scoreboard File Reading Methods
         # Writes to the file in order to update the player's high score for any respective level
-        # Takes "level" and "score" as perameters, "level" denotes what line of the file should be changed, which also denotes
+        # Takes "level" and "score" as parameters, "level" denotes what line of the file should be changed, which also denotes
         # what level to change the score of. "Score" denotes what integer value is to be placed on the respective line in the file
 def updateScoreBoardTextList(level, score):
     if (level > 0 and level < 15 and score >= 0 and score <= 100):
@@ -276,7 +276,6 @@ def resetLevelButton(event, level): # Resets the level based on whatever level t
     # MISSING IMPLEMENTATION OF LEVEL-DEPENDENT RESET
     x, y = pygame.mouse.get_pos()
     if event.type == pygame.MOUSEBUTTONDOWN:
-        print("X: " + str(x) + " Y: " + str(y)) # FOR TESTING ONLY
         if (state == "gamePlay"):
             if (x > 358 and x < 442) and (y > 406 and y < 483):
                 print("Reset Level Button Has Been Clicked")
@@ -306,32 +305,29 @@ def rightGateSelectButton(event):
                 print("Right Gate Select Button Has Been Clicked")
                 return True
     # STOP  - Gameplay Buttons
-
 # END - METHODS
 
 
 
     # START - IMAGE CONVERSION
 def bytes_to_pygame_image(bytes_io):
-    # Read the bytes from the BytesIO object
-    image_bytes = bytes_io.getvalue()
-    # Load the image from the bytes into a pygame Surface
-    surface = pygame.image.load(BytesIO(image_bytes))
-    # Convert the surface to a pygame compatible image
-    image = surface.convert()
-
+    image_bytes = bytes_io.getvalue() # Read the bytes from the BytesIO object
+    surface = pygame.image.load(BytesIO(image_bytes)) # Load the image from the bytes into a pygame Surface
+    image = surface.convert() # Convert the surface to a pygame compatible image
     return image
     # END - IMAGE CONVERSION
 
 
 
 # START - GAME LOOP
+    # Gameplay Variables and List Init.
 gatePossibilitiesList = ['x', 'y', 'z', 'h', 'cz']
 leftGateState = 0 # Init. the state of the left gate selector
 rightGateState = 0 # Init. the state of the right gate selector
 level = 0 # Variable that indicates the current level the player is on
-
+    # Scoreboard Init.
 populateScoreBoardTextList() # Populates the score board text list so that the scoreboard menu works correctly
+    # Pygame Init.
 displayMainMenu() # Places the main menu screen on the game window to initialize the game
 state = "mainMenu" # Initializing the FSM in the "mainMenu" state because the game starts on the main menu
 clock = pygame.time.Clock() # Clock (used in game loop to limit frame rate)
@@ -482,9 +478,7 @@ while running: # GAME LOOP
                         # This will cause the image of the Qubits to change given the current logic gate selected
 
                     # EXIT LEVEL BUTTON
-
-
-
+                        # NOT IMPLEMENTED YET
             #
             # STOP - BUTTON CONTROL FLOW
 
