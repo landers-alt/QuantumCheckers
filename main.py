@@ -57,6 +57,12 @@ scoreTextFont = pygame.font.SysFont("timesnewroman", 23)  # Stores the font time
 
 # START - METHODS
     # START - Display Methods
+def displayLevelSelectMenu(): # Displays the level select menu
+    # Creation of the level select menu image & placing of image on the screen
+    exitGameplayMenu = pygame.image.load('Assets/LevelSelectMenu.png').convert()
+    screen.blit(exitGameplayMenu, (0, 0))
+    pygame.display.update()
+
 def displayExitGameplayMenu():  # Displays the exit menu for gameplay
     # Creation of the exit gameplay menu image & placing of image on the screen
     exitGameplayMenu = pygame.image.load('Assets/ExitToMainMenuConfirmationMenu.png').convert()
@@ -325,7 +331,6 @@ def exitGameplayMenuYesButton(event):  # Exit Gameplay Menu Yes Button
     x, y = pygame.mouse.get_pos()
     if event.type == pygame.MOUSEBUTTONDOWN:
         if (state == "exitGameplayMenu"):
-            print("X: " + str(x) + " Y: " + str(y))
             if (x > 263 and x < 343) and (y > 305 and y < 384):
                 print("Exit Gameplay Menu Yes Button Has Been Clicked")
                 return True
@@ -337,6 +342,25 @@ def exitGameplayMenuNoButton(event):  # Exit Gameplay Menu No Button
                 print("Exit Gameplay Menu No Button Has Been Clicked")
                 return True
     # STOP - Gameplay Exit Menu Buttons
+
+    # START - Level Select Menu Buttons
+def levelSelectMenuMainMenuButton(event):
+    x, y = pygame.mouse.get_pos()
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        if (state == "levelSelectMenu"):
+            print("X: " + str(x) + " Y: " + str(y))
+            if (x > 190 and x < 420) and (y > 412 and y < 465):
+                print("Level Select Menu Main Menu Button Has Been Clicked")
+                return True
+
+def levelSelectMenuBackButton(event, level):
+    x, y = pygame.mouse.get_pos()
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        if (state == "levelSelectMenu"):
+            if (x > 444 and x < 605) and (y > 412 and y < 465):
+                print("Level Select Menu Back Button Has Been Clicked")
+                return True
+    # STOP - Level Select Menu Buttons
 # END - METHODS
 
 
@@ -454,7 +478,6 @@ while running:  # GAME LOOP
 
                 # Exit Gameplay Menu Button Control Flow
                 if ( state == "exitGameplayMenu"):
-                    print("Yup")
                     if ( exitGameplayMenuYesButton(event) ):  # If the yes button on the exit gameplay menu has been clicked
                         state = "mainMenu"
                         displayMainMenu()
@@ -462,12 +485,22 @@ while running:  # GAME LOOP
                         state = "gamePlay"
                         displayBlankGameScreen() # REPLACE WITH CODE THAT RETURNS TO THE PREVIOUS GAME STATE
 
+                # Level Select Menu Button Control Flow
+                if ( state == "levelSelectMenu" ):
+                    if ( levelSelectMenuMainMenuButton(event) ): # Main menu button
+                        state = "mainMenu"
+                        displayMainMenu()
+                    if ( levelSelectMenuBackButton(event, level) ): # Back Button
+                        state = "gamePlay"
+                        displayBlankGameScreen()
+                        # IMPLEMENT GOING BACK TO WHATEVER LEVEL YOU WERE JUST AT!!!
+
                 # Gameplay Button Control Flow
                 if (state == "gamePlay"):
                     # LEVEL SELECT BUTTON
                     if ( levelSelectButton(event) ):  # Level Select Button
-                        state = "mainMenu"  # THIS SHOULD EVENTUALLY BE MIGRATED TO AN ACTUAL LEVEL SELECT MENU
-                        displayMainMenu()
+                        state = "levelSelectMenu"  # THIS SHOULD EVENTUALLY BE MIGRATED TO AN ACTUAL LEVEL SELECT MENU
+                        displayLevelSelectMenu()
                         break
                     # LEFT GATE BUTTONS
                     if ( leftGateUpButton(event) ):  # Left Gate Up Button (MOVING UP MEANS GOING LEFT IN THE LIST, SUBTRACTING)
