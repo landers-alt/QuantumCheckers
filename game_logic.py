@@ -11,14 +11,17 @@ SUPPORTED_GATES = ['x', 'y', 'z', 'h', 'cz']
 
 class QuantumGame():
     def __init__(self,
-                 initialize: list[tuple[int, str]],
+                 initialize: list[dict],
                  allowed_gates: list[str] = SUPPORTED_GATES,
                  shots: int = 1024,
                  backend=None,
                  corr_color: tuple[int, int, int] = (60, 120, 216),
                  iden_color: tuple[int, int, int] = (17, 85, 204),
+                 grid_resolution: tuple[int, int] = (800, 500),
                  rectangle_length: float = None,
                  circle_radius: float = None):
+        
+        # initialize should be a list of dictionaries with keys 'qubit_idx' and 'gate', and any other parameters for the gate function
 
         self.circuit = self.create_circuit()
 
@@ -35,7 +38,7 @@ class QuantumGame():
         self.rectangle_length = rectangle_length or 0.98*np.sqrt(2)
         self.circle_radius = circle_radius or 0.6
 
-        self.grid_figure = plt.figure(figsize=(8, 5), dpi=100)
+        self.grid_figure = plt.figure(figsize=grid_resolution, dpi=1)
         self.grid_figure.subplots_adjust(left=0, right=1, bottom=0, top=1)
         self.ax = self.grid_figure.add_subplot(111)
         self.ax.set_xlim(-3.5, 4.5)
@@ -53,8 +56,8 @@ class QuantumGame():
             'XX':( 0.5, 2.5)
         }
 
-        for qbit, gate in initialize:
-            self.apply_gate(qbit, gate)
+        for gate_dict in initialize:
+            self.apply_gate(**gate_dict)
 
     def create_circuit(self) -> QuantumCircuit:
 
@@ -140,3 +143,11 @@ class QuantumGame():
 
         for basis, probability in probabilities.items():
             self.probabilities[basis] = 1-2*probability
+
+if __name__ == '__main__':
+    game = QuantumGame([(0, 'x'), (1, 'x')])
+    game.apply_gate(0, 'h')
+    game.apply_gate(1, 'h')
+    game.apply_gate(0, 'cz', target_qubit=1)
+    game.apply_gate(0, 'h')
+    game.apply_gate(1, 'h')
