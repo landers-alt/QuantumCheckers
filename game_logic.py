@@ -143,11 +143,3 @@ class QuantumGame():
 
         for basis, probability in probabilities.items():
             self.probabilities[basis] = 1-2*probability
-
-if __name__ == '__main__':
-    game = QuantumGame([(0, 'x'), (1, 'x')])
-    game.apply_gate(0, 'h')
-    game.apply_gate(1, 'h')
-    game.apply_gate(0, 'cz', target_qubit=1)
-    game.apply_gate(0, 'h')
-    game.apply_gate(1, 'h')
