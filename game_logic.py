@@ -15,6 +15,8 @@ class QuantumGame():
                  allowed_gates: list[str] = SUPPORTED_GATES,
                  shots: int = 1024,
                  backend=None,
+                 corr_color: tuple[int, int, int] = (60, 120, 216),
+                 iden_color: tuple[int, int, int] = (17, 85, 204),
                  rectangle_length: float = None,
                  circle_radius: float = None):
 
@@ -26,6 +28,9 @@ class QuantumGame():
         self.shots = shots
 
         self.probabilities = None
+
+        self.corr_color = tuple([x/255 for x in corr_color])
+        self.iden_color = tuple([x/255 for x in iden_color])
 
         self.rectangle_length = rectangle_length or 0.98*np.sqrt(2)
         self.circle_radius = circle_radius or 0.6
@@ -78,7 +83,7 @@ class QuantumGame():
             points[pauli] = self.ax.add_patch(Circle(self.box_coords[pauli], self.circle_radius, color=color, zorder=10))
 
         for pauli in self.box_coords:
-            color = (60/255,120/255,216/255) if 'I' not in pauli else (17/255,85/255,204/255)
+            color = self.corr_color if 'I' not in pauli else self.iden_color
             self.ax.add_patch(Rectangle((self.box_coords[pauli][0], self.box_coords[pauli][1]-1), self.rectangle_length, self.rectangle_length, angle=45, color=color))
 
     def draw_grid(self) -> BytesIO:
@@ -90,6 +95,7 @@ class QuantumGame():
         return out_buffer
 
     def apply_gate(self, qubit_idx: int, gate: str, **params) -> None:
+        gate = gate.lower()
         assert gate in self.allowed_gates, f'Gate {gate} not supported'
 
         getattr(self.circuit, gate)(qubit_idx, **params)
