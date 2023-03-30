@@ -360,6 +360,141 @@ def levelSelectMenuBackButton(event, level):
             if (x > 444 and x < 605) and (y > 412 and y < 465):
                 print("Level Select Menu Back Button Has Been Clicked")
                 return True
+
+def levelSelectLevel1Button(event):
+    x, y = pygame.mouse.get_pos()
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        if (state == "levelSelectMenu"):
+            print("LEVEL 1 SELECTED")
+            #if (x > 444 and x < 605) and (y > 412 and y < 465):
+            #    print("Level X Button Has Been Clicked")
+            #    return True
+
+def levelSelectLevel2Button(event):
+    x, y = pygame.mouse.get_pos()
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        if (state == "levelSelectMenu"):
+            print("LEVEL 2 SELECTED")
+            #if (x > 444 and x < 605) and (y > 412 and y < 465):
+            #    print("Level X Button Has Been Clicked")
+            #    return True
+
+def levelSelectLevel3Button(event):
+    x, y = pygame.mouse.get_pos()
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        if (state == "levelSelectMenu"):
+            print("LEVEL 3 SELECTED")
+            #if (x > 444 and x < 605) and (y > 412 and y < 465):
+            #    print("Level X Button Has Been Clicked")
+            #    return True
+
+def levelSelectLevel4Button(event):
+    x, y = pygame.mouse.get_pos()
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        if (state == "levelSelectMenu"):
+            print("LEVEL 4 SELECTED")
+            # if (x > 444 and x < 605) and (y > 412 and y < 465):
+            #    print("Level X Button Has Been Clicked")
+            #    return True
+
+def levelSelectLevel5Button(event):
+    x, y = pygame.mouse.get_pos()
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        if (state == "levelSelectMenu"):
+            print("LEVEL 5 SELECTED")
+            # if (x > 444 and x < 605) and (y > 412 and y < 465):
+            #    print("Level X Button Has Been Clicked")
+            #    return True
+
+def levelSelectLevel6Button(event):
+    x, y = pygame.mouse.get_pos()
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        if (state == "levelSelectMenu"):
+            print("LEVEL 6 SELECTED")
+            # if (x > 444 and x < 605) and (y > 412 and y < 465):
+            #    print("Level X Button Has Been Clicked")
+            #    return True
+
+def levelSelectLevel7Button(event):
+    x, y = pygame.mouse.get_pos()
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        if (state == "levelSelectMenu"):
+            print("LEVEL 7 SELECTED")
+            # if (x > 444 and x < 605) and (y > 412 and y < 465):
+            #    print("Level X Button Has Been Clicked")
+            #    return True
+
+def levelSelectLevel8Button(event):
+    x, y = pygame.mouse.get_pos()
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        if (state == "levelSelectMenu"):
+            print("LEVEL 8 SELECTED")
+            # if (x > 444 and x < 605) and (y > 412 and y < 465):
+            #    print("Level X Button Has Been Clicked")
+            #    return True
+
+def levelSelectLevel9Button(event):
+    x, y = pygame.mouse.get_pos()
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        if (state == "levelSelectMenu"):
+            print("LEVEL 9 SELECTED")
+            # if (x > 444 and x < 605) and (y > 412 and y < 465):
+            #    print("Level X Button Has Been Clicked")
+            #    return True
+
+def levelSelectLevel10Button(event):
+    x, y = pygame.mouse.get_pos()
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        if (state == "levelSelectMenu"):
+            print("LEVEL 10 SELECTED")
+            # if (x > 444 and x < 605) and (y > 412 and y < 465):
+            #    print("Level X Button Has Been Clicked")
+            #    return True
+
+def levelSelectLevel11Button(event):
+    x, y = pygame.mouse.get_pos()
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        if (state == "levelSelectMenu"):
+            print("LEVEL 11 SELECTED")
+            # if (x > 444 and x < 605) and (y > 412 and y < 465):
+            #    print("Level X Button Has Been Clicked")
+            #    return True
+
+def levelSelectLevel12Button(event):
+    x, y = pygame.mouse.get_pos()
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        if (state == "levelSelectMenu"):
+            print("LEVEL 12 SELECTED")
+            # if (x > 444 and x < 605) and (y > 412 and y < 465):
+            #    print("Level X Button Has Been Clicked")
+            #    return True
+
+def levelSelectLevel13Button(event):
+    x, y = pygame.mouse.get_pos()
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        if (state == "levelSelectMenu"):
+            print("LEVEL 13 SELECTED")
+            # if (x > 444 and x < 605) and (y > 412 and y < 465):
+            #    print("Level X Button Has Been Clicked")
+            #    return True
+
+def levelSelectLevel14Button(event):
+    x, y = pygame.mouse.get_pos()
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        if (state == "levelSelectMenu"):
+            print("LEVEL 14 SELECTED")
+            # if (x > 444 and x < 605) and (y > 412 and y < 465):
+            #    print("Level X Button Has Been Clicked")
+            #    return True
+
+def levelSelectLevel15Button(event):
+    x, y = pygame.mouse.get_pos()
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        if (state == "levelSelectMenu"):
+            print("LEVEL 15 SELECTED")
+            # if (x > 444 and x < 605) and (y > 412 and y < 465):
+            #    print("Level X Button Has Been Clicked")
+            #    return True
     # STOP - Level Select Menu Buttons
 # END - METHODS
 
@@ -550,13 +685,12 @@ while running:  # GAME LOOP
                         # FOR TESTING ONLY
                     if ( rightGateSelectButton(event) ):  # Left Gate Select Button
                         print(" --> Not implemented yet")
-                        # This will cause the image of the Qubits to change given the current logic gate selected
+                        # NOT IMPLEMENTED YET: This will cause the image of the Qubits to change given the current logic gate selected
 
                     # EXIT LEVEL BUTTON
                     if ( exitGameplayButton(event) ): # If the exit level button has been clicked
                         displayExitGameplayMenu()
                         state = "exitGameplayMenu"
-                        # NOT IMPLEMENTED YET
             #
             # STOP - BUTTON CONTROL FLOW
 
