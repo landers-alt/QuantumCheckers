@@ -1,4 +1,5 @@
 import copy
+import pickle
 from io import BytesIO
 
 import matplotlib.pyplot as plt
@@ -59,6 +60,8 @@ class QuantumGame():
         for gate_dict in initialize:
             self.apply_gate(**gate_dict)
 
+        self.operation_list = initialize
+
     def create_circuit(self) -> QuantumCircuit:
 
         self.qr = QuantumRegister(2, 'q')
@@ -102,6 +105,21 @@ class QuantumGame():
         assert gate in self.allowed_gates, f'Gate {gate} not supported'
 
         getattr(self.circuit, gate)(qubit_idx, **params)
+
+        self.operation_list.append({'qubit_idx': qubit_idx, 'gate': gate, **params})
+
+    def save_circuit(self, filename: str) -> None:
+        with open(filename, 'wb') as f:
+            pickle.dump(self.operation_list, f)
+
+    @classmethod
+    def load_circuit(cls, filename: str, **kwargs) -> QuantumGame:
+        with open(filename, 'rb') as f:
+            operation_list = pickle.load(f)
+
+        game = cls(operation_list, **kwargs)
+
+        return game
 
     def run_circuit(self, **kwargs) -> None:
         self.probabilities = {}
