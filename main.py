@@ -34,7 +34,7 @@ def openDSUWebsite():  # Opens DSU's website
 # START - SCREEN
     # START - PYGAME WINDOW INIT.
 pygame.init()  # Init. Pygame
-normalScreenRatio = (800,500)  # Screen ratio and game window creation
+normalScreenRatio = (799,499)  # Screen ratio and game window creation (is supposed to be (800,500) but is smaller because of image conversion issues)
 normalWidth = normalScreenRatio[0]
 normalHeight = normalScreenRatio[1]
 screen = pygame.display.set_mode(normalScreenRatio)
@@ -117,12 +117,6 @@ def displayCreditsMenu(): # Displays the rough outline of a credits menu
     # Creation of the credit menu's background & placing of image on the screen
     creditsMenuBackground = pygame.image.load('Assets/Credits Menu.png').convert()
     screen.blit(creditsMenuBackground, (0, 0))
-    pygame.display.update()
-
-def displayMainMenuExitButtonClicked(): # Method that displays the exit button being clicked (NOT IMPLEMENTED)
-    # Creation of the main menu's background with the exit button blacked out & placing of image on the screen
-    mainMenuBackground = pygame.image.load('Assets/UnusedAssets/QuantumCheckersMainMenuExitButtonClicked.png').convert()
-    screen.blit(mainMenuBackground, (0, 0))
     pygame.display.update()
     # STOP - Display Methods
 
@@ -636,8 +630,8 @@ while running:  # GAME LOOP
                 # Level Select Menu Button Control Flow
                 if ( state == "levelSelectMenu" ):
                     if ( levelSelectMenuMainMenuButton(event) ): # Main menu button
-                        state = "mainMenu"
-                        displayMainMenu()
+                        displayExitGameplayMenu()
+                        state = "exitGameplayMenu"
                     if ( levelSelectMenuBackButton(event, level) ): # Back Button
                         state = "gamePlay"
                         displayBlankGameScreen()
