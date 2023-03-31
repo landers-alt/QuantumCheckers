@@ -496,8 +496,7 @@ def levelSelectLevel15Button(event):
 
     # START - IMAGE CONVERSION
 def bytes_to_pygame_image(bytes_io):
-    image_bytes = bytes_io.getvalue()  # Read the bytes from the BytesIO object
-    surface = pygame.image.load(BytesIO(image_bytes))  # Load the image from the bytes into a pygame Surface
+    surface = pygame.image.load(bytes_io)  # Load the image from the bytes into a pygame Surface
     image = surface.convert()  # Convert the surface to a pygame compatible image
     return image
     # END - IMAGE CONVERSION
