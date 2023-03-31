@@ -496,9 +496,6 @@ def levelSelectLevel15Button(event):
             #    print("Level X Button Has Been Clicked")
             #    return True
     # STOP - Level Select Menu Buttons
-# END - METHODS
-
-
 
     # START - IMAGE CONVERSION
 def bytes_to_pygame_image(bytes_io):
@@ -507,6 +504,24 @@ def bytes_to_pygame_image(bytes_io):
     image = surface.convert()  # Convert the surface to a pygame compatible image
     return image
     # END - IMAGE CONVERSION
+
+    # START - Quantum Method(s) Implementing "game_logic.py"
+def initBlankGame():
+    game = QuantumGame(
+        initialize=[],
+        allowed_gates=SUPPORTED_GATES,
+        shots=1024,
+        corr_color=(60, 120, 216),
+        iden_color=(17, 85, 204),
+        grid_resolution=(799, 499),
+        rectangle_length=50,
+        circle_radius=20
+    )
+    image = game.draw_grid()
+    newImage = bytes_to_pygame_image(image)
+    return newImage
+    # STOP - Quantum Method(s) Implementing "game_logic.py"
+# END - METHODS
 
 
 
@@ -537,21 +552,13 @@ while running:  # GAME LOOP
                 # Main Menu Button Control Flow
                 if ( state == "mainMenu" ):
                     if ( mainMenuStartGameButton_click(event) ):  # If the start game button is clicked
-                        # START - TRYING TO MERGE FRONT AND BACKEND
-                        #game = QuantumGame( [(0,"x"), (1, "x")], ['x', 'y', 'z', 'h', 'cx', 'cz'], 1024 )
-                        #image = game.draw_grid()
-                        #newImage = bytes_to_pygame_image(image)
-                        #screen.blit(newImage, (0,0))
-                        # END - TRYING TO MERGE FRONT AND BACKEND
-
                         # TESTING ONLY START
-                        # The below two lines should be reimplemented to have the level select menu to work
-                        # displayStartGameMenu() # Displays the start game menu (LEVEL SELECT MENU)
-                        # state = "startGameMenu" # State change
-
                         state = "gamePlay"
                         displayBlankGameScreen()
                         # TESTING ONLY STOP
+                        # What should be implemented here after testing code is removed:
+                            # 1) change the state to "levelSelectMenu"
+                            # 2) use the displayLevelSelectMenu() method
                         break
                     if ( mainMenuHowToPlayButton_click(event) ):
                         displayHowToPlayMenu()  # Displays the how to play menu
@@ -663,6 +670,7 @@ while running:  # GAME LOOP
                         # IMPLEMENT RESETTING THE ACTUAL IMAGE OF THE QUBITS BASED ON THE LEVEL THE PLAYER IS ON
                         leftGateState  = 0  # Resets both gate states
                         rightGateState = 0
+                        screen.blit(initBlankGame(), (100,0))
 
                     # RIGHT GATE BUTTONS
                     if ( rightGateUpButton(event) ):  # Left Gate Up Button (MOVING UP MEANS GOING LEFT IN THE LIST, SUBTRACTING)
