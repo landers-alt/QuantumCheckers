@@ -1,4 +1,5 @@
 import copy
+import json
 from io import BytesIO
 
 import matplotlib.pyplot as plt
@@ -26,6 +27,8 @@ class QuantumGame():
         self.circuit = self.create_circuit()
 
         self.allowed_gates = allowed_gates
+
+        self.applied_gates = initialize
 
         self.backend = AerSimulator() if backend is None else backend
         self.shots = shots
@@ -102,6 +105,19 @@ class QuantumGame():
         assert gate in self.allowed_gates, f'Gate {gate} not supported'
 
         getattr(self.circuit, gate)(qubit_idx, **params)
+
+        self.applied_gates.append({'qubit_idx': qubit_idx, 'gate': gate, **params})
+
+    def save(self, filename: str) -> None:
+        with open(filename, 'w+') as f:
+            json.dump(self.applied_gates, f)
+
+    @classmethod
+    def load(cls, filename: str, **params) -> 'QuantumGame':
+        with open(filename, 'r') as f:
+            initialize = json.load(f)
+
+        return cls(initialize)
 
     def run_circuit(self, **kwargs) -> None:
         self.probabilities = {}
