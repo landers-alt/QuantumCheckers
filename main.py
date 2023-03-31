@@ -71,13 +71,16 @@ def displayExitGameplayMenu():  # Displays the exit menu for gameplay
 
 def displayBlankGameScreen():  # Displays the blank game screen
     # Creation of the blank game screen & placing of image on the screen
-    gamePlayBlankScreen = pygame.image.load('Assets/Fourth Iteration of Gameplay UI.png').convert()
+    gamePlayBlankScreen = pygame.image.load('Assets/Fourth Iteration of Gameplay UI.png').convert_alpha()
+    # Puts a white background to cover any menu screens in the background
+    displayWhiteScreen()
+    screen.blit(initBlankGame(), (79,0))
     screen.blit(gamePlayBlankScreen, (0,0))
     pygame.display.update()
 
 def displayWhiteScreen(): # Displays a white image on the entire screen
     # Creation of a white image (800x500) & placing the image on the screen
-    whiteBackground = pygame.image.load('Assets/800x500WHITE.png').convert()
+    whiteBackground = pygame.image.load('Assets/800x500WHITE.png').convert_alpha()
     screen.blit(whiteBackground, (0,0))
     pygame.display.update()
 
@@ -511,11 +514,9 @@ def initBlankGame():
         initialize=[],
         allowed_gates=SUPPORTED_GATES,
         shots=1024,
-        corr_color=(60, 120, 216),
-        iden_color=(17, 85, 204),
-        grid_resolution=(799, 499),
-        rectangle_length=10,
-        circle_radius=1
+        corr_color=(216, 123, 104),
+        iden_color=(216, 123, 104),
+        grid_resolution=(640, 400)
     )
     image = game.draw_grid()
     newImage = bytes_to_pygame_image(image)
@@ -671,7 +672,7 @@ while running:  # GAME LOOP
                         leftGateState  = 0  # Resets both gate states
                         rightGateState = 0
                         # TESTING ONLY BELOW
-                        screen.blit(initBlankGame(), (100,0))
+                        screen.blit(initBlankGame(), (0,0))
                         # TESTING ONLY ABOVE
 
                     # RIGHT GATE BUTTONS
