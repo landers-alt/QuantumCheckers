@@ -74,8 +74,8 @@ def displayBlankGameScreen():  # Displays the blank game screen
     gamePlayBlankScreen = pygame.image.load('Assets/Fourth Iteration of Gameplay UI.png').convert_alpha()
     # Puts a white background to cover any menu screens in the background
     displayWhiteScreen()
-    screen.blit(showGame(initGame()), (79,0))
     screen.blit(gamePlayBlankScreen, (0,0))
+    screen.blit(showGame(initGame()), (79,0))
     pygame.display.update()
 
 def displayWhiteScreen(): # Displays a white image on the entire screen
@@ -497,7 +497,7 @@ def levelSelectLevel15Button(event):
     # START - IMAGE CONVERSION
 def bytes_to_pygame_image(bytes_io):
     surface = pygame.image.load(bytes_io)  # Load the image from the bytes into a pygame Surface
-    image = surface.convert()  # Convert the surface to a pygame compatible image
+    image = surface.convert_alpha()  # Convert the surface to a pygame compatible image
     return image
     # END - IMAGE CONVERSION
 
