@@ -74,7 +74,7 @@ def displayBlankGameScreen():  # Displays the blank game screen
     gamePlayBlankScreen = pygame.image.load('Assets/Fourth Iteration of Gameplay UI.png').convert_alpha()
     # Puts a white background to cover any menu screens in the background
     displayWhiteScreen()
-    screen.blit(initBlankGame(), (79,0))
+    screen.blit(showGame(initGame()), (79,0))
     screen.blit(gamePlayBlankScreen, (0,0))
     pygame.display.update()
 
@@ -509,7 +509,7 @@ def bytes_to_pygame_image(bytes_io):
     # END - IMAGE CONVERSION
 
     # START - Quantum Method(s) Implementing "game_logic.py"
-def initBlankGame():
+def initGame(): # init. a quantum game instance and returns said game
     game = QuantumGame(
         initialize=[],
         allowed_gates=SUPPORTED_GATES,
@@ -518,6 +518,9 @@ def initBlankGame():
         iden_color=(216, 123, 104),
         grid_resolution=(640, 400)
     )
+    return game
+
+def showGame(game): # returns an image of the game inputted into the parameter
     image = game.draw_grid()
     newImage = bytes_to_pygame_image(image)
     return newImage
@@ -527,6 +530,8 @@ def initBlankGame():
 
 
 # START - GAME LOOP
+    # Init. Quantum
+game = initGame()
     # Gameplay Variables and List Init.
 gatePossibilitiesList = ['x', 'y', 'z', 'h', 'cz']
 leftGateState = 0  # Init. the state of the left gate selector
@@ -651,18 +656,14 @@ while running:  # GAME LOOP
                             leftGateState = len(gatePossibilitiesList) - 1  # Makes the left gate state loop back to end of list
                         elif ( leftGateState != 0 and leftGateState > 0):
                             leftGateState -= 1  # De-increments the leftGateState
-                        # FOR TESTING ONLY
-                        print("Gate After Click: " + gatePossibilitiesList[leftGateState])  # Prints the state after button click of left gate selector
-                        # FOR TESTING ONLY
                     if ( leftGateDownButton(event) ):  # Left Gate Down Button (MOVING DOWN MEANS GOING RIGHT IN THE LIST, ADDING)
                         if (leftGateState == len(gatePossibilitiesList) - 1):
                             leftGateState = 0  # Makes the left gate state loop back to end of list
                         elif (leftGateState != len(gatePossibilitiesList) - 1 and leftGateState < len(gatePossibilitiesList) - 1):
                             leftGateState += 1  # De-increments the leftGateState
-                        # FOR TESTING ONLY
-                        print("Gate After Click: " + gatePossibilitiesList[leftGateState])  # Prints the state after button click of left gate selector
-                        # FOR TESTING ONLY
                     if ( leftGateSelectButton(event) ):  # Left Gate Select Button
+                        # game.apply_gate(0, gatePossibilitiesList[leftGateState])  # This will apply the currently selected game to the quantum game instance
+                        # Note that the line of code above does not update the image of the simulation
                         print(" --> Not implemented yet")
                         # This will cause the image of the Qubits to change given the current logic gate selected
 
@@ -671,9 +672,6 @@ while running:  # GAME LOOP
                         # IMPLEMENT RESETTING THE ACTUAL IMAGE OF THE QUBITS BASED ON THE LEVEL THE PLAYER IS ON
                         leftGateState  = 0  # Resets both gate states
                         rightGateState = 0
-                        # TESTING ONLY BELOW
-                        screen.blit(initBlankGame(), (0,0))
-                        # TESTING ONLY ABOVE
 
                     # RIGHT GATE BUTTONS
                     if ( rightGateUpButton(event) ):  # Left Gate Up Button (MOVING UP MEANS GOING LEFT IN THE LIST, SUBTRACTING)
@@ -695,6 +693,8 @@ while running:  # GAME LOOP
                         print("Gate After Click: " + gatePossibilitiesList[leftGateState])  # Prints the state after button click of left gate selector
                         # FOR TESTING ONLY
                     if ( rightGateSelectButton(event) ):  # Left Gate Select Button
+                        # game.apply_gate(0, gatePossibilitiesList[rightGateState])  # This will apply the currently selected game to the quantum game instance
+                        # Note that the line of code above does not update the image of the simulation
                         print(" --> Not implemented yet")
                         # NOT IMPLEMENTED YET: This will cause the image of the Qubits to change given the current logic gate selected
 
