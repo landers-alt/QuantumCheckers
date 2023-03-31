@@ -514,8 +514,8 @@ def initBlankGame():
         corr_color=(60, 120, 216),
         iden_color=(17, 85, 204),
         grid_resolution=(799, 499),
-        rectangle_length=50,
-        circle_radius=20
+        rectangle_length=10,
+        circle_radius=1
     )
     image = game.draw_grid()
     newImage = bytes_to_pygame_image(image)
@@ -670,7 +670,9 @@ while running:  # GAME LOOP
                         # IMPLEMENT RESETTING THE ACTUAL IMAGE OF THE QUBITS BASED ON THE LEVEL THE PLAYER IS ON
                         leftGateState  = 0  # Resets both gate states
                         rightGateState = 0
+                        # TESTING ONLY BELOW
                         screen.blit(initBlankGame(), (100,0))
+                        # TESTING ONLY ABOVE
 
                     # RIGHT GATE BUTTONS
                     if ( rightGateUpButton(event) ):  # Left Gate Up Button (MOVING UP MEANS GOING LEFT IN THE LIST, SUBTRACTING)
