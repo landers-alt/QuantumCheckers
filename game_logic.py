@@ -41,12 +41,8 @@ class QuantumGame():
         self.grid_figure = plt.figure(figsize=grid_resolution, dpi=1)
         self.grid_figure.subplots_adjust(left=0, right=1, bottom=0, top=1)
         self.ax = self.grid_figure.add_subplot(111)
-        xlims = (-grid_resolution[0]/200-(grid_resolution[0]/grid_resolution[1])/2+0.5,
-                 grid_resolution[0]/200+(grid_resolution[0]/grid_resolution[1])/2+0.5)
-        ylims = (-grid_resolution[1]/200, grid_resolution[1]/200+1)
-        print(xlims, ylims)
-        self.ax.set_xlim(*xlims)
-        self.ax.set_ylim(*ylims)
+        self.ax.set_xlim(-3.5, 4.5)
+        self.ax.set_ylim(-1.5, 3.5)
         self.ax.set_axis_off()
 
         self.box_coords = {
