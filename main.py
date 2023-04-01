@@ -73,8 +73,8 @@ def displayBlankGameScreen():  # Displays the blank game screen
     # Creation of the blank game screen & placing of image on the screen
     gamePlayBlankScreen = pygame.image.load('Assets/Fourth Iteration of Gameplay UI.png').convert_alpha()
     # Puts a white background to cover any menu screens in the background
-    displayWhiteScreen()
-    showGame(initGame())
+    #displayWhiteScreen()
+    #showGame(initGame())
     screen.blit(gamePlayBlankScreen, (0,0))
     pygame.display.update()
 
@@ -553,7 +553,9 @@ while running:  # GAME LOOP
                     if ( mainMenuStartGameButton_click(event) ):  # If the start game button is clicked
                         # TESTING ONLY START
                         state = "gamePlay"
-                        displayBlankGameScreen()
+                        displayWhiteScreen()
+                        displayBlankGameScreen()  # Initalizes gameplay UI
+                        showGame(game)  # Initializes and displays qubits
                         # TESTING ONLY STOP
                         # What should be implemented here after testing code is removed:
                             # 1) change the state to "levelSelectMenu"
@@ -624,20 +626,27 @@ while running:  # GAME LOOP
                         displayMainMenu()
                     if ( exitGameplayMenuNoButton(event) ):  # If the no button on the exit gameplay menu has been clicked
                         state = "gamePlay"
-                        displayBlankGameScreen() # REPLACE WITH CODE THAT RETURNS TO THE PREVIOUS GAME STATE
+                        displayWhiteScreen()
+                        displayBlankGameScreen()
+                        showGame(game) # Redisplays the saved game (May need to be moved for this to work)
 
                 # Level Select Menu Button Control Flow
                 if ( state == "levelSelectMenu" ):
                     if ( levelSelectMenuMainMenuButton(event) ): # Main menu button
+                        displayWhiteScreen()
                         displayExitGameplayMenu()
                         state = "exitGameplayMenu"
                     if ( levelSelectMenuBackButton(event, level) ): # Back Button
                         state = "gamePlay"
+                        displayWhiteScreen()
+                        showGame(game)
                         displayBlankGameScreen()
                         # IMPLEMENT GOING BACK TO WHATEVER LEVEL YOU WERE JUST AT!!!
 
                 # Gameplay Button Control Flow
                 if (state == "gamePlay"):
+                    # Displays gamplay UI (Why the fuck is that method name so bad LMAO)
+                    displayBlankGameScreen()
                     # LEVEL SELECT BUTTON
                     if ( levelSelectButton(event) ):  # Level Select Button
                         state = "levelSelectMenu"  # THIS SHOULD EVENTUALLY BE MIGRATED TO AN ACTUAL LEVEL SELECT MENU
@@ -657,16 +666,16 @@ while running:  # GAME LOOP
                     if ( leftGateSelectButton(event) ):  # Left Gate Select Button
                         game.apply_gate(0, gatePossibilitiesList[leftGateState])  # This will apply the currently selected game to the quantum game instance
                         showGame(game) # Updates the Qubits on the UI
-
-                        # Note that the line of code above does not update the image of the simulation
-                        print(" --> Not implemented yet")
                         # This will cause the image of the Qubits to change given the current logic gate selected
 
                     # RESET LEVEL BUTTON
                     if ( resetLevelButton(event, level) ):  # Reset Level Button
-                        # IMPLEMENT RESETTING THE ACTUAL IMAGE OF THE QUBITS BASED ON THE LEVEL THE PLAYER IS ON
                         leftGateState  = 0  # Resets both gate states
-                        rightGateState = 0
+                        rightGateState = 0  # ^
+                        # IMPLEMENT RESETTING THE ACTUAL IMAGE OF THE QUBITS BASED ON THE LEVEL THE PLAYER IS ON
+                        # TESTING BELOW
+                        showGame(initGame()) #
+                        # TESTING ABOVE
 
                     # RIGHT GATE BUTTONS
                     if ( rightGateUpButton(event) ):  # Left Gate Up Button (MOVING UP MEANS GOING LEFT IN THE LIST, SUBTRACTING)
@@ -686,8 +695,9 @@ while running:  # GAME LOOP
 
                     # EXIT LEVEL BUTTON
                     if ( exitGameplayButton(event) ): # If the exit level button has been clicked
-                        displayExitGameplayMenu()
-                        state = "exitGameplayMenu"
+                        #game.save("game_save_data.json")  # Saves the game
+                        displayExitGameplayMenu()  # Displays the exit gameplay menu
+                        state = "exitGameplayMenu"  # Changes state
             #
             # STOP - BUTTON CONTROL FLOW
 
