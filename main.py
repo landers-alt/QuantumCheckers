@@ -665,10 +665,9 @@ while running:  # GAME LOOP
                             leftGateState += 1  # De-increments the leftGateState
                     if ( leftGateSelectButton(event) ):  # Left Gate Select Button
                         if (leftGateState == 4):  # Handles CZ gate applications
-                            game.apply_gate(1, gatePossibilitiesList[leftGateState],
-                                            target_qubit=0)  # This will apply the currently selected game to the quantum game instance
+                            game.apply_gate(0, gatePossibilitiesList[leftGateState], target_qubit=1)  # This will apply the currently selected game to the quantum game instance
                         else:  # Handles non-CZ gate applications
-                            game.apply_gate(1, gatePossibilitiesList[leftGateState])  # This will apply the currently selected game to the quantum game instance
+                            game.apply_gate(0, gatePossibilitiesList[leftGateState])  # This will apply the currently selected game to the quantum game instance
                         showGame(game)  # Updates the Qubits on the UI
 
                     # RESET LEVEL BUTTON
