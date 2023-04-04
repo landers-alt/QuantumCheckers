@@ -59,7 +59,7 @@ scoreTextFont = pygame.font.SysFont("timesnewroman", 23)  # Stores the font time
     # START - Display Methods
 def displayLevelSelectMenu(): # Displays the level select menu
     # Creation of the level select menu image & placing of image on the screen
-    exitGameplayMenu = pygame.image.load('Assets/LevelSelectMenu.png').convert()
+    exitGameplayMenu = pygame.image.load('Assets/Third Iteration of Level Select UI.png').convert()
     screen.blit(exitGameplayMenu, (0, 0))
     pygame.display.update()
 
@@ -346,7 +346,7 @@ def levelSelectMenuMainMenuButton(event):
     if event.type == pygame.MOUSEBUTTONDOWN:
         if (state == "levelSelectMenu"):
             print("X: " + str(x) + " Y: " + str(y))
-            if (x > 190 and x < 420) and (y > 412 and y < 465):
+            if (x > 45 and x < 225) and (y > 442 and y < 478):
                 print("Level Select Menu Main Menu Button Has Been Clicked")
                 return True
 
@@ -354,7 +354,7 @@ def levelSelectMenuBackButton(event, level):
     x, y = pygame.mouse.get_pos()
     if event.type == pygame.MOUSEBUTTONDOWN:
         if (state == "levelSelectMenu"):
-            if (x > 444 and x < 605) and (y > 412 and y < 465):
+            if (x > 635 and x < 772) and (y > 442 and y < 478):
                 print("Level Select Menu Back Button Has Been Clicked")
                 return True
 
@@ -363,9 +363,9 @@ def levelSelectLevel1Button(event):
     if event.type == pygame.MOUSEBUTTONDOWN:
         if (state == "levelSelectMenu"):
             print("LEVEL 1 SELECTED")
-            #if (x > 444 and x < 605) and (y > 412 and y < 465):
+            #if (x > 330 and x < 465) and (y > 440 and y < 475):
             #    print("Level X Button Has Been Clicked")
-            #    return True
+            #   return True
 
 def levelSelectLevel2Button(event):
     x, y = pygame.mouse.get_pos()
@@ -523,7 +523,7 @@ def showGame(game): # returns an image of the game inputted into the parameter
 
 
 # START - GAME LOOP
-    # Init. Quantum
+    # Init. Quantum Game Backend
 game = initGame()
     # Gameplay Variables and List Init.
 gatePossibilitiesList = ['x', 'y', 'z', 'h', 'cz']
@@ -555,6 +555,7 @@ while running:  # GAME LOOP
                         state = "gamePlay"
                         displayWhiteScreen()
                         displayBlankGameScreen()  # Initalizes gameplay UI
+                        game = initGame() # Init. Quantum Game Backend
                         showGame(game)  # Initializes and displays qubits
                         # TESTING ONLY STOP
                         # What should be implemented here after testing code is removed:
@@ -632,7 +633,7 @@ while running:  # GAME LOOP
 
                 # Level Select Menu Button Control Flow
                 if ( state == "levelSelectMenu" ):
-                    if ( levelSelectMenuMainMenuButton(event) ): # Main menu button
+                    if (levelSelectMenuMainMenuButton(event)):  # Main menu button
                         displayWhiteScreen()
                         displayExitGameplayMenu()
                         state = "exitGameplayMenu"
@@ -640,7 +641,6 @@ while running:  # GAME LOOP
                         state = "gamePlay"
                         displayWhiteScreen()
                         showGame(game)
-                        displayBlankGameScreen()
                         # IMPLEMENT GOING BACK TO WHATEVER LEVEL YOU WERE JUST AT!!!
 
                 # Gameplay Button Control Flow
@@ -689,6 +689,11 @@ while running:  # GAME LOOP
                         elif (rightGateState != len(gatePossibilitiesList) - 1 and rightGateState < len(gatePossibilitiesList) - 1):
                             rightGateState += 1  # De-increments the leftGateState
                     if ( rightGateSelectButton(event) ):  # Left Gate Select Button
+                        # TESTING BELOW
+                        #if ( leftGateState == 4 ):  # If the gate applied is the CZ gate, change function call to include target qubit
+                        #    game.apply_gate(0, "cz", 1)  # This will apply the CZ gate correctly
+                        #else: # If the gate is not a "cz" gate
+                        # TESTING ABOVE
                         print(rightGateState)
                         game.apply_gate(1, gatePossibilitiesList[rightGateState])  # This will apply the currently selected game to the quantum game instance
                         showGame(game)  # Updates the Qubits on the UI
