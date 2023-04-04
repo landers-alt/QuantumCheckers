@@ -690,12 +690,12 @@ while running:  # GAME LOOP
                             rightGateState += 1  # De-increments the leftGateState
                     if ( rightGateSelectButton(event) ):  # Left Gate Select Button
                         # TESTING BELOW
-                        #if ( leftGateState == 4 ):  # If the gate applied is the CZ gate, change function call to include target qubit
-                        #    game.apply_gate(0, "cz", 1)  # This will apply the CZ gate correctly
-                        #else: # If the gate is not a "cz" gate
+                        if ( leftGateState == 4 ):  # If the gate applied is the CZ gate, change function call to include target qubit
+                            game.apply_gate(1, "cz", target_qubit=0)  # This will apply the CZ gate correctly
+                        else: # If the gate is not a "cz" gate
                         # TESTING ABOVE
-                        print(rightGateState)
-                        game.apply_gate(1, gatePossibilitiesList[rightGateState])  # This will apply the currently selected game to the quantum game instance
+                            print(rightGateState)
+                            game.apply_gate(1, gatePossibilitiesList[rightGateState])  # This will apply the currently selected game to the quantum game instance
                         showGame(game)  # Updates the Qubits on the UI
 
                     # EXIT LEVEL BUTTON
