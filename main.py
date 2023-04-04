@@ -656,12 +656,12 @@ while running:  # GAME LOOP
                     if ( leftGateUpButton(event) ):  # Left Gate Up Button (MOVING UP MEANS GOING LEFT IN THE LIST, SUBTRACTING)
                         if ( leftGateState == 0 ):
                             leftGateState = len(gatePossibilitiesList) - 1  # Makes the left gate state loop back to end of list
-                        elif ( leftGateState != 0 and leftGateState > 0):
+                        elif ( leftGateState != 0 and leftGateState > 0 ):
                             leftGateState -= 1  # De-increments the leftGateState
                     if ( leftGateDownButton(event) ):  # Left Gate Down Button (MOVING DOWN MEANS GOING RIGHT IN THE LIST, ADDING)
-                        if (leftGateState == len(gatePossibilitiesList) - 1):
+                        if ( leftGateState == len(gatePossibilitiesList) - 1 ):
                             leftGateState = 0  # Makes the left gate state loop back to end of list
-                        elif (leftGateState != len(gatePossibilitiesList) - 1 and leftGateState < len(gatePossibilitiesList) - 1):
+                        elif ( leftGateState != len(gatePossibilitiesList) - 1 and leftGateState < len(gatePossibilitiesList) - 1):
                             leftGateState += 1  # De-increments the leftGateState
                     if ( leftGateSelectButton(event) ):  # Left Gate Select Button
                         game.apply_gate(0, gatePossibilitiesList[leftGateState])  # This will apply the currently selected game to the quantum game instance
@@ -679,17 +679,17 @@ while running:  # GAME LOOP
 
                     # RIGHT GATE BUTTONS
                     if ( rightGateUpButton(event) ):  # Left Gate Up Button (MOVING UP MEANS GOING LEFT IN THE LIST, SUBTRACTING)
-                        if (leftGateState == 0):
-                            leftGateState = len(gatePossibilitiesList) - 1  # Makes the left gate state loop back to end of list
-                        elif (leftGateState != 0 and leftGateState > 0):
-                            leftGateState -= 1  # De-increments the leftGateState
+                        if (rightGateState == 0):
+                            rightGateState = len(gatePossibilitiesList) - 1  # Makes the left gate state loop back to end of list
+                        elif (rightGateState != 0 and rightGateState > 0):
+                            rightGateState -= 1  # De-increments the leftGateState
                     if ( rightGateDownButton(event) ):  # Left Gate Down Button (MOVING DOWN MEANS GOING RIGHT IN THE LIST, ADDING)
-                        if (leftGateState == len(gatePossibilitiesList) - 1):
-                            leftGateState = 0  # Makes the left gate state loop back to end of list
-                        elif (leftGateState != len(gatePossibilitiesList) - 1 and leftGateState < len(
-                                gatePossibilitiesList) - 1):
-                            leftGateState += 1  # De-increments the leftGateState
+                        if (rightGateState == len(gatePossibilitiesList) - 1):
+                            rightGateState = 0  # Makes the left gate state loop back to end of list
+                        elif (rightGateState != len(gatePossibilitiesList) - 1 and rightGateState < len(gatePossibilitiesList) - 1):
+                            rightGateState += 1  # De-increments the leftGateState
                     if ( rightGateSelectButton(event) ):  # Left Gate Select Button
+                        print(rightGateState)
                         game.apply_gate(1, gatePossibilitiesList[rightGateState])  # This will apply the currently selected game to the quantum game instance
                         showGame(game)  # Updates the Qubits on the UI
 
