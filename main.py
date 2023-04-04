@@ -664,9 +664,12 @@ while running:  # GAME LOOP
                         elif ( leftGateState != len(gatePossibilitiesList) - 1 and leftGateState < len(gatePossibilitiesList) - 1):
                             leftGateState += 1  # De-increments the leftGateState
                     if ( leftGateSelectButton(event) ):  # Left Gate Select Button
-                        game.apply_gate(0, gatePossibilitiesList[leftGateState])  # This will apply the currently selected game to the quantum game instance
-                        showGame(game) # Updates the Qubits on the UI
-                        # This will cause the image of the Qubits to change given the current logic gate selected
+                        if (leftGateState == 4):  # Handles CZ gate applications
+                            game.apply_gate(1, gatePossibilitiesList[leftGateState],
+                                            target_qubit=0)  # This will apply the currently selected game to the quantum game instance
+                        else:  # Handles non-CZ gate applications
+                            game.apply_gate(1, gatePossibilitiesList[leftGateState])  # This will apply the currently selected game to the quantum game instance
+                        showGame(game)  # Updates the Qubits on the UI
 
                     # RESET LEVEL BUTTON
                     if ( resetLevelButton(event, level) ):  # Reset Level Button
@@ -689,12 +692,9 @@ while running:  # GAME LOOP
                         elif (rightGateState != len(gatePossibilitiesList) - 1 and rightGateState < len(gatePossibilitiesList) - 1):
                             rightGateState += 1  # De-increments the leftGateState
                     if ( rightGateSelectButton(event) ):  # Left Gate Select Button
-                        # TESTING BELOW
-                        if ( leftGateState == 4 ):  # If the gate applied is the CZ gate, change function call to include target qubit
-                            game.apply_gate(1, "cz", target_qubit=0)  # This will apply the CZ gate correctly
-                        else: # If the gate is not a "cz" gate
-                        # TESTING ABOVE
-                            print(rightGateState)
+                        if ( rightGateState == 4):  # Handles CZ gate applications
+                            game.apply_gate(1, gatePossibilitiesList[rightGateState], target_qubit=0)  # This will apply the currently selected game to the quantum game instance
+                        else:  # Handles non-CZ gate applications
                             game.apply_gate(1, gatePossibilitiesList[rightGateState])  # This will apply the currently selected game to the quantum game instance
                         showGame(game)  # Updates the Qubits on the UI
 
