@@ -379,7 +379,6 @@ def levelSelectMenuMainMenuButton(event):
     x, y = pygame.mouse.get_pos()
     if event.type == pygame.MOUSEBUTTONDOWN:
         if (state == "levelSelectMenu"):
-            print("X: " + str(x) + " Y: " + str(y))
             if (x > 45 and x < 225) and (y > 442 and y < 478):
                 print("Level Select Menu Main Menu Button Has Been Clicked")
                 return True
@@ -590,6 +589,7 @@ while running:  # GAME LOOP
                         displayWhiteScreen()
                         displayBlankGameScreen()  # Initalizes gameplay UI
                         game = initGame() # Init. Quantum Game Backend
+                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
                         showGame(game)  # Initializes and displays qubits
                         # TESTING ONLY STOP
                         # What should be implemented here after testing code is removed:
@@ -714,7 +714,8 @@ while running:  # GAME LOOP
                         # IMPLEMENT RESETTING THE ACTUAL IMAGE OF THE QUBITS BASED ON THE LEVEL THE PLAYER IS ON
                         # TESTING BELOW
                         displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-                        showGame(initGame()) #
+                        game = initGame()  # Initializes a blank game
+                        showGame(game)  # Displays the qubits
                         # TESTING ABOVE
 
                     # RIGHT GATE BUTTONS
