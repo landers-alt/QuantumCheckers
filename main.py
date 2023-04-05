@@ -58,7 +58,7 @@ rightGateIndicatorOverlayLocation = (675,330)  # ^
 leftGateIndicatorTextLocation = (leftGateIndicatorOverlayLocation[0]   + 6, leftGateIndicatorOverlayLocation[1]  - 2)  # The location, (x,y) notation of the gate text
 rightGateIndicatorTextLocation = (rightGateIndicatorOverlayLocation[0] + 6, rightGateIndicatorOverlayLocation[1] - 2)  # ^
 currentGateIndicatorOverlayColor = (216,123,104) # The color of the peach background of the gate select buttons
-currentGateIndicatorOverlay = pygame.Surface((28,22))  # Makes the shape that will be the background of the current gate indicator
+currentGateIndicatorOverlay = pygame.Surface((25,22))  # Makes the shape that will be the background of the current gate indicator
 currentGateIndicatorOverlay.fill(currentGateIndicatorOverlayColor)  # Fills in the background of the surface that was just made
 currentGateTextFont = pygame.font.SysFont("timesnewroman", 20)  # Stores the font times new roman in size 12 in a variable
 
@@ -85,7 +85,7 @@ def displayExitGameplayMenu():  # Displays the exit menu for gameplay
 
 def displayBlankGameScreen():  # Displays the blank game screen
     # Creation of the blank game screen & placing of image on the screen
-    gamePlayBlankScreen = pygame.image.load('Assets/Fourth Iteration of Gameplay UI.png').convert_alpha()
+    gamePlayBlankScreen = pygame.image.load('Assets/Fifth Iteration of Gameplay UI.png').convert_alpha()
     # Puts a white background to cover any menu screens in the background
     #displayWhiteScreen()
     #showGame(initGame())
@@ -713,6 +713,7 @@ while running:  # GAME LOOP
                         rightGateState = 0  # ^
                         # IMPLEMENT RESETTING THE ACTUAL IMAGE OF THE QUBITS BASED ON THE LEVEL THE PLAYER IS ON
                         # TESTING BELOW
+                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
                         showGame(initGame()) #
                         # TESTING ABOVE
 
