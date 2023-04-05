@@ -51,6 +51,20 @@ scoreTextBackground = pygame.Surface((45,30))  # Makes the shape that will be th
 scoreTextBackground.fill(scoreTextBackgroundColor)  # Fills in the background of the surface that was just made
 scoreTextFont = pygame.font.SysFont("timesnewroman", 23)  # Stores the font times new roman in size 12 in a variable
     # STOP - SCOREBOARD SCREEN INFORMATION
+
+    # START - GAMEPLAY UI SCREEN INFORMATION
+leftGateIndicatorOverlayLocation = (38,330)    # The location, (x,y) notation of the gate overlays
+rightGateIndicatorOverlayLocation = (675,330)  # ^
+leftGateIndicatorTextLocation = (leftGateIndicatorOverlayLocation[0]   + 6, leftGateIndicatorOverlayLocation[1]  - 2)  # The location, (x,y) notation of the gate text
+rightGateIndicatorTextLocation = (rightGateIndicatorOverlayLocation[0] + 6, rightGateIndicatorOverlayLocation[1] - 2)  # ^
+currentGateIndicatorOverlayColor = (216,123,104) # The color of the peach background of the gate select buttons
+currentGateIndicatorOverlay = pygame.Surface((28,22))  # Makes the shape that will be the background of the current gate indicator
+currentGateIndicatorOverlay.fill(currentGateIndicatorOverlayColor)  # Fills in the background of the surface that was just made
+currentGateTextFont = pygame.font.SysFont("timesnewroman", 20)  # Stores the font times new roman in size 12 in a variable
+
+# TO DO:
+#  Implement overlay for the level display indicator at the top left of the gameplay UI
+    # STOP - GAMEPLAY UI SCREEN INFORMATION
 # END - SCREEN
 
 
@@ -101,9 +115,16 @@ def displayHowToPlayMenu(): # Displays the rough outline of the how to play menu
     screen.blit(howToPlayMenuBackground, (0,0))
     pygame.display.update()
 
-def displayScoreBoardMenu(): # Displays the rough outline of the scoreboard menu
-    howToPlayMenuBackground = pygame.image.load('Assets/Scoreboard Menu.png').convert()  # Image shit
-    screen.blit(howToPlayMenuBackground, (0,0))  # Menu Image Is Put on the Screen
+def displayCreditsMenu(): # Displays the rough outline of a credits menu
+    # Creation of the credit menu's background & placing of image on the screen
+    creditsMenuBackground = pygame.image.load('Assets/Credits Menu.png').convert()
+    screen.blit(creditsMenuBackground, (0, 0))
+    pygame.display.update()
+
+        # START - Non-image Based Display Methods
+def displayScoreBoardMenu():  # Displays the rough outline of the scoreboard menu
+    scoreboardMenu = pygame.image.load('Assets/Scoreboard Menu.png').convert()  # Image shit
+    screen.blit(scoreboardMenu, (0, 0))  # Menu Image Is Put on the Screen
     for locationTuple in scoreTextLocationList:  # Placing of the text for the score board background
         screen.blit(scoreTextBackground, locationTuple)
     scoreTextListIndex = 0
@@ -113,11 +134,23 @@ def displayScoreBoardMenu(): # Displays the rough outline of the scoreboard menu
         scoreTextListIndex += 1  # Increments the scoreTextListIndex every for loop cycle
     pygame.display.update()
 
-def displayCreditsMenu(): # Displays the rough outline of a credits menu
-    # Creation of the credit menu's background & placing of image on the screen
-    creditsMenuBackground = pygame.image.load('Assets/Credits Menu.png').convert()
-    screen.blit(creditsMenuBackground, (0, 0))
-    pygame.display.update()
+def displayCurrentGates(leftGateState, rightGateState):  # Displays the currently selected gates by taking the indices of each gate state
+    gateList = ['X', 'Y', 'Z', 'H', 'CZ']  # Gate List
+    leftGateText = currentGateTextFont.render(gateList[leftGateState], True, black)    # The text for the left gate selector
+    rightGateText = currentGateTextFont.render(gateList[rightGateState], True, black)  # The text for the right gate selector
+    # Placing of rectangle overlays
+    screen.blit(currentGateIndicatorOverlay, leftGateIndicatorOverlayLocation)
+    screen.blit(currentGateIndicatorOverlay, rightGateIndicatorOverlayLocation)
+    # Placing of current gate text ~ Has control flow due to "CZ" gate being a string with a length of two as opposed to one ~ UwU
+    if (leftGateState == 4): # Left gate CZ check
+        screen.blit(leftGateText, (leftGateIndicatorTextLocation[0] - 7,leftGateIndicatorTextLocation[1]))  # CZ placement
+    else:
+        screen.blit(leftGateText, leftGateIndicatorTextLocation)
+    if (rightGateState == 4):  # Left gate CZ check
+        screen.blit(rightGateText, (rightGateIndicatorTextLocation[0] - 7,rightGateIndicatorTextLocation[1]))  # CZ placement
+    else:
+        screen.blit(rightGateText, rightGateIndicatorTextLocation)
+        # STOP - Non-image Based Display Methods
     # STOP - Display Methods
 
     # START - Main Menu Buttons
@@ -294,6 +327,7 @@ def rightGateUpButton(event): # Right gate up button
     x, y = pygame.mouse.get_pos()
     if event.type == pygame.MOUSEBUTTONDOWN:
         if (state == "gamePlay"):
+            print("X:",x," Y:",y, sep = " ") # REMOVE AFTER TESTING
             if (x > 706 and x < 728) and (y > 280 and y < 297):
                 print("Right Gate Up Button Has Been Clicked")
                 return True
@@ -647,6 +681,7 @@ while running:  # GAME LOOP
                 if (state == "gamePlay"):
                     # Displays gamplay UI (Why the fuck is that method name so bad LMAO)
                     displayBlankGameScreen()
+                    displayCurrentGates(leftGateState, rightGateState)
                     # LEVEL SELECT BUTTON
                     if ( levelSelectButton(event) ):  # Level Select Button
                         state = "levelSelectMenu"  # THIS SHOULD EVENTUALLY BE MIGRATED TO AN ACTUAL LEVEL SELECT MENU
@@ -658,11 +693,13 @@ while running:  # GAME LOOP
                             leftGateState = len(gatePossibilitiesList) - 1  # Makes the left gate state loop back to end of list
                         elif ( leftGateState != 0 and leftGateState > 0 ):
                             leftGateState -= 1  # De-increments the leftGateState
+                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
                     if ( leftGateDownButton(event) ):  # Left Gate Down Button (MOVING DOWN MEANS GOING RIGHT IN THE LIST, ADDING)
                         if ( leftGateState == len(gatePossibilitiesList) - 1 ):
                             leftGateState = 0  # Makes the left gate state loop back to end of list
                         elif ( leftGateState != len(gatePossibilitiesList) - 1 and leftGateState < len(gatePossibilitiesList) - 1):
                             leftGateState += 1  # De-increments the leftGateState
+                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
                     if ( leftGateSelectButton(event) ):  # Left Gate Select Button
                         if (leftGateState == 4):  # Handles CZ gate applications
                             game.apply_gate(0, gatePossibilitiesList[leftGateState], target_qubit=1)  # This will apply the currently selected game to the quantum game instance
@@ -685,11 +722,13 @@ while running:  # GAME LOOP
                             rightGateState = len(gatePossibilitiesList) - 1  # Makes the left gate state loop back to end of list
                         elif (rightGateState != 0 and rightGateState > 0):
                             rightGateState -= 1  # De-increments the leftGateState
+                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
                     if ( rightGateDownButton(event) ):  # Left Gate Down Button (MOVING DOWN MEANS GOING RIGHT IN THE LIST, ADDING)
                         if (rightGateState == len(gatePossibilitiesList) - 1):
                             rightGateState = 0  # Makes the left gate state loop back to end of list
                         elif (rightGateState != len(gatePossibilitiesList) - 1 and rightGateState < len(gatePossibilitiesList) - 1):
                             rightGateState += 1  # De-increments the leftGateState
+                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
                     if ( rightGateSelectButton(event) ):  # Left Gate Select Button
                         if ( rightGateState == 4):  # Handles CZ gate applications
                             game.apply_gate(1, gatePossibilitiesList[rightGateState], target_qubit=0)  # This will apply the currently selected game to the quantum game instance
