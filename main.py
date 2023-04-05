@@ -53,6 +53,7 @@ scoreTextFont = pygame.font.SysFont("timesnewroman", 23)  # Stores the font time
     # STOP - SCOREBOARD SCREEN INFORMATION
 
     # START - GAMEPLAY UI SCREEN INFORMATION
+        # Gate Indicator Text
 leftGateIndicatorOverlayLocation = (38,330)    # The location, (x,y) notation of the gate overlays
 rightGateIndicatorOverlayLocation = (675,330)  # ^
 leftGateIndicatorTextLocation = (leftGateIndicatorOverlayLocation[0]   + 6, leftGateIndicatorOverlayLocation[1]  - 2)  # The location, (x,y) notation of the gate text
@@ -61,9 +62,13 @@ currentGateIndicatorOverlayColor = (216,123,104) # The color of the peach backgr
 currentGateIndicatorOverlay = pygame.Surface((25,22))  # Makes the shape that will be the background of the current gate indicator
 currentGateIndicatorOverlay.fill(currentGateIndicatorOverlayColor)  # Fills in the background of the surface that was just made
 currentGateTextFont = pygame.font.SysFont("timesnewroman", 20)  # Stores the font times new roman in size 12 in a variable
-
-# TO DO:
-#  Implement overlay for the level display indicator at the top left of the gameplay UI
+        # Current Level Indicator Text
+currentLevelIndicatorOverlayLocation = (85, 22)    # The location, (x,y) notation of the current level indicator overlay
+currentLevelIndicatorOverlayColor = (216,123,104)  # The color of the peach background of the buttons
+currentLevelIndicatorOverlay = pygame.Surface((25,22))  # Makes the shape that will be the background of the current gate indicator
+currentLevelIndicatorOverlay.fill(currentLevelIndicatorOverlayColor)
+currentLevelIndicatorTextLocation = (currentLevelIndicatorOverlayLocation[0], currentLevelIndicatorOverlayLocation[1])
+currentLevelIndicatorTextFont = pygame.font.SysFont("timesnewroman", 22)  # Stores the font times new roman in size 12 in a variable
     # STOP - GAMEPLAY UI SCREEN INFORMATION
 # END - SCREEN
 
@@ -150,6 +155,14 @@ def displayCurrentGates(leftGateState, rightGateState):  # Displays the currentl
         screen.blit(rightGateText, (rightGateIndicatorTextLocation[0] - 7,rightGateIndicatorTextLocation[1]))  # CZ placement
     else:
         screen.blit(rightGateText, rightGateIndicatorTextLocation)
+
+def displayCurrentLevel(level):  # Displays the current level the player is on, LEVEL MUST BE INPUTTED AS AN INTEGER
+    if ( level <= 0 or level >= 16 or level == None ):  # Makes sure that you're only passing an integer between 1 and 15
+        raise Exception("Level provided can't less than 1 or greater than 15.")
+    else:  # If inputted parameter value is valid
+        currentLevelText = currentLevelIndicatorTextFont.render(str(level), True, black)  # Init. text
+        screen.blit(currentLevelIndicatorOverlay, currentLevelIndicatorOverlayLocation)  # Puts overlay on
+        screen.blit(currentLevelText, currentLevelIndicatorTextLocation)  # Prints text
         # STOP - Non-image Based Display Methods
     # STOP - Display Methods
 
