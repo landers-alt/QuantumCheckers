@@ -13,8 +13,10 @@ SUPPORTED_GATES = ['x', 'y', 'z', 'h', 'cz']
 class QuantumGame():
     def __init__(self,
                  initialize: list[dict],
+                 win_condition: dict,
                  allowed_gates: list[str] = SUPPORTED_GATES,
                  shots: int = 1024,
+                 win_threshold: float = 0.1,
                  backend=None,
                  corr_color: tuple[int, int, int] = (60, 120, 216),
                  iden_color: tuple[int, int, int] = (17, 85, 204),
@@ -29,6 +31,7 @@ class QuantumGame():
         self.allowed_gates = allowed_gates
 
         self.applied_gates = initialize
+        self.win_condition = win_condition
 
         self.backend = AerSimulator() if backend is None else backend
         self.shots = shots
@@ -92,13 +95,25 @@ class QuantumGame():
             color = self.corr_color if 'I' not in pauli else self.iden_color
             self.ax.add_patch(Rectangle((self.box_coords[pauli][0], self.box_coords[pauli][1]-1), self.rectangle_length, self.rectangle_length, angle=45, color=color))
 
-    def draw_grid(self) -> BytesIO:
+    def draw_grid(self) -> tuple[BytesIO, bool]:
         self.update_grid()
+        win = self.check_win()
         out_buffer = BytesIO()
         self.grid_figure.savefig(out_buffer, transparent=True)
         out_buffer.seek(0)
 
-        return out_buffer
+        return out_buffer, win
+
+    def check_win(self) -> bool:
+        if self.probabilities is None:
+            self.run_circuit()
+
+        for pauli, prob in self.probabilities.items():
+            win_proximity = abs(prob - self.win_condition[pauli])
+            if win_proximity > self.win_threshold:
+                return False
+
+        return True
 
     def apply_gate(self, qubit_idx: int, gate: str, **params) -> None:
         gate = gate.lower()
