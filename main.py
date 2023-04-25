@@ -34,6 +34,7 @@ def openDSUWebsite():  # Opens DSU's website
 # START - SCREEN
     # START - PYGAME WINDOW INIT.
 pygame.init()  # Init. Pygame
+FRAMERATE = 10
 normalScreenRatio = (799,499)  # Screen ratio and game window creation (is supposed to be (800,500) but is smaller because of image conversion issues)
 normalWidth = normalScreenRatio[0]
 normalHeight = normalScreenRatio[1]
@@ -167,7 +168,7 @@ def displayCurrentLevel(level):  # Displays the current level the player is on, 
 
         # START - Level goal indicator methods
 def displayCurrentLevelGoal(level):  # Displays the current level's goal to the player
-    levelGoalList = ["", "Assets/Level1Assets/Level 1 Circuit Goal.png", "Assets/Level1Assets/Level 2 Circuit Goal.png", "Assets/Level1Assets/Level 3 Circuit Goal.png", "Assets/Level1Assets/Level 4 Circuit Goal.png", "Assets/Level1Assets/Level 5 Circuit Goal.png", "Assets/Level1Assets/Level 6 Circuit Goal.png", "Assets/Level1Assets/Level 7 Circuit Goal.png", "Assets/Level1Assets/Level 8 Circuit Goal.png", "Assets/Level1Assets/Level 9 Circuit Goal.png", "Assets/Level1Assets/Level 10 Circuit Goal.png", "Assets/Level1Assets/Level 11 Circuit Goal.png", "Assets/Level1Assets/Level 12 Circuit Goal.png", "Assets/Level1Assets/Level 13 Circuit Goal.png", "Assets/Level1Assets/Level 14 Circuit Goal.png", "Assets/Level1Assets/Level 15 Circuit Goal.png"]
+    levelGoalList = ["", "Assets/Level1Assets/Level 1 Circuit Goal.png", "Assets/Level2Assets/Level 2 Circuit Goal.png", "Assets/Level3Assets/Level 3 Circuit Goal.png", "Assets/Level4Assets/Level 4 Circuit Goal.png", "Assets/Level5Assets/Level 5 Circuit Goal.png", "Assets/Level6Assets/Level 6 Circuit Goal.png", "Assets/Level7Assets/Level 7 Circuit Goal.png", "Assets/Level8Assets/Level 8 Circuit Goal.png", "Assets/Level9Assets/Level 9 Circuit Goal.png", "Assets/Level10Assets/Level 10 Circuit Goal.png", "Assets/Level11Assets/Level 11 Circuit Goal.png", "Assets/Level12Assets/Level 12 Circuit Goal.png", "Assets/Level13Assets/Level 13 Circuit Goal.png", "Assets/Level14Assets/Level 14 Circuit Goal.png", "Assets/Level15Assets/Level 15 Circuit Goal.png"]
     goal = pygame.image.load(levelGoalList[level]).convert_alpha()
     screen.blit(goal, levelGoalIndicatorLocation)  # Displays the current level goal based on the passed parameter
         # STOP - Level goal indicator methods
@@ -347,7 +348,6 @@ def rightGateUpButton(event): # Right gate up button
     x, y = pygame.mouse.get_pos()
     if event.type == pygame.MOUSEBUTTONDOWN:
         if (state == "gamePlay"):
-            print("X:",x," Y:",y, sep = " ") # REMOVE AFTER TESTING
             if (x > 706 and x < 728) and (y > 280 and y < 297):
                 print("Right Gate Up Button Has Been Clicked")
                 return True
@@ -422,7 +422,6 @@ def levelSelectLevel1Button(event):
     x, y = pygame.mouse.get_pos()
     if event.type == pygame.MOUSEBUTTONDOWN:
         if (state == "levelSelectMenuGame" or state == "levelSelectMenuMain"):
-            print("X: " + str(x) + " Y: " + str(y))
             if (x > 368 and x < 425) and (y > 450 and y < 480):
                 print("Level 1 Button Has Been Clicked")
                 return True
@@ -696,7 +695,6 @@ while running:  # GAME LOOP
                         displayWhiteScreen()
                         showGame(game)
                     if (levelSelectLevel1Button(event)):
-                        print("activated")
                         level = 1
                         state = "gamePlay"
                         displayGameUIAfterLevelSelectButtonClick()
@@ -928,5 +926,5 @@ while running:  # GAME LOOP
             # STOP - BUTTON CONTROL FLOW
 
     pygame.display.update() # Update the screen
-    clock.tick(60) # Sets the frame rate to 60
+    clock.tick(FRAMERATE) # Sets the frame rate to 60
 # END - GAME LOOP
