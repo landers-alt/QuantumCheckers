@@ -32,6 +32,7 @@ class QuantumGame():
 
         self.applied_gates = initialize
         self.win_condition = win_condition
+        self.win_threshold = win_threshold
 
         self.backend = AerSimulator() if backend is None else backend
         self.shots = shots
