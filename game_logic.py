@@ -12,8 +12,8 @@ SUPPORTED_GATES = ['x', 'y', 'z', 'h', 'cz']
 
 class QuantumGame():
     def __init__(self,
-                 initialize: list[dict],
-                 win_condition: dict,
+                 initialize: list[dict] = [],
+                 win_condition: dict = {'IZ': 0, 'ZI': 0, 'IX': 0, 'XI': 0, 'ZZ': 0, 'ZX': 0, 'XZ': 0, 'XX': 0},
                  allowed_gates: list[str] = SUPPORTED_GATES,
                  shots: int = 1024,
                  win_threshold: float = 0.1,
