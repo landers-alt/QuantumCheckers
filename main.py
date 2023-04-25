@@ -69,6 +69,8 @@ currentLevelIndicatorOverlay = pygame.Surface((25,22))  # Makes the shape that w
 currentLevelIndicatorOverlay.fill(currentLevelIndicatorOverlayColor)
 currentLevelIndicatorTextLocation = (currentLevelIndicatorOverlayLocation[0], currentLevelIndicatorOverlayLocation[1])
 currentLevelIndicatorTextFont = pygame.font.SysFont("timesnewroman", 22)  # Stores the font times new roman in size 12 in a variable
+        # Current Level Goal Indicator
+levelGoalIndicatorLocation = (0,0)  # The location, (x,y) notation, of the goal indicator for any given level
     # STOP - GAMEPLAY UI SCREEN INFORMATION
 # END - SCREEN
 
@@ -88,13 +90,11 @@ def displayExitGameplayMenu():  # Displays the exit menu for gameplay
     screen.blit(exitGameplayMenu, (0, 0))
     pygame.display.update()
 
-def displayBlankGameScreen():  # Displays the blank game screen
+def displayBlankGameScreen(level):  # Displays the blank game screen
     # Creation of the blank game screen & placing of image on the screen
     gamePlayBlankScreen = pygame.image.load('Assets/Fifth Iteration of Gameplay UI.png').convert_alpha()
-    # Puts a white background to cover any menu screens in the background
-    #displayWhiteScreen()
-    #showGame(initGame())
     screen.blit(gamePlayBlankScreen, (0,0))
+    displayCurrentLevelGoal(level)
     pygame.display.update()
 
 def displayWhiteScreen(): # Displays a white image on the entire screen
@@ -164,6 +164,13 @@ def displayCurrentLevel(level):  # Displays the current level the player is on, 
         screen.blit(currentLevelIndicatorOverlay, currentLevelIndicatorOverlayLocation)  # Puts overlay on
         screen.blit(currentLevelText, currentLevelIndicatorTextLocation)  # Prints text
         # STOP - Non-image Based Display Methods
+
+        # START - Level goal indicator methods
+def displayCurrentLevelGoal(level):  # Displays the current level's goal to the player
+    levelGoalList = ["", "Assets/Level1Assets/Level 1 Circuit Goal.png", "Assets/Level1Assets/Level 2 Circuit Goal.png", "Assets/Level1Assets/Level 3 Circuit Goal.png", "Assets/Level1Assets/Level 4 Circuit Goal.png", "Assets/Level1Assets/Level 5 Circuit Goal.png", "Assets/Level1Assets/Level 6 Circuit Goal.png", "Assets/Level1Assets/Level 7 Circuit Goal.png", "Assets/Level1Assets/Level 8 Circuit Goal.png", "Assets/Level1Assets/Level 9 Circuit Goal.png", "Assets/Level1Assets/Level 10 Circuit Goal.png", "Assets/Level1Assets/Level 11 Circuit Goal.png", "Assets/Level1Assets/Level 12 Circuit Goal.png", "Assets/Level1Assets/Level 13 Circuit Goal.png", "Assets/Level1Assets/Level 14 Circuit Goal.png", "Assets/Level1Assets/Level 15 Circuit Goal.png"]
+    goal = pygame.image.load(levelGoalList[level]).convert_alpha()
+    screen.blit(goal, levelGoalIndicatorLocation)  # Displays the current level goal based on the passed parameter
+        # STOP - Level goal indicator methods
     # STOP - Display Methods
 
     # START - Main Menu Buttons
@@ -577,7 +584,7 @@ game = initGame()
 gatePossibilitiesList = ['x', 'y', 'z', 'h', 'cz']
 leftGateState = 0  # Init. the state of the left gate selector
 rightGateState = 0  # Init. the state of the right gate selector
-level = 0  # Variable that indicates the current level the player is on
+level = 1  # Variable that indicates the current level the player is on
     # Scoreboard Init.
 populateScoreBoardTextList()  # Populates the score board text list so that the scoreboard menu works correctly
     # Pygame Init.
@@ -602,7 +609,8 @@ while running:  # GAME LOOP
                         # TESTING ONLY START
                         state = "gamePlay"
                         displayWhiteScreen()
-                        displayBlankGameScreen()  # Initalizes gameplay UI
+                        displayBlankGameScreen(level)  # Initalizes gameplay UI
+                        displayCurrentLevel(level)
                         game = initGame() # Init. Quantum Game Backend
                         displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
                         showGame(game)  # Initializes and displays qubits
@@ -677,7 +685,7 @@ while running:  # GAME LOOP
                     if ( exitGameplayMenuNoButton(event) ):  # If the no button on the exit gameplay menu has been clicked
                         state = "gamePlay"
                         displayWhiteScreen()
-                        displayBlankGameScreen()
+                        displayBlankGameScreen(level)
                         showGame(game) # Redisplays the saved game (May need to be moved for this to work)
 
                 # Level Select Menu Button Control Flow
@@ -695,8 +703,10 @@ while running:  # GAME LOOP
                 # Gameplay Button Control Flow
                 if (state == "gamePlay"):
                     # Displays gameplay UI (Why the fuck is that method name so bad LMAO)
-                    displayBlankGameScreen()
+                    displayBlankGameScreen(level)
                     displayCurrentGates(leftGateState, rightGateState)
+                    displayCurrentLevel(level)
+
                     # LEVEL SELECT BUTTON
                     if ( levelSelectButton(event) ):  # Level Select Button
                         state = "levelSelectMenu"  # THIS SHOULD EVENTUALLY BE MIGRATED TO AN ACTUAL LEVEL SELECT MENU
