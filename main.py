@@ -694,7 +694,7 @@ while running:  # GAME LOOP
 
                 # Gameplay Button Control Flow
                 if (state == "gamePlay"):
-                    # Displays gamplay UI (Why the fuck is that method name so bad LMAO)
+                    # Displays gameplay UI (Why the fuck is that method name so bad LMAO)
                     displayBlankGameScreen()
                     displayCurrentGates(leftGateState, rightGateState)
                     # LEVEL SELECT BUTTON
