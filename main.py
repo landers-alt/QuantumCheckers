@@ -560,7 +560,9 @@ def initGame(): # init. a quantum game instance and returns said game
     return game
 
 def showGame(game): # returns an image of the game inputted into the parameter
-    image = game.draw_grid()
+    image, win = game.draw_grid() # win is a boolean representing if the user won with this configuration or not
+    if win:
+        pass # put whatever code to run when the user wins here
     newImage = bytes_to_pygame_image(image)
     screen.blit(newImage, (79,0))
     # STOP - Quantum Method(s) Implementing "game_logic.py"
