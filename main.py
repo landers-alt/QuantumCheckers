@@ -560,6 +560,15 @@ def bytes_to_pygame_image(bytes_io):
     return image
     # END - IMAGE CONVERSION
 
+    # START - Reset level function
+def resetQuantumCircuit():
+    leftGateState = 0  # Resets both gate states
+    rightGateState = 0  # ^
+    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+    game = initGame()  # Initializes a blank game
+    showGame(game)  # Displays the qubits
+    # STOP - Reset level function
+
     # START - Quantum Method(s) Implementing "game_logic.py"
 def initGame(): # init. a quantum game instance and returns said game
     game = QuantumGame(
@@ -888,14 +897,7 @@ while running:  # GAME LOOP
 
                     # RESET LEVEL BUTTON
                     if ( resetLevelButton(event) ):  # Reset Level Button
-                        leftGateState  = 0  # Resets both gate states
-                        rightGateState = 0  # ^
-                        # IMPLEMENT RESETTING THE ACTUAL IMAGE OF THE QUBITS BASED ON THE LEVEL THE PLAYER IS ON
-                        # TESTING BELOW
-                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-                        game = initGame()  # Initializes a blank game
-                        showGame(game)  # Displays the qubits
-                        # TESTING ABOVE
+                        resetQuantumCircuit()  # Reset
 
                     # RIGHT GATE BUTTONS
                     if ( rightGateUpButton(event) ):  # Left Gate Up Button (MOVING UP MEANS GOING LEFT IN THE LIST, SUBTRACTING)
