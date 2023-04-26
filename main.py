@@ -786,7 +786,6 @@ while running:  # GAME LOOP
                         state = "mainMenu"  # State change
                         break
                     if (levelSelectLevel1Button(event)):
-                        print("activated")
                         level = 1
                         state = "gamePlay"
                         displayGameUIAfterLevelSelectButtonClick()
