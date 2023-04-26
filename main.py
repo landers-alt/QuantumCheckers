@@ -143,7 +143,7 @@ def displayLevelExplanation(level):  # Displays the explanation for the level
     screen.blit(explanation, origin)
 
 def displayLevelGoal(level):  # Displays the screen that further explains the level and what the goal is
-    levelEGoalFileLocation = "Assets/Level" + str(level) + "Assets/Level " + str(level) + " Explanation.png"
+    levelEGoalFileLocation = "Assets/Level" + str(level) + "Assets/Level " + str(level) + " Goal.png"
     goal = pygame.image.load(levelEGoalFileLocation).convert_alpha()
     screen.blit(goal, origin)
         # STOP - Level Explanation, Goal Methods
@@ -567,6 +567,43 @@ def levelSelectLevel15Button(event):
             #    return True
     # STOP - Level Select Menu Buttons
 
+    # START - Level Explanation Buttons
+def levelExplanationContinueButton(event):
+    x, y = pygame.mouse.get_pos()
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        print("X:" + str(x) + " Y: " + str(y))
+        if (state == "levelExplanation"):
+            if (x > 232 and x < 366) and (y > 395 and y < 458):  # THE X IS ALREADY GOOD, WORRY ABOUT THE Y VALUES
+                print("Level Explanation Continue Button Has Been Clicked")
+                return True
+
+def levelExplanationBackButton(event):
+    x, y = pygame.mouse.get_pos()
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        if (state == "levelExplanation"):
+            if (x > 435 and x < 568) and (y > 398 and y < 458):  # THE X IS ALREADY GOOD, WORRY ABOUT THE Y VALUES
+                print("Level Explanation Back Button Has Been Clicked")
+                return True
+    # STOP - Level Explanation Buttons
+
+    # START - Level Goal Explanation Buttons
+def levelGoalExplanationContinueButton(event):
+    x, y = pygame.mouse.get_pos()
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        if (state == "levelGoalExplanation"):
+            if (x > 232 and x < 366) and (y > 395 and y < 458):  # THE X IS ALREADY GOOD, WORRY ABOUT THE Y VALUES
+                print("Level Goal Explanation Continue Button Has Been Clicked")
+                return True
+
+def levelGoalExplanationBackButton(event):
+    x, y = pygame.mouse.get_pos()
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        if (state == "levelGoalExplanation"):
+            if (x > 435 and x < 568) and (y > 398 and y < 458):  # THE X IS ALREADY GOOD, WORRY ABOUT THE Y VALUES
+                print("Level Goal Explanation Back Button Has Been Clicked")
+                return True
+    # STOP - Level Goal Explanation Buttons
+
     # START - IMAGE CONVERSION
 def bytes_to_pygame_image(bytes_io):
     surface = pygame.image.load(bytes_io)  # Load the image from the bytes into a pygame Surface
@@ -859,7 +896,7 @@ while running:  # GAME LOOP
                         displayGameUIAfterLevelSelectButtonClick()
                         break
 
-                # Level Select Menu Button Control Flow (from in a game)
+                # Level Select Menu Button Control Flow (from main menu)
                 if (state == "levelSelectMenuMain"):
                     if (levelSelectMenuMainMenuButton(event) or levelSelectMenuBackButton(event, level)):  # Both the main menu and back button will bring the user back to the main menu, hence why there isn't control flow for both buttons separately
                         displayMainMenu()  # Displays the main menu
@@ -872,8 +909,8 @@ while running:  # GAME LOOP
                         game = initGame()  # Initializes a blank game
                         showGame(game)  # Displays the qubits
                         level = 1
-                        state = "gamePlay"
-                        displayGameUIAfterLevelSelectButtonClick()
+                        state = "levelExplanation"
+                        displayLevelExplanation(level)  # Displays the currently selected level's explanation
                         break
                     elif (levelSelectLevel2Button(event)):
                         leftGateState = 0  # Resets both gate states
@@ -882,8 +919,8 @@ while running:  # GAME LOOP
                         game = initGame()  # Initializes a blank game
                         showGame(game)  # Displays the qubits
                         level = 2
-                        state = "gamePlay"
-                        displayGameUIAfterLevelSelectButtonClick()
+                        state = "levelExplanation"
+                        displayLevelExplanation(level)  # Displays the currently selected level's explanation
                         break
                     elif (levelSelectLevel3Button(event)):
                         leftGateState = 0  # Resets both gate states
@@ -892,8 +929,8 @@ while running:  # GAME LOOP
                         game = initGame()  # Initializes a blank game
                         showGame(game)  # Displays the qubits
                         level = 3
-                        state = "gamePlay"
-                        displayGameUIAfterLevelSelectButtonClick()
+                        state = "levelExplanation"
+                        displayLevelExplanation(level)  # Displays the currently selected level's explanation
                         break
                     elif (levelSelectLevel4Button(event)):
                         leftGateState = 0  # Resets both gate states
@@ -902,8 +939,8 @@ while running:  # GAME LOOP
                         game = initGame()  # Initializes a blank game
                         showGame(game)  # Displays the qubits
                         level = 4
-                        state = "gamePlay"
-                        displayGameUIAfterLevelSelectButtonClick()
+                        state = "levelExplanation"
+                        displayLevelExplanation(level)  # Displays the currently selected level's explanation
                         break
                     elif (levelSelectLevel5Button(event)):
                         leftGateState = 0  # Resets both gate states
@@ -912,8 +949,8 @@ while running:  # GAME LOOP
                         game = initGame()  # Initializes a blank game
                         showGame(game)  # Displays the qubits
                         level = 5
-                        state = "gamePlay"
-                        displayGameUIAfterLevelSelectButtonClick()
+                        state = "levelExplanation"
+                        displayLevelExplanation(level)  # Displays the currently selected level's explanation
                         break
                     elif (levelSelectLevel6Button(event)):
                         leftGateState = 0  # Resets both gate states
@@ -922,8 +959,8 @@ while running:  # GAME LOOP
                         game = initGame()  # Initializes a blank game
                         showGame(game)  # Displays the qubits
                         level = 6
-                        state = "gamePlay"
-                        displayGameUIAfterLevelSelectButtonClick()
+                        state = "levelExplanation"
+                        displayLevelExplanation(level)  # Displays the currently selected level's explanation
                         break
                     elif (levelSelectLevel7Button(event)):
                         leftGateState = 0  # Resets both gate states
@@ -932,8 +969,8 @@ while running:  # GAME LOOP
                         game = initGame()  # Initializes a blank game
                         showGame(game)  # Displays the qubits
                         level = 7
-                        state = "gamePlay"
-                        displayGameUIAfterLevelSelectButtonClick()
+                        state = "levelExplanation"
+                        displayLevelExplanation(level)  # Displays the currently selected level's explanation
                         break
                     elif (levelSelectLevel8Button(event)):
                         leftGateState = 0  # Resets both gate states
@@ -942,8 +979,8 @@ while running:  # GAME LOOP
                         game = initGame()  # Initializes a blank game
                         showGame(game)  # Displays the qubits
                         level = 8
-                        state = "gamePlay"
-                        displayGameUIAfterLevelSelectButtonClick()
+                        state = "levelExplanation"
+                        displayLevelExplanation(level)  # Displays the currently selected level's explanation
                         break
                     elif (levelSelectLevel9Button(event)):
                         leftGateState = 0  # Resets both gate states
@@ -952,8 +989,8 @@ while running:  # GAME LOOP
                         game = initGame()  # Initializes a blank game
                         showGame(game)  # Displays the qubits
                         level = 9
-                        state = "gamePlay"
-                        displayGameUIAfterLevelSelectButtonClick()
+                        state = "levelExplanation"
+                        displayLevelExplanation(level)  # Displays the currently selected level's explanation
                         break
                     elif (levelSelectLevel10Button(event)):
                         leftGateState = 0  # Resets both gate states
@@ -962,8 +999,8 @@ while running:  # GAME LOOP
                         game = initGame()  # Initializes a blank game
                         showGame(game)  # Displays the qubits
                         level = 10
-                        state = "gamePlay"
-                        displayGameUIAfterLevelSelectButtonClick()
+                        state = "levelExplanation"
+                        displayLevelExplanation(level)  # Displays the currently selected level's explanation
                         break
                     elif (levelSelectLevel11Button(event)):
                         leftGateState = 0  # Resets both gate states
@@ -972,8 +1009,8 @@ while running:  # GAME LOOP
                         game = initGame()  # Initializes a blank game
                         showGame(game)  # Displays the qubits
                         level = 11
-                        state = "gamePlay"
-                        displayGameUIAfterLevelSelectButtonClick()
+                        state = "levelExplanation"
+                        displayLevelExplanation(level)  # Displays the currently selected level's explanation
                         break
                     elif (levelSelectLevel12Button(event)):
                         leftGateState = 0  # Resets both gate states
@@ -982,8 +1019,8 @@ while running:  # GAME LOOP
                         game = initGame()  # Initializes a blank game
                         showGame(game)  # Displays the qubits
                         level = 12
-                        state = "gamePlay"
-                        displayGameUIAfterLevelSelectButtonClick()
+                        state = "levelExplanation"
+                        displayLevelExplanation(level)  # Displays the currently selected level's explanation
                         break
                     elif (levelSelectLevel13Button(event)):
                         leftGateState = 0  # Resets both gate states
@@ -992,8 +1029,8 @@ while running:  # GAME LOOP
                         game = initGame()  # Initializes a blank game
                         showGame(game)  # Displays the qubits
                         level = 13
-                        state = "gamePlay"
-                        displayGameUIAfterLevelSelectButtonClick()
+                        state = "levelExplanation"
+                        displayLevelExplanation(level)  # Displays the currently selected level's explanation
                         break
                     elif (levelSelectLevel14Button(event)):
                         leftGateState = 0  # Resets both gate states
@@ -1002,8 +1039,8 @@ while running:  # GAME LOOP
                         game = initGame()  # Initializes a blank game
                         showGame(game)  # Displays the qubits
                         level = 14
-                        state = "gamePlay"
-                        displayGameUIAfterLevelSelectButtonClick()
+                        state = "levelExplanation"
+                        displayLevelExplanation(level)  # Displays the currently selected level's explanation
                         break
                     elif (levelSelectLevel15Button(event)):
                         leftGateState = 0  # Resets both gate states
@@ -1012,17 +1049,38 @@ while running:  # GAME LOOP
                         game = initGame()  # Initializes a blank game
                         showGame(game)  # Displays the qubits
                         level = 15
-                        state = "gamePlay"
-                        displayGameUIAfterLevelSelectButtonClick()
+                        state = "levelExplanation"
+                        displayLevelExplanation(level)  # Displays the currently selected level's explanation
+                        break
+
+                # Level Explanation Button Control Flow
+                if (state == "levelExplanation"):
+                    if (levelExplanationContinueButton(event)):  # Continue Button is clicked
+                        state = "levelGoalExplanation"  # State change
+                        displayLevelGoal(level)  # Displays a further explanation of the level in conjunction with the goal of the level
+                        break
+                    if (levelExplanationBackButton(event)):  # Back Button is clicked
+                        displayLevelSelectMenu()  # Goes back to the level select menu
+
+                # Level Goal Explanation Button Control Flow
+                if (state == "levelGoalExplanation"):
+                    if (levelGoalExplanationContinueButton(event)):  # Continue button is clicked
+                        state = "gamePlay"  # State change
+                        displayWhiteScreen()  # Blanks the screen
+                        displayGameUIAfterLevelSelectButtonClick()  # Displays the game UI
+                        break
+                    if (levelGoalExplanationBackButton(event)):  # Back button is clicked
+                        state = "levelExplanation"  # State change
+                        displayLevelExplanation(level)  # Displays menu change
                         break
 
                 # Gameplay Button Control Flow
                 if (state == "gamePlay"):
                     # Displays gameplay UI (Why the fuck is that method name so bad LMAO)
-                    displayBlankGameScreen(level)
-                    displayCurrentGates(leftGateState, rightGateState)
-                    displayCurrentLevel(level)
-                    showGame(game)
+                    displayBlankGameScreen(level)  # Displays the game UI with an indicator for the goal of the level
+                    displayCurrentGates(leftGateState, rightGateState)  # Displays the currently selected gates
+                    displayCurrentLevel(level)  # Displays the current level the player is on
+                    showGame(game)  # Displays the output of the quantum circuit
 
                     # LEVEL SELECT BUTTON
                     if ( levelSelectButton(event) ):  # Level Select Button
