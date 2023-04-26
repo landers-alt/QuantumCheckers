@@ -79,6 +79,7 @@ levelGoalIndicatorLocation = (0,0)  # The location, (x,y) notation, of the goal 
 
 # START - METHODS
     # START - Display Methods
+        # START - Menu Display Methods
 def displayLevelSelectMenu(): # Displays the level select menu
     # Creation of the level select menu image & placing of image on the screen
     exitGameplayMenu = pygame.image.load('Assets/Third Iteration of Level Select UI.png').convert()
@@ -89,19 +90,6 @@ def displayExitGameplayMenu():  # Displays the exit menu for gameplay
     # Creation of the exit gameplay menu image & placing of image on the screen
     exitGameplayMenu = pygame.image.load('Assets/ExitToMainMenuConfirmationMenu.png').convert()
     screen.blit(exitGameplayMenu, (0, 0))
-    pygame.display.update()
-
-def displayBlankGameScreen(level):  # Displays the blank game screen
-    # Creation of the blank game screen & placing of image on the screen
-    gamePlayBlankScreen = pygame.image.load('Assets/Fifth Iteration of Gameplay UI.png').convert_alpha()
-    screen.blit(gamePlayBlankScreen, (0,0))
-    displayCurrentLevelGoal(level)
-    pygame.display.update()
-
-def displayWhiteScreen(): # Displays a white image on the entire screen
-    # Creation of a white image (800x500) & placing the image on the screen
-    whiteBackground = pygame.image.load('Assets/800x500WHITE.png').convert_alpha()
-    screen.blit(whiteBackground, (0,0))
     pygame.display.update()
 
 def displayMainMenu(): # Displays the rough outline of a main menu
@@ -126,6 +114,29 @@ def displayCreditsMenu(): # Displays the rough outline of a credits menu
     creditsMenuBackground = pygame.image.load('Assets/Credits Menu.png').convert()
     screen.blit(creditsMenuBackground, (0, 0))
     pygame.display.update()
+        # STOP - Menu Display Methods
+
+        # START - Gameplay Display Methods
+def displayBlankGameScreen(level):  # Displays the blank game screen
+    # Creation of the blank game screen & placing of image on the screen
+    gamePlayBlankScreen = pygame.image.load('Assets/Fifth Iteration of Gameplay UI.png').convert_alpha()
+    screen.blit(gamePlayBlankScreen, (0, 0))
+    displayCurrentLevelGoal(level)
+    pygame.display.update()
+
+def displayWhiteScreen():  # Displays a white image on the entire screen
+        # Creation of a white image (800x500) & placing the image on the screen
+    whiteBackground = pygame.image.load('Assets/800x500WHITE.png').convert_alpha()
+    screen.blit(whiteBackground, (0, 0))
+    pygame.display.update()
+        # STOP - Gameplay Display Methods
+
+        # START - Level goal indicator methods
+def displayCurrentLevelGoal(level):  # Displays the current level's goal to the player
+    levelGoalList = ["", "Assets/Level1Assets/Level 1 Circuit Goal.png","Assets/Level2Assets/Level 2 Circuit Goal.png","Assets/Level3Assets/Level 3 Circuit Goal.png","Assets/Level4Assets/Level 4 Circuit Goal.png","Assets/Level5Assets/Level 5 Circuit Goal.png","Assets/Level6Assets/Level 6 Circuit Goal.png","Assets/Level7Assets/Level 7 Circuit Goal.png","Assets/Level8Assets/Level 8 Circuit Goal.png", "Assets/Level9Assets/Level 9 Circuit Goal.png","Assets/Level10Assets/Level 10 Circuit Goal.png","Assets/Level11Assets/Level 11 Circuit Goal.png","Assets/Level12Assets/Level 12 Circuit Goal.png","Assets/Level13Assets/Level 13 Circuit Goal.png","Assets/Level14Assets/Level 14 Circuit Goal.png","Assets/Level15Assets/Level 15 Circuit Goal.png"]
+    goal = pygame.image.load(levelGoalList[level]).convert_alpha()
+    screen.blit(goal, levelGoalIndicatorLocation)  # Displays the current level goal based on the passed parameter
+        # STOP - Level goal indicator methods
 
         # START - Non-image Based Display Methods
 def displayScoreBoardMenu():  # Displays the rough outline of the scoreboard menu
@@ -165,13 +176,6 @@ def displayCurrentLevel(level):  # Displays the current level the player is on, 
         screen.blit(currentLevelIndicatorOverlay, currentLevelIndicatorOverlayLocation)  # Puts overlay on
         screen.blit(currentLevelText, currentLevelIndicatorTextLocation)  # Prints text
         # STOP - Non-image Based Display Methods
-
-        # START - Level goal indicator methods
-def displayCurrentLevelGoal(level):  # Displays the current level's goal to the player
-    levelGoalList = ["", "Assets/Level1Assets/Level 1 Circuit Goal.png", "Assets/Level2Assets/Level 2 Circuit Goal.png", "Assets/Level3Assets/Level 3 Circuit Goal.png", "Assets/Level4Assets/Level 4 Circuit Goal.png", "Assets/Level5Assets/Level 5 Circuit Goal.png", "Assets/Level6Assets/Level 6 Circuit Goal.png", "Assets/Level7Assets/Level 7 Circuit Goal.png", "Assets/Level8Assets/Level 8 Circuit Goal.png", "Assets/Level9Assets/Level 9 Circuit Goal.png", "Assets/Level10Assets/Level 10 Circuit Goal.png", "Assets/Level11Assets/Level 11 Circuit Goal.png", "Assets/Level12Assets/Level 12 Circuit Goal.png", "Assets/Level13Assets/Level 13 Circuit Goal.png", "Assets/Level14Assets/Level 14 Circuit Goal.png", "Assets/Level15Assets/Level 15 Circuit Goal.png"]
-    goal = pygame.image.load(levelGoalList[level]).convert_alpha()
-    screen.blit(goal, levelGoalIndicatorLocation)  # Displays the current level goal based on the passed parameter
-        # STOP - Level goal indicator methods
     # STOP - Display Methods
 
     # START - Main Menu Buttons
@@ -920,7 +924,6 @@ while running:  # GAME LOOP
 
                     # EXIT LEVEL BUTTON
                     if ( exitGameplayButton(event) ): # If the exit level button has been clicked
-                        #game.save("game_save_data.json")  # Saves the game
                         displayExitGameplayMenu()  # Displays the exit gameplay menu
                         state = "exitGameplayMenu"  # Changes state
             #
