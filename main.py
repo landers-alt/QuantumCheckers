@@ -70,8 +70,10 @@ currentLevelIndicatorOverlay = pygame.Surface((25,22))  # Makes the shape that w
 currentLevelIndicatorOverlay.fill(currentLevelIndicatorOverlayColor)
 currentLevelIndicatorTextLocation = (currentLevelIndicatorOverlayLocation[0], currentLevelIndicatorOverlayLocation[1])
 currentLevelIndicatorTextFont = pygame.font.SysFont("timesnewroman", 22)  # Stores the font times new roman in size 12 in a variable
-        # Current Level Goal Indicator
+        # Current Level Goal Indicator Location
 levelGoalIndicatorLocation = (0,0)  # The location, (x,y) notation, of the goal indicator for any given level
+        # Current Level Explanation Screen Location
+levelExplanationlocation = (0,0) # The location, (x,y) notation, of the level explanation for any given level
     # STOP - GAMEPLAY UI SCREEN INFORMATION
 # END - SCREEN
 
@@ -114,6 +116,11 @@ def displayCreditsMenu(): # Displays the rough outline of a credits menu
     creditsMenuBackground = pygame.image.load('Assets/Credits Menu.png').convert()
     screen.blit(creditsMenuBackground, (0, 0))
     pygame.display.update()
+
+def displayLevelExplanation(level):
+    levelExplanationFileLocation = "Assets/Level" + str(level) + "Assets/Level " + str(level) + " Explanation.png"
+    explanation = pygame.image.load(levelExplanationFileLocation).convert_alpha()
+    screen.blit(explanation, levelExplanationlocation)
         # STOP - Menu Display Methods
 
         # START - Gameplay Display Methods
@@ -125,7 +132,7 @@ def displayBlankGameScreen(level):  # Displays the blank game screen
     pygame.display.update()
 
 def displayWhiteScreen():  # Displays a white image on the entire screen
-        # Creation of a white image (800x500) & placing the image on the screen
+    # Creation of a white image (800x500) & placing the image on the screen
     whiteBackground = pygame.image.load('Assets/800x500WHITE.png').convert_alpha()
     screen.blit(whiteBackground, (0, 0))
     pygame.display.update()
