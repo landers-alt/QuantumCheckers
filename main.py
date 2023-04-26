@@ -571,7 +571,6 @@ def levelSelectLevel15Button(event):
 def levelExplanationContinueButton(event):
     x, y = pygame.mouse.get_pos()
     if event.type == pygame.MOUSEBUTTONDOWN:
-        print("X:" + str(x) + " Y: " + str(y))
         if (state == "levelExplanation"):
             if (x > 232 and x < 366) and (y > 395 and y < 458):  # THE X IS ALREADY GOOD, WORRY ABOUT THE Y VALUES
                 print("Level Explanation Continue Button Has Been Clicked")
@@ -1060,6 +1059,7 @@ while running:  # GAME LOOP
                         displayLevelGoal(level)  # Displays a further explanation of the level in conjunction with the goal of the level
                         break
                     if (levelExplanationBackButton(event)):  # Back Button is clicked
+                        state = "levelSelectMenuMain"  # State change
                         displayLevelSelectMenu()  # Goes back to the level select menu
 
                 # Level Goal Explanation Button Control Flow
