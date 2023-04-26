@@ -70,10 +70,8 @@ currentLevelIndicatorOverlay = pygame.Surface((25,22))  # Makes the shape that w
 currentLevelIndicatorOverlay.fill(currentLevelIndicatorOverlayColor)
 currentLevelIndicatorTextLocation = (currentLevelIndicatorOverlayLocation[0], currentLevelIndicatorOverlayLocation[1])
 currentLevelIndicatorTextFont = pygame.font.SysFont("timesnewroman", 22)  # Stores the font times new roman in size 12 in a variable
-        # Current Level Goal Indicator Location
-levelGoalIndicatorLocation = (0,0)  # The location, (x,y) notation, of the goal indicator for any given level
-        # Current Level Explanation Screen Location
-levelExplanationlocation = (0,0) # The location, (x,y) notation, of the level explanation for any given level
+        # Location of the origin
+origin = (0,0)  # The location, (x,y) notation, of the goal indicator for any given level
     # STOP - GAMEPLAY UI SCREEN INFORMATION
 # END - SCREEN
 
@@ -116,11 +114,6 @@ def displayCreditsMenu(): # Displays the rough outline of a credits menu
     creditsMenuBackground = pygame.image.load('Assets/Credits Menu.png').convert()
     screen.blit(creditsMenuBackground, (0, 0))
     pygame.display.update()
-
-def displayLevelExplanation(level):
-    levelExplanationFileLocation = "Assets/Level" + str(level) + "Assets/Level " + str(level) + " Explanation.png"
-    explanation = pygame.image.load(levelExplanationFileLocation).convert_alpha()
-    screen.blit(explanation, levelExplanationlocation)
         # STOP - Menu Display Methods
 
         # START - Gameplay Display Methods
@@ -138,12 +131,22 @@ def displayWhiteScreen():  # Displays a white image on the entire screen
     pygame.display.update()
         # STOP - Gameplay Display Methods
 
-        # START - Level goal indicator methods
+        # START - Level Explanation, Goal Methods
 def displayCurrentLevelGoal(level):  # Displays the current level's goal to the player
-    levelGoalList = ["", "Assets/Level1Assets/Level 1 Circuit Goal.png","Assets/Level2Assets/Level 2 Circuit Goal.png","Assets/Level3Assets/Level 3 Circuit Goal.png","Assets/Level4Assets/Level 4 Circuit Goal.png","Assets/Level5Assets/Level 5 Circuit Goal.png","Assets/Level6Assets/Level 6 Circuit Goal.png","Assets/Level7Assets/Level 7 Circuit Goal.png","Assets/Level8Assets/Level 8 Circuit Goal.png", "Assets/Level9Assets/Level 9 Circuit Goal.png","Assets/Level10Assets/Level 10 Circuit Goal.png","Assets/Level11Assets/Level 11 Circuit Goal.png","Assets/Level12Assets/Level 12 Circuit Goal.png","Assets/Level13Assets/Level 13 Circuit Goal.png","Assets/Level14Assets/Level 14 Circuit Goal.png","Assets/Level15Assets/Level 15 Circuit Goal.png"]
-    goal = pygame.image.load(levelGoalList[level]).convert_alpha()
-    screen.blit(goal, levelGoalIndicatorLocation)  # Displays the current level goal based on the passed parameter
-        # STOP - Level goal indicator methods
+    gameplayLevelGoalFileLocation = "Assets/Level" + str(level) + "Assets/Level " + str(level) + " Circuit Goal.png"
+    goal = pygame.image.load(gameplayLevelGoalFileLocation).convert_alpha()
+    screen.blit(goal, origin)  # Displays the current level goal based on the passed parameter
+
+def displayLevelExplanation(level):  # Displays the explanation for the level
+    levelExplanationFileLocation = "Assets/Level" + str(level) + "Assets/Level " + str(level) + " Explanation.png"
+    explanation = pygame.image.load(levelExplanationFileLocation).convert_alpha()
+    screen.blit(explanation, origin)
+
+def displayLevelGoal(level):  # Displays the screen that further explains the level and what the goal is
+    levelEGoalFileLocation = "Assets/Level" + str(level) + "Assets/Level " + str(level) + " Explanation.png"
+    goal = pygame.image.load(levelEGoalFileLocation).convert_alpha()
+    screen.blit(goal, origin)
+        # STOP - Level Explanation, Goal Methods
 
         # START - Non-image Based Display Methods
 def displayScoreBoardMenu():  # Displays the rough outline of the scoreboard menu
@@ -571,15 +574,6 @@ def bytes_to_pygame_image(bytes_io):
     return image
     # END - IMAGE CONVERSION
 
-    # START - Reset level function
-def resetQuantumCircuit():
-    leftGateState = 0  # Resets both gate states
-    rightGateState = 0  # ^
-    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-    game = initGame()  # Initializes a blank game
-    showGame(game)  # Displays the qubits
-    # STOP - Reset level function
-
     # START - Quantum Method(s) Implementing "game_logic.py"
 def initGame(): # init. a quantum game instance and returns said game
     game = QuantumGame(
@@ -715,76 +709,151 @@ while running:  # GAME LOOP
                         displayWhiteScreen()
                         showGame(game)
                     if (levelSelectLevel1Button(event)):
+                        leftGateState = 0  # Resets both gate states
+                        rightGateState = 0  # ^
+                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                        game = initGame()  # Initializes a blank game
+                        showGame(game)  # Displays the qubits
                         level = 1
                         state = "gamePlay"
                         displayGameUIAfterLevelSelectButtonClick()
                         break
                     elif (levelSelectLevel2Button(event)):
+                        leftGateState = 0  # Resets both gate states
+                        rightGateState = 0  # ^
+                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                        game = initGame()  # Initializes a blank game
+                        showGame(game)  # Displays the qubits
                         level = 2
                         state = "gamePlay"
                         displayGameUIAfterLevelSelectButtonClick()
                         break
                     elif (levelSelectLevel3Button(event)):
+                        leftGateState = 0  # Resets both gate states
+                        rightGateState = 0  # ^
+                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                        game = initGame()  # Initializes a blank game
+                        showGame(game)  # Displays the qubits
                         level = 3
                         state = "gamePlay"
                         displayGameUIAfterLevelSelectButtonClick()
                         break
                     elif (levelSelectLevel4Button(event)):
+                        leftGateState = 0  # Resets both gate states
+                        rightGateState = 0  # ^
+                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                        game = initGame()  # Initializes a blank game
+                        showGame(game)  # Displays the qubits
                         level = 4
                         state = "gamePlay"
                         displayGameUIAfterLevelSelectButtonClick()
                         break
                     elif (levelSelectLevel5Button(event)):
+                        leftGateState = 0  # Resets both gate states
+                        rightGateState = 0  # ^
+                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                        game = initGame()  # Initializes a blank game
+                        showGame(game)  # Displays the qubits
                         level = 5
                         state = "gamePlay"
                         displayGameUIAfterLevelSelectButtonClick()
                         break
                     elif (levelSelectLevel6Button(event)):
+                        leftGateState = 0  # Resets both gate states
+                        rightGateState = 0  # ^
+                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                        game = initGame()  # Initializes a blank game
+                        showGame(game)  # Displays the qubits
                         level = 6
                         state = "gamePlay"
                         displayGameUIAfterLevelSelectButtonClick()
                         break
                     elif (levelSelectLevel7Button(event)):
+                        leftGateState = 0  # Resets both gate states
+                        rightGateState = 0  # ^
+                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                        game = initGame()  # Initializes a blank game
+                        showGame(game)  # Displays the qubits
                         level = 7
                         state = "gamePlay"
                         displayGameUIAfterLevelSelectButtonClick()
                         break
                     elif (levelSelectLevel8Button(event)):
+                        leftGateState = 0  # Resets both gate states
+                        rightGateState = 0  # ^
+                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                        game = initGame()  # Initializes a blank game
+                        showGame(game)  # Displays the qubits
                         level = 8
                         state = "gamePlay"
                         displayGameUIAfterLevelSelectButtonClick()
                         break
                     elif (levelSelectLevel9Button(event)):
+                        leftGateState = 0  # Resets both gate states
+                        rightGateState = 0  # ^
+                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                        game = initGame()  # Initializes a blank game
+                        showGame(game)  # Displays the qubits
                         level = 9
                         state = "gamePlay"
                         displayGameUIAfterLevelSelectButtonClick()
                         break
                     elif (levelSelectLevel10Button(event)):
+                        leftGateState = 0  # Resets both gate states
+                        rightGateState = 0  # ^
+                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                        game = initGame()  # Initializes a blank game
+                        showGame(game)  # Displays the qubits
                         level = 10
                         state = "gamePlay"
                         displayGameUIAfterLevelSelectButtonClick()
                         break
                     elif (levelSelectLevel11Button(event)):
+                        leftGateState = 0  # Resets both gate states
+                        rightGateState = 0  # ^
+                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                        game = initGame()  # Initializes a blank game
+                        showGame(game)  # Displays the qubits
                         level = 11
                         state = "gamePlay"
                         displayGameUIAfterLevelSelectButtonClick()
                         break
                     elif (levelSelectLevel12Button(event)):
+                        leftGateState = 0  # Resets both gate states
+                        rightGateState = 0  # ^
+                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                        game = initGame()  # Initializes a blank game
+                        showGame(game)  # Displays the qubits
                         level = 12
                         state = "gamePlay"
                         displayGameUIAfterLevelSelectButtonClick()
                         break
                     elif (levelSelectLevel13Button(event)):
+                        leftGateState = 0  # Resets both gate states
+                        rightGateState = 0  # ^
+                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                        game = initGame()  # Initializes a blank game
+                        showGame(game)  # Displays the qubits
                         level = 13
                         state = "gamePlay"
                         displayGameUIAfterLevelSelectButtonClick()
                         break
                     elif (levelSelectLevel14Button(event)):
+                        leftGateState = 0  # Resets both gate states
+                        rightGateState = 0  # ^
+                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                        game = initGame()  # Initializes a blank game
+                        showGame(game)  # Displays the qubits
                         level = 14
                         state = "gamePlay"
                         displayGameUIAfterLevelSelectButtonClick()
                         break
                     elif (levelSelectLevel15Button(event)):
+                        leftGateState = 0  # Resets both gate states
+                        rightGateState = 0  # ^
+                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                        game = initGame()  # Initializes a blank game
+                        showGame(game)  # Displays the qubits
                         level = 15
                         state = "gamePlay"
                         displayGameUIAfterLevelSelectButtonClick()
@@ -797,76 +866,151 @@ while running:  # GAME LOOP
                         state = "mainMenu"  # State change
                         break
                     if (levelSelectLevel1Button(event)):
+                        leftGateState = 0  # Resets both gate states
+                        rightGateState = 0  # ^
+                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                        game = initGame()  # Initializes a blank game
+                        showGame(game)  # Displays the qubits
                         level = 1
                         state = "gamePlay"
                         displayGameUIAfterLevelSelectButtonClick()
                         break
                     elif (levelSelectLevel2Button(event)):
+                        leftGateState = 0  # Resets both gate states
+                        rightGateState = 0  # ^
+                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                        game = initGame()  # Initializes a blank game
+                        showGame(game)  # Displays the qubits
                         level = 2
                         state = "gamePlay"
                         displayGameUIAfterLevelSelectButtonClick()
                         break
                     elif (levelSelectLevel3Button(event)):
+                        leftGateState = 0  # Resets both gate states
+                        rightGateState = 0  # ^
+                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                        game = initGame()  # Initializes a blank game
+                        showGame(game)  # Displays the qubits
                         level = 3
                         state = "gamePlay"
                         displayGameUIAfterLevelSelectButtonClick()
                         break
                     elif (levelSelectLevel4Button(event)):
+                        leftGateState = 0  # Resets both gate states
+                        rightGateState = 0  # ^
+                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                        game = initGame()  # Initializes a blank game
+                        showGame(game)  # Displays the qubits
                         level = 4
                         state = "gamePlay"
                         displayGameUIAfterLevelSelectButtonClick()
                         break
                     elif (levelSelectLevel5Button(event)):
+                        leftGateState = 0  # Resets both gate states
+                        rightGateState = 0  # ^
+                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                        game = initGame()  # Initializes a blank game
+                        showGame(game)  # Displays the qubits
                         level = 5
                         state = "gamePlay"
                         displayGameUIAfterLevelSelectButtonClick()
                         break
                     elif (levelSelectLevel6Button(event)):
+                        leftGateState = 0  # Resets both gate states
+                        rightGateState = 0  # ^
+                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                        game = initGame()  # Initializes a blank game
+                        showGame(game)  # Displays the qubits
                         level = 6
                         state = "gamePlay"
                         displayGameUIAfterLevelSelectButtonClick()
                         break
                     elif (levelSelectLevel7Button(event)):
+                        leftGateState = 0  # Resets both gate states
+                        rightGateState = 0  # ^
+                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                        game = initGame()  # Initializes a blank game
+                        showGame(game)  # Displays the qubits
                         level = 7
                         state = "gamePlay"
                         displayGameUIAfterLevelSelectButtonClick()
                         break
                     elif (levelSelectLevel8Button(event)):
+                        leftGateState = 0  # Resets both gate states
+                        rightGateState = 0  # ^
+                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                        game = initGame()  # Initializes a blank game
+                        showGame(game)  # Displays the qubits
                         level = 8
                         state = "gamePlay"
                         displayGameUIAfterLevelSelectButtonClick()
                         break
                     elif (levelSelectLevel9Button(event)):
+                        leftGateState = 0  # Resets both gate states
+                        rightGateState = 0  # ^
+                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                        game = initGame()  # Initializes a blank game
+                        showGame(game)  # Displays the qubits
                         level = 9
                         state = "gamePlay"
                         displayGameUIAfterLevelSelectButtonClick()
                         break
                     elif (levelSelectLevel10Button(event)):
+                        leftGateState = 0  # Resets both gate states
+                        rightGateState = 0  # ^
+                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                        game = initGame()  # Initializes a blank game
+                        showGame(game)  # Displays the qubits
                         level = 10
                         state = "gamePlay"
                         displayGameUIAfterLevelSelectButtonClick()
                         break
                     elif (levelSelectLevel11Button(event)):
+                        leftGateState = 0  # Resets both gate states
+                        rightGateState = 0  # ^
+                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                        game = initGame()  # Initializes a blank game
+                        showGame(game)  # Displays the qubits
                         level = 11
                         state = "gamePlay"
                         displayGameUIAfterLevelSelectButtonClick()
                         break
                     elif (levelSelectLevel12Button(event)):
+                        leftGateState = 0  # Resets both gate states
+                        rightGateState = 0  # ^
+                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                        game = initGame()  # Initializes a blank game
+                        showGame(game)  # Displays the qubits
                         level = 12
                         state = "gamePlay"
                         displayGameUIAfterLevelSelectButtonClick()
                         break
                     elif (levelSelectLevel13Button(event)):
+                        leftGateState = 0  # Resets both gate states
+                        rightGateState = 0  # ^
+                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                        game = initGame()  # Initializes a blank game
+                        showGame(game)  # Displays the qubits
                         level = 13
                         state = "gamePlay"
                         displayGameUIAfterLevelSelectButtonClick()
                         break
                     elif (levelSelectLevel14Button(event)):
+                        leftGateState = 0  # Resets both gate states
+                        rightGateState = 0  # ^
+                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                        game = initGame()  # Initializes a blank game
+                        showGame(game)  # Displays the qubits
                         level = 14
                         state = "gamePlay"
                         displayGameUIAfterLevelSelectButtonClick()
                         break
                     elif (levelSelectLevel15Button(event)):
+                        leftGateState = 0  # Resets both gate states
+                        rightGateState = 0  # ^
+                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                        game = initGame()  # Initializes a blank game
+                        showGame(game)  # Displays the qubits
                         level = 15
                         state = "gamePlay"
                         displayGameUIAfterLevelSelectButtonClick()
@@ -907,7 +1051,11 @@ while running:  # GAME LOOP
 
                     # RESET LEVEL BUTTON
                     if ( resetLevelButton(event) ):  # Reset Level Button
-                        resetQuantumCircuit()  # Reset
+                        leftGateState = 0  # Resets both gate states
+                        rightGateState = 0  # ^
+                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                        game = initGame()  # Initializes a blank game
+                        showGame(game)  # Displays the qubits
 
                     # RIGHT GATE BUTTONS
                     if ( rightGateUpButton(event) ):  # Left Gate Up Button (MOVING UP MEANS GOING LEFT IN THE LIST, SUBTRACTING)
