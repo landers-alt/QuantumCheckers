@@ -618,7 +618,7 @@ def levelGoalExplanationBackButton(event):
 def youWonScreenMainMenuButton(event):
     x, y = pygame.mouse.get_pos()
     if event.type == pygame.MOUSEBUTTONDOWN:
-        if (state == "levelGoalExplanation"):
+        if (state == "youWonMenu"):
             if (x > 232 and x < 366) and (y > 395 and y < 458):  # THE X IS ALREADY GOOD, WORRY ABOUT THE Y VALUES
                 print("You Won Screen Main Menu Button")
                 return True
@@ -626,7 +626,7 @@ def youWonScreenMainMenuButton(event):
 def youWonScreenNextLevelButton(event):
     x, y = pygame.mouse.get_pos()
     if event.type == pygame.MOUSEBUTTONDOWN:
-        if (state == "levelGoalExplanation"):
+        if (state == "youWonMenu"):
             if (x > 435 and x < 568) and (y > 395 and y < 458):  # THE X IS ALREADY GOOD, WORRY ABOUT THE Y VALUES
                 print("You Won Screen Next Level Button")
                 return True
@@ -636,7 +636,7 @@ def youWonScreenNextLevelButton(event):
 def youLostScreenMainMenuButton(event):
     x, y = pygame.mouse.get_pos()
     if event.type == pygame.MOUSEBUTTONDOWN:
-        if (state == "levelGoalExplanation"):
+        if (state == "youLostMenu"):
             if (x > 232 and x < 366) and (y > 395 and y < 458):  # THE X IS ALREADY GOOD, WORRY ABOUT THE Y VALUES
                 print("You Lost Screen Main Menu Button")
                 return True
@@ -644,7 +644,7 @@ def youLostScreenMainMenuButton(event):
 def youLostScreenReplayLevelButton(event):
     x, y = pygame.mouse.get_pos()
     if event.type == pygame.MOUSEBUTTONDOWN:
-        if (state == "levelGoalExplanation"):
+        if (state == "youLostMenu"):
             if (x > 435 and x < 568) and (y > 395 and y < 458):  # THE X IS ALREADY GOOD, WORRY ABOUT THE Y VALUES
                 print("You Lost Screen Replay Level Button")
                 return True
@@ -705,492 +705,518 @@ while running:  # GAME LOOP
 
         # START - BUTTON CONTROL FLOW
         #
-        if event.type == pygame.constants.MOUSEBUTTONDOWN:  # If the mouse has been clicked
-            if event.button == 1:  # If the left click of the mouse was clicked
-                # Main Menu Button Control Flow
-                if ( state == "mainMenu" ):
-                    if ( mainMenuStartGameButton_click(event) ):  # If the start game button is clicked
-                        state = "levelSelectMenuMain"
-                        displayLevelSelectMenu()
-                        break
-                    if ( mainMenuHowToPlayButton_click(event) ):
-                        displayHowToPlayMenu()  # Displays the how to play menu
-                        state = "howToPlayMenu"  # State change
-                        break
-                    if ( mainMenuScoreBoardButton_click(event) ):
-                        displayScoreBoardMenu()  # Displays the scoreboard menu
-                        state = "scoreBoardMenu"  # State change
-                        break
-                    if ( mainMenuCreditsButton_click(event) ):  # If the credits button is clicked
-                        displayCreditsMenu()  # Displays the credits menu
-                        state = "creditsMenu"  # State change
-                        break
-                    if (mainMenuExitButton_click(event)):  # If the exit game button is clicked
-                        running = False
-                        pygame.quit()
-                        quit()
-                        break
+        if (event.type == pygame.constants.MOUSEBUTTONDOWN and event.button == 1):  # If the mouse has been clicked
+            if ( state == "mainMenu" ):
+                if ( mainMenuStartGameButton_click(event) ):  # If the start game button is clicked
+                    state = "levelSelectMenuMain"
+                    displayLevelSelectMenu()
+                    break
+                if ( mainMenuHowToPlayButton_click(event) ):
+                    displayHowToPlayMenu()  # Displays the how to play menu
+                    state = "howToPlayMenu"  # State change
+                    break
+                if ( mainMenuScoreBoardButton_click(event) ):
+                    displayScoreBoardMenu()  # Displays the scoreboard menu
+                    state = "scoreBoardMenu"  # State change
+                    break
+                if ( mainMenuCreditsButton_click(event) ):  # If the credits button is clicked
+                    displayCreditsMenu()  # Displays the credits menu
+                    state = "creditsMenu"  # State change
+                    break
+                if (mainMenuExitButton_click(event)):  # If the exit game button is clicked
+                    running = False
+                    pygame.quit()
+                    quit()
+                    break
 
-                # Start Game Menu Button Control Flow
-                if ( state == "startGameMenu" ):
-                    if ( startGameMenuBackButton_click(event) ):  # Back Button On Start Game Menu
-                        displayMainMenu()  # Displays the main menu
-                        state = "mainMenu"  # State change
-                        break
-                    if ( startGameMenuGithubButton_click(event) ):  # Github Button On Start Game Menu
-                        openGithub()  # Opens the project's Github repository in a native google chrome instance
-                        break
+            # Start Game Menu Button Control Flow
+            if ( state == "startGameMenu" ):
+                if ( startGameMenuBackButton_click(event) ):  # Back Button On Start Game Menu
+                    displayMainMenu()  # Displays the main menu
+                    state = "mainMenu"  # State change
+                    break
+                if ( startGameMenuGithubButton_click(event) ):  # Github Button On Start Game Menu
+                    openGithub()  # Opens the project's Github repository in a native google chrome instance
+                    break
 
-                # How To Play Menu Button Control Flow
-                if ( state == "howToPlayMenu" ):
-                    if ( howToPlayMenuBackButton_click(event) ):  # Back Button On How To Play Menu
-                        displayMainMenu()  # Displays the main menu
-                        state = "mainMenu"  # State change
-                        break
-                    if (  howToPlayMenuGithubButton_click(event) ):  # Github Button
-                        openGithub()
-                        break
+            # How To Play Menu Button Control Flow
+            if ( state == "howToPlayMenu" ):
+                if ( howToPlayMenuBackButton_click(event) ):  # Back Button On How To Play Menu
+                    displayMainMenu()  # Displays the main menu
+                    state = "mainMenu"  # State change
+                    break
+                if (  howToPlayMenuGithubButton_click(event) ):  # Github Button
+                    openGithub()
+                    break
 
-                # Scoreboard Menu Button Control Flow
-                if ( state == "scoreBoardMenu" ):
-                    if ( scoreBoardMenuBackButton_click(event) ):  # Back Button On How To Play Menu
-                        displayMainMenu()  # Displays the main menu
-                        state = "mainMenu"  # State change
-                        break
+            # Scoreboard Menu Button Control Flow
+            if ( state == "scoreBoardMenu" ):
+                if ( scoreBoardMenuBackButton_click(event) ):  # Back Button On How To Play Menu
+                    displayMainMenu()  # Displays the main menu
+                    state = "mainMenu"  # State change
+                    break
 
-                # Credits Menu Button Control Flow
-                if ( state == "creditsMenu" ):
-                    if ( creditsMenuBackButton_click(event) ):  # Back Button
-                        displayMainMenu()  # Displays the main menu
-                        state = "mainMenu"  # State change
-                        break
-                    if ( creditsMenuGithubButton_click(event) ):  # Github Hypertext-lookalike Button
-                        openGithub()  # Opens the project's Github repository in a native google chrome instance
-                        break
-                    if ( creditsMenuDSUButton_click(event) ):  # DSU Hypertext-lookalike Button
-                        openDSUWebsite()  # Opens DSU's website
-                        break
+            # Credits Menu Button Control Flow
+            if ( state == "creditsMenu" ):
+                if ( creditsMenuBackButton_click(event) ):  # Back Button
+                    displayMainMenu()  # Displays the main menu
+                    state = "mainMenu"  # State change
+                    break
+                if ( creditsMenuGithubButton_click(event) ):  # Github Hypertext-lookalike Button
+                    openGithub()  # Opens the project's Github repository in a native google chrome instance
+                    break
+                if ( creditsMenuDSUButton_click(event) ):  # DSU Hypertext-lookalike Button
+                    openDSUWebsite()  # Opens DSU's website
+                    break
 
-                # Exit Gameplay Menu Button Control Flow
-                if ( state == "exitGameplayMenu"):
-                    if ( exitGameplayMenuYesButton(event) ):  # If the yes button on the exit gameplay menu has been clicked
-                        state = "mainMenu"
-                        displayMainMenu()
-                    if ( exitGameplayMenuNoButton(event) ):  # If the no button on the exit gameplay menu has been clicked
-                        state = "gamePlay"
-                        displayWhiteScreen()
-                        displayBlankGameScreen(level)
-                        showGame(game) # Redisplays the saved game (May need to be moved for this to work)
+            # Exit Gameplay Menu Button Control Flow
+            if ( state == "exitGameplayMenu"):
+                if ( exitGameplayMenuYesButton(event) ):  # If the yes button on the exit gameplay menu has been clicked
+                    state = "mainMenu"
+                    displayMainMenu()
+                if ( exitGameplayMenuNoButton(event) ):  # If the no button on the exit gameplay menu has been clicked
+                    state = "gamePlay"
+                    displayWhiteScreen()
+                    displayBlankGameScreen(level)
+                    showGame(game) # Redisplays the saved game (May need to be moved for this to work)
 
-                # Level Select Menu Button Control Flow (from in a game)
-                if ( state == "levelSelectMenuGame" ):
-                    if (levelSelectMenuMainMenuButton(event)):  # Main menu button
-                        displayWhiteScreen()
-                        displayExitGameplayMenu()
-                        state = "exitGameplayMenu"
-                    if ( levelSelectMenuBackButton(event, level) ): # Back Button
-                        state = "gamePlay"
-                        displayWhiteScreen()
-                        showGame(game)
-                    if (levelSelectLevel1Button(event)):
-                        leftGateState = 0  # Resets both gate states
-                        rightGateState = 0  # ^
-                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-                        game = initGame()  # Initializes a blank game
-                        showGame(game)  # Displays the qubits
-                        level = 1
-                        state = "gamePlay"
-                        displayGameUIAfterLevelSelectButtonClick()
-                        break
-                    elif (levelSelectLevel2Button(event)):
-                        leftGateState = 0  # Resets both gate states
-                        rightGateState = 0  # ^
-                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-                        game = initGame()  # Initializes a blank game
-                        showGame(game)  # Displays the qubits
-                        level = 2
-                        state = "gamePlay"
-                        displayGameUIAfterLevelSelectButtonClick()
-                        break
-                    elif (levelSelectLevel3Button(event)):
-                        leftGateState = 0  # Resets both gate states
-                        rightGateState = 0  # ^
-                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-                        game = initGame()  # Initializes a blank game
-                        showGame(game)  # Displays the qubits
-                        level = 3
-                        state = "gamePlay"
-                        displayGameUIAfterLevelSelectButtonClick()
-                        break
-                    elif (levelSelectLevel4Button(event)):
-                        leftGateState = 0  # Resets both gate states
-                        rightGateState = 0  # ^
-                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-                        game = initGame()  # Initializes a blank game
-                        showGame(game)  # Displays the qubits
-                        level = 4
-                        state = "gamePlay"
-                        displayGameUIAfterLevelSelectButtonClick()
-                        break
-                    elif (levelSelectLevel5Button(event)):
-                        leftGateState = 0  # Resets both gate states
-                        rightGateState = 0  # ^
-                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-                        game = initGame()  # Initializes a blank game
-                        showGame(game)  # Displays the qubits
-                        level = 5
-                        state = "gamePlay"
-                        displayGameUIAfterLevelSelectButtonClick()
-                        break
-                    elif (levelSelectLevel6Button(event)):
-                        leftGateState = 0  # Resets both gate states
-                        rightGateState = 0  # ^
-                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-                        game = initGame()  # Initializes a blank game
-                        showGame(game)  # Displays the qubits
-                        level = 6
-                        state = "gamePlay"
-                        displayGameUIAfterLevelSelectButtonClick()
-                        break
-                    elif (levelSelectLevel7Button(event)):
-                        leftGateState = 0  # Resets both gate states
-                        rightGateState = 0  # ^
-                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-                        game = initGame()  # Initializes a blank game
-                        showGame(game)  # Displays the qubits
-                        level = 7
-                        state = "gamePlay"
-                        displayGameUIAfterLevelSelectButtonClick()
-                        break
-                    elif (levelSelectLevel8Button(event)):
-                        leftGateState = 0  # Resets both gate states
-                        rightGateState = 0  # ^
-                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-                        game = initGame()  # Initializes a blank game
-                        showGame(game)  # Displays the qubits
-                        level = 8
-                        state = "gamePlay"
-                        displayGameUIAfterLevelSelectButtonClick()
-                        break
-                    elif (levelSelectLevel9Button(event)):
-                        leftGateState = 0  # Resets both gate states
-                        rightGateState = 0  # ^
-                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-                        game = initGame()  # Initializes a blank game
-                        showGame(game)  # Displays the qubits
-                        level = 9
-                        state = "gamePlay"
-                        displayGameUIAfterLevelSelectButtonClick()
-                        break
-                    elif (levelSelectLevel10Button(event)):
-                        leftGateState = 0  # Resets both gate states
-                        rightGateState = 0  # ^
-                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-                        game = initGame()  # Initializes a blank game
-                        showGame(game)  # Displays the qubits
-                        level = 10
-                        state = "gamePlay"
-                        displayGameUIAfterLevelSelectButtonClick()
-                        break
-                    elif (levelSelectLevel11Button(event)):
-                        leftGateState = 0  # Resets both gate states
-                        rightGateState = 0  # ^
-                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-                        game = initGame()  # Initializes a blank game
-                        showGame(game)  # Displays the qubits
-                        level = 11
-                        state = "gamePlay"
-                        displayGameUIAfterLevelSelectButtonClick()
-                        break
-                    elif (levelSelectLevel12Button(event)):
-                        leftGateState = 0  # Resets both gate states
-                        rightGateState = 0  # ^
-                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-                        game = initGame()  # Initializes a blank game
-                        showGame(game)  # Displays the qubits
-                        level = 12
-                        state = "gamePlay"
-                        displayGameUIAfterLevelSelectButtonClick()
-                        break
-                    elif (levelSelectLevel13Button(event)):
-                        leftGateState = 0  # Resets both gate states
-                        rightGateState = 0  # ^
-                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-                        game = initGame()  # Initializes a blank game
-                        showGame(game)  # Displays the qubits
-                        level = 13
-                        state = "gamePlay"
-                        displayGameUIAfterLevelSelectButtonClick()
-                        break
-                    elif (levelSelectLevel14Button(event)):
-                        leftGateState = 0  # Resets both gate states
-                        rightGateState = 0  # ^
-                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-                        game = initGame()  # Initializes a blank game
-                        showGame(game)  # Displays the qubits
-                        level = 14
-                        state = "gamePlay"
-                        displayGameUIAfterLevelSelectButtonClick()
-                        break
-                    elif (levelSelectLevel15Button(event)):
-                        leftGateState = 0  # Resets both gate states
-                        rightGateState = 0  # ^
-                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-                        game = initGame()  # Initializes a blank game
-                        showGame(game)  # Displays the qubits
-                        level = 15
-                        state = "gamePlay"
-                        displayGameUIAfterLevelSelectButtonClick()
-                        break
+            # Level Select Menu Button Control Flow (from in a game)
+            if ( state == "levelSelectMenuGame" ):
+                if (levelSelectMenuMainMenuButton(event)):  # Main menu button
+                    displayWhiteScreen()
+                    displayExitGameplayMenu()
+                    state = "exitGameplayMenu"
+                if ( levelSelectMenuBackButton(event, level) ): # Back Button
+                    state = "gamePlay"
+                    displayWhiteScreen()
+                    showGame(game)
+                if (levelSelectLevel1Button(event)):
+                    leftGateState = 0  # Resets both gate states
+                    rightGateState = 0  # ^
+                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                    game = initGame()  # Initializes a blank game
+                    showGame(game)  # Displays the qubits
+                    level = 1
+                    state = "gamePlay"
+                    displayGameUIAfterLevelSelectButtonClick()
+                    break
+                elif (levelSelectLevel2Button(event)):
+                    leftGateState = 0  # Resets both gate states
+                    rightGateState = 0  # ^
+                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                    game = initGame()  # Initializes a blank game
+                    showGame(game)  # Displays the qubits
+                    level = 2
+                    state = "gamePlay"
+                    displayGameUIAfterLevelSelectButtonClick()
+                    break
+                elif (levelSelectLevel3Button(event)):
+                    leftGateState = 0  # Resets both gate states
+                    rightGateState = 0  # ^
+                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                    game = initGame()  # Initializes a blank game
+                    showGame(game)  # Displays the qubits
+                    level = 3
+                    state = "gamePlay"
+                    displayGameUIAfterLevelSelectButtonClick()
+                    break
+                elif (levelSelectLevel4Button(event)):
+                    leftGateState = 0  # Resets both gate states
+                    rightGateState = 0  # ^
+                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                    game = initGame()  # Initializes a blank game
+                    showGame(game)  # Displays the qubits
+                    level = 4
+                    state = "gamePlay"
+                    displayGameUIAfterLevelSelectButtonClick()
+                    break
+                elif (levelSelectLevel5Button(event)):
+                    leftGateState = 0  # Resets both gate states
+                    rightGateState = 0  # ^
+                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                    game = initGame()  # Initializes a blank game
+                    showGame(game)  # Displays the qubits
+                    level = 5
+                    state = "gamePlay"
+                    displayGameUIAfterLevelSelectButtonClick()
+                    break
+                elif (levelSelectLevel6Button(event)):
+                    leftGateState = 0  # Resets both gate states
+                    rightGateState = 0  # ^
+                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                    game = initGame()  # Initializes a blank game
+                    showGame(game)  # Displays the qubits
+                    level = 6
+                    state = "gamePlay"
+                    displayGameUIAfterLevelSelectButtonClick()
+                    break
+                elif (levelSelectLevel7Button(event)):
+                    leftGateState = 0  # Resets both gate states
+                    rightGateState = 0  # ^
+                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                    game = initGame()  # Initializes a blank game
+                    showGame(game)  # Displays the qubits
+                    level = 7
+                    state = "gamePlay"
+                    displayGameUIAfterLevelSelectButtonClick()
+                    break
+                elif (levelSelectLevel8Button(event)):
+                    leftGateState = 0  # Resets both gate states
+                    rightGateState = 0  # ^
+                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                    game = initGame()  # Initializes a blank game
+                    showGame(game)  # Displays the qubits
+                    level = 8
+                    state = "gamePlay"
+                    displayGameUIAfterLevelSelectButtonClick()
+                    break
+                elif (levelSelectLevel9Button(event)):
+                    leftGateState = 0  # Resets both gate states
+                    rightGateState = 0  # ^
+                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                    game = initGame()  # Initializes a blank game
+                    showGame(game)  # Displays the qubits
+                    level = 9
+                    state = "gamePlay"
+                    displayGameUIAfterLevelSelectButtonClick()
+                    break
+                elif (levelSelectLevel10Button(event)):
+                    leftGateState = 0  # Resets both gate states
+                    rightGateState = 0  # ^
+                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                    game = initGame()  # Initializes a blank game
+                    showGame(game)  # Displays the qubits
+                    level = 10
+                    state = "gamePlay"
+                    displayGameUIAfterLevelSelectButtonClick()
+                    break
+                elif (levelSelectLevel11Button(event)):
+                    leftGateState = 0  # Resets both gate states
+                    rightGateState = 0  # ^
+                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                    game = initGame()  # Initializes a blank game
+                    showGame(game)  # Displays the qubits
+                    level = 11
+                    state = "gamePlay"
+                    displayGameUIAfterLevelSelectButtonClick()
+                    break
+                elif (levelSelectLevel12Button(event)):
+                    leftGateState = 0  # Resets both gate states
+                    rightGateState = 0  # ^
+                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                    game = initGame()  # Initializes a blank game
+                    showGame(game)  # Displays the qubits
+                    level = 12
+                    state = "gamePlay"
+                    displayGameUIAfterLevelSelectButtonClick()
+                    break
+                elif (levelSelectLevel13Button(event)):
+                    leftGateState = 0  # Resets both gate states
+                    rightGateState = 0  # ^
+                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                    game = initGame()  # Initializes a blank game
+                    showGame(game)  # Displays the qubits
+                    level = 13
+                    state = "gamePlay"
+                    displayGameUIAfterLevelSelectButtonClick()
+                    break
+                elif (levelSelectLevel14Button(event)):
+                    leftGateState = 0  # Resets both gate states
+                    rightGateState = 0  # ^
+                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                    game = initGame()  # Initializes a blank game
+                    showGame(game)  # Displays the qubits
+                    level = 14
+                    state = "gamePlay"
+                    displayGameUIAfterLevelSelectButtonClick()
+                    break
+                elif (levelSelectLevel15Button(event)):
+                    leftGateState = 0  # Resets both gate states
+                    rightGateState = 0  # ^
+                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                    game = initGame()  # Initializes a blank game
+                    showGame(game)  # Displays the qubits
+                    level = 15
+                    state = "gamePlay"
+                    displayGameUIAfterLevelSelectButtonClick()
+                    break
 
-                # Level Select Menu Button Control Flow (from main menu)
-                if (state == "levelSelectMenuMain"):
-                    if (levelSelectMenuMainMenuButton(event) or levelSelectMenuBackButton(event, level)):  # Both the main menu and back button will bring the user back to the main menu, hence why there isn't control flow for both buttons separately
-                        displayMainMenu()  # Displays the main menu
-                        state = "mainMenu"  # State change
-                        break
-                    if (levelSelectLevel1Button(event)):
-                        leftGateState = 0  # Resets both gate states
-                        rightGateState = 0  # ^
-                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-                        game = initGame()  # Initializes a blank game
-                        showGame(game)  # Displays the qubits
-                        level = 1
-                        state = "levelExplanation"
-                        displayLevelExplanation(level)  # Displays the currently selected level's explanation
-                        break
-                    elif (levelSelectLevel2Button(event)):
-                        leftGateState = 0  # Resets both gate states
-                        rightGateState = 0  # ^
-                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-                        game = initGame()  # Initializes a blank game
-                        showGame(game)  # Displays the qubits
-                        level = 2
-                        state = "levelExplanation"
-                        displayLevelExplanation(level)  # Displays the currently selected level's explanation
-                        break
-                    elif (levelSelectLevel3Button(event)):
-                        leftGateState = 0  # Resets both gate states
-                        rightGateState = 0  # ^
-                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-                        game = initGame()  # Initializes a blank game
-                        showGame(game)  # Displays the qubits
-                        level = 3
-                        state = "levelExplanation"
-                        displayLevelExplanation(level)  # Displays the currently selected level's explanation
-                        break
-                    elif (levelSelectLevel4Button(event)):
-                        leftGateState = 0  # Resets both gate states
-                        rightGateState = 0  # ^
-                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-                        game = initGame()  # Initializes a blank game
-                        showGame(game)  # Displays the qubits
-                        level = 4
-                        state = "levelExplanation"
-                        displayLevelExplanation(level)  # Displays the currently selected level's explanation
-                        break
-                    elif (levelSelectLevel5Button(event)):
-                        leftGateState = 0  # Resets both gate states
-                        rightGateState = 0  # ^
-                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-                        game = initGame()  # Initializes a blank game
-                        showGame(game)  # Displays the qubits
-                        level = 5
-                        state = "levelExplanation"
-                        displayLevelExplanation(level)  # Displays the currently selected level's explanation
-                        break
-                    elif (levelSelectLevel6Button(event)):
-                        leftGateState = 0  # Resets both gate states
-                        rightGateState = 0  # ^
-                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-                        game = initGame()  # Initializes a blank game
-                        showGame(game)  # Displays the qubits
-                        level = 6
-                        state = "levelExplanation"
-                        displayLevelExplanation(level)  # Displays the currently selected level's explanation
-                        break
-                    elif (levelSelectLevel7Button(event)):
-                        leftGateState = 0  # Resets both gate states
-                        rightGateState = 0  # ^
-                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-                        game = initGame()  # Initializes a blank game
-                        showGame(game)  # Displays the qubits
-                        level = 7
-                        state = "levelExplanation"
-                        displayLevelExplanation(level)  # Displays the currently selected level's explanation
-                        break
-                    elif (levelSelectLevel8Button(event)):
-                        leftGateState = 0  # Resets both gate states
-                        rightGateState = 0  # ^
-                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-                        game = initGame()  # Initializes a blank game
-                        showGame(game)  # Displays the qubits
-                        level = 8
-                        state = "levelExplanation"
-                        displayLevelExplanation(level)  # Displays the currently selected level's explanation
-                        break
-                    elif (levelSelectLevel9Button(event)):
-                        leftGateState = 0  # Resets both gate states
-                        rightGateState = 0  # ^
-                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-                        game = initGame()  # Initializes a blank game
-                        showGame(game)  # Displays the qubits
-                        level = 9
-                        state = "levelExplanation"
-                        displayLevelExplanation(level)  # Displays the currently selected level's explanation
-                        break
-                    elif (levelSelectLevel10Button(event)):
-                        leftGateState = 0  # Resets both gate states
-                        rightGateState = 0  # ^
-                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-                        game = initGame()  # Initializes a blank game
-                        showGame(game)  # Displays the qubits
-                        level = 10
-                        state = "levelExplanation"
-                        displayLevelExplanation(level)  # Displays the currently selected level's explanation
-                        break
-                    elif (levelSelectLevel11Button(event)):
-                        leftGateState = 0  # Resets both gate states
-                        rightGateState = 0  # ^
-                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-                        game = initGame()  # Initializes a blank game
-                        showGame(game)  # Displays the qubits
-                        level = 11
-                        state = "levelExplanation"
-                        displayLevelExplanation(level)  # Displays the currently selected level's explanation
-                        break
-                    elif (levelSelectLevel12Button(event)):
-                        leftGateState = 0  # Resets both gate states
-                        rightGateState = 0  # ^
-                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-                        game = initGame()  # Initializes a blank game
-                        showGame(game)  # Displays the qubits
-                        level = 12
-                        state = "levelExplanation"
-                        displayLevelExplanation(level)  # Displays the currently selected level's explanation
-                        break
-                    elif (levelSelectLevel13Button(event)):
-                        leftGateState = 0  # Resets both gate states
-                        rightGateState = 0  # ^
-                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-                        game = initGame()  # Initializes a blank game
-                        showGame(game)  # Displays the qubits
-                        level = 13
-                        state = "levelExplanation"
-                        displayLevelExplanation(level)  # Displays the currently selected level's explanation
-                        break
-                    elif (levelSelectLevel14Button(event)):
-                        leftGateState = 0  # Resets both gate states
-                        rightGateState = 0  # ^
-                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-                        game = initGame()  # Initializes a blank game
-                        showGame(game)  # Displays the qubits
-                        level = 14
-                        state = "levelExplanation"
-                        displayLevelExplanation(level)  # Displays the currently selected level's explanation
-                        break
-                    elif (levelSelectLevel15Button(event)):
-                        leftGateState = 0  # Resets both gate states
-                        rightGateState = 0  # ^
-                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-                        game = initGame()  # Initializes a blank game
-                        showGame(game)  # Displays the qubits
-                        level = 15
-                        state = "levelExplanation"
-                        displayLevelExplanation(level)  # Displays the currently selected level's explanation
-                        break
+            # Level Select Menu Button Control Flow (from main menu)
+            if (state == "levelSelectMenuMain"):
+                if (levelSelectMenuMainMenuButton(event) or levelSelectMenuBackButton(event, level)):  # Both the main menu and back button will bring the user back to the main menu, hence why there isn't control flow for both buttons separately
+                    displayMainMenu()  # Displays the main menu
+                    state = "mainMenu"  # State change
+                    break
+                if (levelSelectLevel1Button(event)):
+                    leftGateState = 0  # Resets both gate states
+                    rightGateState = 0  # ^
+                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                    game = initGame()  # Initializes a blank game
+                    showGame(game)  # Displays the qubits
+                    level = 1
+                    state = "levelExplanation"
+                    displayLevelExplanation(level)  # Displays the currently selected level's explanation
+                    break
+                elif (levelSelectLevel2Button(event)):
+                    leftGateState = 0  # Resets both gate states
+                    rightGateState = 0  # ^
+                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                    game = initGame()  # Initializes a blank game
+                    showGame(game)  # Displays the qubits
+                    level = 2
+                    state = "levelExplanation"
+                    displayLevelExplanation(level)  # Displays the currently selected level's explanation
+                    break
+                elif (levelSelectLevel3Button(event)):
+                    leftGateState = 0  # Resets both gate states
+                    rightGateState = 0  # ^
+                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                    game = initGame()  # Initializes a blank game
+                    showGame(game)  # Displays the qubits
+                    level = 3
+                    state = "levelExplanation"
+                    displayLevelExplanation(level)  # Displays the currently selected level's explanation
+                    break
+                elif (levelSelectLevel4Button(event)):
+                    leftGateState = 0  # Resets both gate states
+                    rightGateState = 0  # ^
+                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                    game = initGame()  # Initializes a blank game
+                    showGame(game)  # Displays the qubits
+                    level = 4
+                    state = "levelExplanation"
+                    displayLevelExplanation(level)  # Displays the currently selected level's explanation
+                    break
+                elif (levelSelectLevel5Button(event)):
+                    leftGateState = 0  # Resets both gate states
+                    rightGateState = 0  # ^
+                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                    game = initGame()  # Initializes a blank game
+                    showGame(game)  # Displays the qubits
+                    level = 5
+                    state = "levelExplanation"
+                    displayLevelExplanation(level)  # Displays the currently selected level's explanation
+                    break
+                elif (levelSelectLevel6Button(event)):
+                    leftGateState = 0  # Resets both gate states
+                    rightGateState = 0  # ^
+                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                    game = initGame()  # Initializes a blank game
+                    showGame(game)  # Displays the qubits
+                    level = 6
+                    state = "levelExplanation"
+                    displayLevelExplanation(level)  # Displays the currently selected level's explanation
+                    break
+                elif (levelSelectLevel7Button(event)):
+                    leftGateState = 0  # Resets both gate states
+                    rightGateState = 0  # ^
+                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                    game = initGame()  # Initializes a blank game
+                    showGame(game)  # Displays the qubits
+                    level = 7
+                    state = "levelExplanation"
+                    displayLevelExplanation(level)  # Displays the currently selected level's explanation
+                    break
+                elif (levelSelectLevel8Button(event)):
+                    leftGateState = 0  # Resets both gate states
+                    rightGateState = 0  # ^
+                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                    game = initGame()  # Initializes a blank game
+                    showGame(game)  # Displays the qubits
+                    level = 8
+                    state = "levelExplanation"
+                    displayLevelExplanation(level)  # Displays the currently selected level's explanation
+                    break
+                elif (levelSelectLevel9Button(event)):
+                    leftGateState = 0  # Resets both gate states
+                    rightGateState = 0  # ^
+                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                    game = initGame()  # Initializes a blank game
+                    showGame(game)  # Displays the qubits
+                    level = 9
+                    state = "levelExplanation"
+                    displayLevelExplanation(level)  # Displays the currently selected level's explanation
+                    break
+                elif (levelSelectLevel10Button(event)):
+                    leftGateState = 0  # Resets both gate states
+                    rightGateState = 0  # ^
+                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                    game = initGame()  # Initializes a blank game
+                    showGame(game)  # Displays the qubits
+                    level = 10
+                    state = "levelExplanation"
+                    displayLevelExplanation(level)  # Displays the currently selected level's explanation
+                    break
+                elif (levelSelectLevel11Button(event)):
+                    leftGateState = 0  # Resets both gate states
+                    rightGateState = 0  # ^
+                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                    game = initGame()  # Initializes a blank game
+                    showGame(game)  # Displays the qubits
+                    level = 11
+                    state = "levelExplanation"
+                    displayLevelExplanation(level)  # Displays the currently selected level's explanation
+                    break
+                elif (levelSelectLevel12Button(event)):
+                    leftGateState = 0  # Resets both gate states
+                    rightGateState = 0  # ^
+                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                    game = initGame()  # Initializes a blank game
+                    showGame(game)  # Displays the qubits
+                    level = 12
+                    state = "levelExplanation"
+                    displayLevelExplanation(level)  # Displays the currently selected level's explanation
+                    break
+                elif (levelSelectLevel13Button(event)):
+                    leftGateState = 0  # Resets both gate states
+                    rightGateState = 0  # ^
+                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                    game = initGame()  # Initializes a blank game
+                    showGame(game)  # Displays the qubits
+                    level = 13
+                    state = "levelExplanation"
+                    displayLevelExplanation(level)  # Displays the currently selected level's explanation
+                    break
+                elif (levelSelectLevel14Button(event)):
+                    leftGateState = 0  # Resets both gate states
+                    rightGateState = 0  # ^
+                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                    game = initGame()  # Initializes a blank game
+                    showGame(game)  # Displays the qubits
+                    level = 14
+                    state = "levelExplanation"
+                    displayLevelExplanation(level)  # Displays the currently selected level's explanation
+                    break
+                elif (levelSelectLevel15Button(event)):
+                    leftGateState = 0  # Resets both gate states
+                    rightGateState = 0  # ^
+                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                    game = initGame()  # Initializes a blank game
+                    showGame(game)  # Displays the qubits
+                    level = 15
+                    state = "levelExplanation"
+                    displayLevelExplanation(level)  # Displays the currently selected level's explanation
+                    break
 
-                # Level Explanation Button Control Flow
-                if (state == "levelExplanation"):
-                    if (levelExplanationContinueButton(event)):  # Continue Button is clicked
-                        state = "levelGoalExplanation"  # State change
-                        displayLevelGoal(level)  # Displays a further explanation of the level in conjunction with the goal of the level
-                        break
-                    if (levelExplanationBackButton(event)):  # Back Button is clicked
-                        state = "levelSelectMenuMain"  # State change
-                        displayLevelSelectMenu()  # Goes back to the level select menu
+            # Level Explanation Button Control Flow
+            if (state == "levelExplanation"):
+                if (levelExplanationContinueButton(event)):  # Continue Button is clicked
+                    state = "levelGoalExplanation"  # State change
+                    displayLevelGoal(level)  # Displays a further explanation of the level in conjunction with the goal of the level
+                    break
+                if (levelExplanationBackButton(event)):  # Back Button is clicked
+                    state = "levelSelectMenuMain"  # State change
+                    displayLevelSelectMenu()  # Goes back to the level select menu
 
-                # Level Goal Explanation Button Control Flow
-                if (state == "levelGoalExplanation"):
-                    if (levelGoalExplanationContinueButton(event)):  # Continue button is clicked
-                        state = "gamePlay"  # State change
-                        displayWhiteScreen()  # Blanks the screen
-                        displayGameUIAfterLevelSelectButtonClick()  # Displays the game UI
-                        break
-                    if (levelGoalExplanationBackButton(event)):  # Back button is clicked
-                        state = "levelExplanation"  # State change
-                        displayLevelExplanation(level)  # Displays menu change
-                        break
+            # Level Goal Explanation Button Control Flow
+            if (state == "levelGoalExplanation"):
+                if (levelGoalExplanationContinueButton(event)):  # Continue button is clicked
+                    state = "gamePlay"  # State change
+                    displayWhiteScreen()  # Blanks the screen
+                    displayGameUIAfterLevelSelectButtonClick()  # Displays the game UI
+                    break
+                if (levelGoalExplanationBackButton(event)):  # Back button is clicked
+                    state = "levelExplanation"  # State change
+                    displayLevelExplanation(level)  # Displays menu change
+                    break
 
-                # Gameplay Button Control Flow
-                if (state == "gamePlay"):
-                    # Displays gameplay UI (Why the fuck is that method name so bad LMAO)
-                    displayBlankGameScreen(level)  # Displays the game UI with an indicator for the goal of the level
-                    displayCurrentGates(leftGateState, rightGateState)  # Displays the currently selected gates
+            # You Lost Screen Button Control Flow
+            if (state == "youLostMenu"):
+                if (youLostScreenMainMenuButton(event)):  # Continue button is clicked
+                    state = "mainMenu"  # State change
+                    displayWhiteScreen()  # Blanks the screen
+                    displayMainMenu()  # Main Menu
+                    break
+                if (youLostScreenReplayLevelButton(event)):  # Back button is clicked
+                    state = "gamePlay"  # State change
+                    displayWhiteScreen()  # Blanks the screen
+                    leftGateState = 0  # Resets both gate states
+                    rightGateState = 0  # ^
+                    displayBlankGameScreen(level)
                     displayCurrentLevel(level)  # Displays the current level the player is on
-                    showGame(game)  # Displays the output of the quantum circuit
+                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                    game = initGame()  # Initializes a blank game
+                    showGame(game)  # Displays the qubits
+                    break
 
-                    # LEVEL SELECT BUTTON
-                    if ( levelSelectButton(event) ):  # Level Select Button
-                        state = "levelSelectMenuGame"  # THIS SHOULD EVENTUALLY BE MIGRATED TO AN ACTUAL LEVEL SELECT MENU
-                        displayLevelSelectMenu()
-                        break
-                    # LEFT GATE BUTTONS
-                    if ( leftGateUpButton(event) ):  # Left Gate Up Button (MOVING UP MEANS GOING LEFT IN THE LIST, SUBTRACTING)
-                        if ( leftGateState == 0 ):
-                            leftGateState = len(gatePossibilitiesList) - 1  # Makes the left gate state loop back to end of list
-                        elif ( leftGateState != 0 and leftGateState > 0 ):
-                            leftGateState -= 1  # De-increments the leftGateState
-                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-                    if ( leftGateDownButton(event) ):  # Left Gate Down Button (MOVING DOWN MEANS GOING RIGHT IN THE LIST, ADDING)
-                        if ( leftGateState == len(gatePossibilitiesList) - 1 ):
-                            leftGateState = 0  # Makes the left gate state loop back to end of list
-                        elif ( leftGateState != len(gatePossibilitiesList) - 1 and leftGateState < len(gatePossibilitiesList) - 1):
-                            leftGateState += 1  # De-increments the leftGateState
-                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-                    if ( leftGateSelectButton(event) ):  # Left Gate Select Button
-                        moveCount += 1  # Increments # of moves made by player
-                        print("Move #:" + str(moveCount))
-                        if (leftGateState == 4):  # Handles CZ gate applications
-                            game.apply_gate(0, gatePossibilitiesList[leftGateState], target_qubit = 1)  # This will apply the currently selected game to the quantum game instance
-                        else:  # Handles non-CZ gate applications
-                            game.apply_gate(0, gatePossibilitiesList[leftGateState])  # This will apply the currently selected game to the quantum game instance
-                        showGame(game)  # Updates the Qubits on the UI
+            # Gameplay Button Control Flow
+            if (state == "gamePlay"):
+                # Displays gameplay UI (Why the fuck is that method name so bad LMAO)
+                displayBlankGameScreen(level)  # Displays the game UI with an indicator for the goal of the level
+                displayCurrentGates(leftGateState, rightGateState)  # Displays the currently selected gates
+                displayCurrentLevel(level)  # Displays the current level the player is on
+                showGame(game)  # Displays the output of the quantum circuit
 
-                    # RESET LEVEL BUTTON
-                    if ( resetLevelButton(event) ):  # Reset Level Button
-                        leftGateState = 0  # Resets both gate states
-                        rightGateState = 0  # ^
-                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-                        game = initGame()  # Initializes a blank game
-                        showGame(game)  # Displays the qubits
+                # LEVEL SELECT BUTTON
+                if ( levelSelectButton(event) ):  # Level Select Button
+                    state = "levelSelectMenuGame"  # THIS SHOULD EVENTUALLY BE MIGRATED TO AN ACTUAL LEVEL SELECT MENU
+                    displayLevelSelectMenu()
+                    break
+                # LEFT GATE BUTTONS
+                if ( leftGateUpButton(event) ):  # Left Gate Up Button (MOVING UP MEANS GOING LEFT IN THE LIST, SUBTRACTING)
+                    if ( leftGateState == 0 ):
+                        leftGateState = len(gatePossibilitiesList) - 1  # Makes the left gate state loop back to end of list
+                    elif ( leftGateState != 0 and leftGateState > 0 ):
+                        leftGateState -= 1  # De-increments the leftGateState
+                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                if ( leftGateDownButton(event) ):  # Left Gate Down Button (MOVING DOWN MEANS GOING RIGHT IN THE LIST, ADDING)
+                    if ( leftGateState == len(gatePossibilitiesList) - 1 ):
+                        leftGateState = 0  # Makes the left gate state loop back to end of list
+                    elif ( leftGateState != len(gatePossibilitiesList) - 1 and leftGateState < len(gatePossibilitiesList) - 1):
+                        leftGateState += 1  # De-increments the leftGateState
+                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                if ( leftGateSelectButton(event) ):  # Left Gate Select Button
+                    moveCount += 1  # Increments # of moves made by player
+                    if (leftGateState == 4):  # Handles CZ gate applications
+                        game.apply_gate(0, gatePossibilitiesList[leftGateState], target_qubit = 1)  # This will apply the currently selected game to the quantum game instance
+                    else:  # Handles non-CZ gate applications
+                        game.apply_gate(0, gatePossibilitiesList[leftGateState])  # This will apply the currently selected game to the quantum game instance
+                    showGame(game)  # Updates the Qubits on the UI
 
-                    # RIGHT GATE BUTTONS
-                    if ( rightGateUpButton(event) ):  # Left Gate Up Button (MOVING UP MEANS GOING LEFT IN THE LIST, SUBTRACTING)
-                        if (rightGateState == 0):
-                            rightGateState = len(gatePossibilitiesList) - 1  # Makes the left gate state loop back to end of list
-                        elif (rightGateState != 0 and rightGateState > 0):
-                            rightGateState -= 1  # De-increments the leftGateState
-                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-                    if ( rightGateDownButton(event) ):  # Left Gate Down Button (MOVING DOWN MEANS GOING RIGHT IN THE LIST, ADDING)
-                        if (rightGateState == len(gatePossibilitiesList) - 1):
-                            rightGateState = 0  # Makes the left gate state loop back to end of list
-                        elif (rightGateState != len(gatePossibilitiesList) - 1 and rightGateState < len(gatePossibilitiesList) - 1):
-                            rightGateState += 1  # De-increments the leftGateState
-                        displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-                    if ( rightGateSelectButton(event) ):  # Left Gate Select Button
-                        moveCount += 1  # Increments # of moves made by player
-                        print("Move #:" + str(moveCount))
-                        if ( rightGateState == 4):  # Handles CZ gate applications
-                            game.apply_gate(1, gatePossibilitiesList[rightGateState], target_qubit = 0)  # This will apply the currently selected game to the quantum game instance
-                        else:  # Handles non-CZ gate applications
-                            game.apply_gate(1, gatePossibilitiesList[rightGateState])  # This will apply the currently selected game to the quantum game instance
-                        showGame(game)  # Updates the Qubits on the UI
+                # RESET LEVEL BUTTON
+                if ( resetLevelButton(event) ):  # Reset Level Button
+                    moveCount = 0  # Resets move count to zero
+                    leftGateState = 0  # Resets both gate states
+                    rightGateState = 0  # ^
+                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                    game = initGame()  # Initializes a blank game
+                    showGame(game)  # Displays the qubits
 
-                    # EXIT LEVEL BUTTON
-                    if ( exitGameplayButton(event) ): # If the exit level button has been clicked
-                        displayExitGameplayMenu()  # Displays the exit gameplay menu
-                        state = "exitGameplayMenu"  # Changes state
+                # RIGHT GATE BUTTONS
+                if ( rightGateUpButton(event) ):  # Left Gate Up Button (MOVING UP MEANS GOING LEFT IN THE LIST, SUBTRACTING)
+                    if (rightGateState == 0):
+                        rightGateState = len(gatePossibilitiesList) - 1  # Makes the left gate state loop back to end of list
+                    elif (rightGateState != 0 and rightGateState > 0):
+                        rightGateState -= 1  # De-increments the leftGateState
+                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                if ( rightGateDownButton(event) ):  # Left Gate Down Button (MOVING DOWN MEANS GOING RIGHT IN THE LIST, ADDING)
+                    if (rightGateState == len(gatePossibilitiesList) - 1):
+                        rightGateState = 0  # Makes the left gate state loop back to end of list
+                    elif (rightGateState != len(gatePossibilitiesList) - 1 and rightGateState < len(gatePossibilitiesList) - 1):
+                        rightGateState += 1  # De-increments the leftGateState
+                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                if ( rightGateSelectButton(event) ):  # Left Gate Select Button
+                    moveCount += 1  # Increments # of moves made by player
+                    if ( rightGateState == 4):  # Handles CZ gate applications
+                        game.apply_gate(1, gatePossibilitiesList[rightGateState], target_qubit = 0)  # This will apply the currently selected game to the quantum game instance
+                    else:  # Handles non-CZ gate applications
+                        game.apply_gate(1, gatePossibilitiesList[rightGateState])  # This will apply the currently selected game to the quantum game instance
+                    showGame(game)  # Updates the Qubits on the UI
+
+                # MOVE CAP CONTROL FLOW FOR LEVELS
+                if (level == 1 and moveCount == 2):  # Checks if the move cap of 1 has been exceeded for level 1
+                    displayYouLostScreen()
+                    state = "youLostMenu"
+                    moveCount = 0
+                if (level == 2 and moveCount == 3):  # Checks if the move cap of 2 has been exceeded for level 2
+                    displayYouLostScreen()
+                    state = "youLostMenu"
+                    moveCount = 0
+
+                # EXIT LEVEL BUTTON
+                if ( exitGameplayButton(event) ): # If the exit level button has been clicked
+                    displayExitGameplayMenu()  # Displays the exit gameplay menu
+                    state = "exitGameplayMenu"  # Changes state
             #
             # STOP - BUTTON CONTROL FLOW
 
