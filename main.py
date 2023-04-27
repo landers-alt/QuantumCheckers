@@ -119,7 +119,7 @@ def displayCreditsMenu(): # Displays the rough outline of a credits menu
         # START - Gameplay Display Methods
 def displayBlankGameScreen(level):  # Displays the blank game screen
     # Creation of the blank game screen & placing of image on the screen
-    gamePlayBlankScreen = pygame.image.load('Assets/Fifth Iteration of Gameplay UI.png').convert_alpha()
+    gamePlayBlankScreen = pygame.image.load('Assets/Seventh Iteration of Gameplay UI.png').convert_alpha()
     screen.blit(gamePlayBlankScreen, origin)
     displayCurrentLevelGoal(level)
     pygame.display.update()
@@ -689,6 +689,7 @@ leftGateState = 0  # Init. the state of the left gate selector
 rightGateState = 0  # Init. the state of the right gate selector
 level = 1  # Variable that indicates the current level the player is on
 moveCount = 0  # Variable that holds the number of logic gates the player has enacted onto the circuit
+moveCountCapList = ["Placeholder",1,2,"Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided"]  # The move cap for each level is state in index order of each level, hence the placeholder in index 0
     # Scoreboard Init.
 populateScoreBoardTextList()  # Populates the score board text list so that the scoreboard menu works correctly
     # Pygame Init.
@@ -1204,11 +1205,11 @@ while running:  # GAME LOOP
                     showGame(game)  # Updates the Qubits on the UI
 
                 # MOVE CAP CONTROL FLOW FOR LEVELS
-                if (level == 1 and moveCount == 2):  # Checks if the move cap of 1 has been exceeded for level 1
+                if (level == 1 and moveCount == moveCountCapList[level]):  # Checks if the move cap of 1 has been exceeded for level 1
                     displayYouLostScreen()
                     state = "youLostMenu"
                     moveCount = 0
-                if (level == 2 and moveCount == 3):  # Checks if the move cap of 2 has been exceeded for level 2
+                if (level == 2 and moveCount == moveCountCapList[level]):  # Checks if the move cap of 2 has been exceeded for level 2
                     displayYouLostScreen()
                     state = "youLostMenu"
                     moveCount = 0
