@@ -110,17 +110,44 @@ def displayStartGameMenu(): # Displays the rough outline of the play menu
     screen.blit(playMenuBackground, origin)
     pygame.display.update()
 
-def displayHowToPlayMenu(): # Displays the rough outline of the how to play menu
-    howToPlayMenuBackground = pygame.image.load('Assets/HowToPlayMenu .png').convert()
-    screen.blit(howToPlayMenuBackground, origin)
-    pygame.display.update()
-
 def displayCreditsMenu(): # Displays the rough outline of a credits menu
     # Creation of the credit menu's background & placing of image on the screen
     creditsMenuBackground = pygame.image.load('Assets/Credits Menu.png').convert()
     screen.blit(creditsMenuBackground, origin)
     pygame.display.update()
         # STOP - Menu Display Methods
+
+        # START - How To Play Menu Display Methods
+def displayHowToPlayMenu():  # Displays the how to play menu
+    howToPlayMenuBackground = pygame.image.load('Assets/HowToPlayMenuAssets/HowToPlayMenu .png').convert()
+    screen.blit(howToPlayMenuBackground, origin)
+    pygame.display.update()
+
+def displayHowToPlayMenuWhatIsQuantumCheckers():  # Function name explains purpose
+    howToPlayMenuBackground = pygame.image.load('Assets/HowToPlayMenuAssets/HowToPlayMenuWhatIsQuantumCheckers.png').convert()
+    screen.blit(howToPlayMenuBackground, origin)
+    pygame.display.update()
+
+def displayHowToPlayMenuWhatIsAQubit():  # Function name explains purpose
+    howToPlayMenuBackground = pygame.image.load('Assets/HowToPlayMenuAssets/HowToPlayMenuWhatIsAQubit.png').convert()
+    screen.blit(howToPlayMenuBackground, origin)
+    pygame.display.update()
+
+def displayHowToPlayMenuWhatDoesTheGridMean():  # Function name explains purpose
+    howToPlayMenuBackground = pygame.image.load('Assets/HowToPlayMenuAssets/HowToPlayMenuWhatDoesTheGridMean.png').convert()
+    screen.blit(howToPlayMenuBackground, origin)
+    pygame.display.update()
+
+def displayHowToPlayMenuhatIsALogicGate():  # Function name explains purpose
+    howToPlayMenuBackground = pygame.image.load('Assets/HowToPlayMenuAssets/HowToPlayMenuWhatIsALogicGate.png').convert()
+    screen.blit(howToPlayMenuBackground, origin)
+    pygame.display.update()
+
+def displayHowToPlayMenuHowDoIPlay():  # Displays the how to play menu
+    howToPlayMenuBackground = pygame.image.load('Assets/HowToPlayMenuAssets/HowToPlayMenuHowDoIPlay.png').convert()
+    screen.blit(howToPlayMenuBackground, origin)
+    pygame.display.update()
+        # STOP - How To Play Menu Display Methods
 
         # START - Gameplay Display Methods
 def displayBlankGameScreen(level):  # Displays the blank game screen
@@ -145,7 +172,6 @@ def displayYouLostScreen():  # Diplays the screen that plays when the player los
     youLostScreen = pygame.image.load('Assets/YouLostScreen.png').convert_alpha()
     screen.blit(youLostScreen, origin)
     pygame.display.update()
-
         # STOP - Gameplay Display Methods
 
         # START - Level Explanation, Goal Methods
@@ -254,32 +280,69 @@ def mainMenuExitButton_click(event):  # Exit Button
 def startGameMenuBackButton_click(event):  # Back Button
     x, y = pygame.mouse.get_pos()
     if event.type == pygame.MOUSEBUTTONDOWN:
-        if (x > 320 and x < 480) and (y > 410 and y < 462):
-            print("Back Button Has Been Clicked")
-            return True
+        if ( state == "startGameMenu"):
+            if (x > 320 and x < 480) and (y > 410 and y < 462):
+                print("Back Button Has Been Clicked")
+                return True
 
 def startGameMenuGithubButton_click(event):  # Git Hub Button
     x, y = pygame.mouse.get_pos()
     if event.type == pygame.MOUSEBUTTONDOWN:
-        if (x > 300 and x < 500) and (y > 145 and y < 350):
-            print("GitHub Button Has Been Clicked")
-            return True
+        if (state == "startGameMenu"):
+            if (x > 300 and x < 500) and (y > 145 and y < 350):
+                print("GitHub Button Has Been Clicked")
+                return True
     # STOP - Start Game Menu Buttons
 
     # START - How To Play Menu Buttons
 def howToPlayMenuBackButton_click(event):  # Back Button
     x, y = pygame.mouse.get_pos()
     if event.type == pygame.MOUSEBUTTONDOWN:
-        if (x > 320 and x < 480) and (y > 410 and y < 462):
-            print("Back Button Has Been Clicked")
-            return True
+        if ( state == "howToPlayMenu" or state == "howToPlayMenuSubMenu"):
+            print("X: " + str(x) + " Y: " + str(y))  # Helps with finding cursor for allocating space for buttons
+            if (x > 346 and x < 454) and (y > 410 and y < 468):
+                print("Back Button Has Been Clicked")
+                return True
 
-def howToPlayMenuGithubButton_click(event):  # Git Hub Button
+def howToPlayMenuWhatIsQuantumCheckersButton_click(event):  # Function name explains purpose
     x, y = pygame.mouse.get_pos()
     if event.type == pygame.MOUSEBUTTONDOWN:
-        if (x > 300 and x < 500) and (y > 145 and y < 350):
-            print("GitHub Button Has Been Clicked")
-            return True
+        if (state == "howToPlayMenu"):
+            if (x > 136 and x < 378) and (y > 142 and y < 200):
+                print("What Is Quantum Checkers Button Has Been Clicked")
+                return True
+
+def howToPlayMenuWhatIsAQubitButton_click(event):  # Function name explains purpose
+    x, y = pygame.mouse.get_pos()
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        if (state == "howToPlayMenu"):
+            if (x > 422 and x < 662) and (y > 142 and y < 200):
+                print("What Is A Qubit Button Has Been Clicked")
+                return True
+
+def howToPlayMenuWhatDoesTheGridMeanButton_click(event):  # Function name explains purpose
+    x, y = pygame.mouse.get_pos()
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        if (state == "howToPlayMenu"):
+            if (x > 136 and x < 378) and (y > 226 and y < 282):
+                print("What Does The Grid Mean Button Has Been Clicked")
+                return True
+
+def howToPlayMenuhatIsALogicGateButton_click(event):  # Function name explains purpose
+    x, y = pygame.mouse.get_pos()
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        if (state == "howToPlayMenu"):
+            if (x > 422 and x < 662) and (y > 226 and y < 282):
+                print("What Is A Logic Gate Button Has Been Clicked")
+                return True
+
+def howToPlayMenuHowDoIPlayButton_click(event):  # Displays the how to play menu
+    x, y = pygame.mouse.get_pos()
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        if (state == "howToPlayMenu"):
+            if (x > 286 and x < 520) and (y > 310 and y < 366):
+                print("How Do I Play Button Has Been Clicked")
+                return True
     # STOP - How To Play Menu
 
     # START - Scoreboard Menu Buttons
@@ -295,9 +358,10 @@ def scoreBoardMenuBackButton_click(event):  # Back Button
 def creditsMenuBackButton_click(event):  # Exit Button
     x,y = pygame.mouse.get_pos()
     if event.type == pygame.MOUSEBUTTONDOWN:
-        if (x > 320 and x < 480) and (y > 410 and y < 462):
-            print("Back Button Has Been Clicked")
-            return True
+        if (state == "creditsMenu"):
+            if (x > 320 and x < 480) and (y > 410 and y < 462):
+                print("Back Button Has Been Clicked")
+                return True
 
 def creditsMenuGithubButton_click(event):  # Git Hub Button
     x,y = pygame.mouse.get_pos()
@@ -742,14 +806,38 @@ while running:  # GAME LOOP
                     openGithub()  # Opens the project's Github repository in a native google chrome instance
                     break
 
+            # How To Play Submenu(s) Button Control Flow
+            if ( state == "howToPlayMenuSubMenu" ):
+                if ( howToPlayMenuBackButton_click(event) ):  # Back button (same function used in actual HTP menu)
+                    displayHowToPlayMenu()  # Displays the how to play menu
+                    state = "howToPlayMenu"
+                    break
+
             # How To Play Menu Button Control Flow
             if ( state == "howToPlayMenu" ):
                 if ( howToPlayMenuBackButton_click(event) ):  # Back Button On How To Play Menu
                     displayMainMenu()  # Displays the main menu
                     state = "mainMenu"  # State change
                     break
-                if (  howToPlayMenuGithubButton_click(event) ):  # Github Button
-                    openGithub()
+                if ( howToPlayMenuWhatIsQuantumCheckersButton_click(event) ):  # What is quantum checkers button
+                    displayHowToPlayMenuWhatIsQuantumCheckers()  # Displays what is quantum checkers asset
+                    state = "howToPlayMenuSubMenu"  # State change
+                    break
+                if ( howToPlayMenuWhatIsAQubitButton_click(event) ):  # What is a qubit button
+                    displayHowToPlayMenuWhatIsAQubit()  # Displays what is a qubit asset
+                    state = "howToPlayMenuSubMenu"  # State change
+                    break
+                if ( howToPlayMenuWhatDoesTheGridMeanButton_click(event) ):  # What does the grid mean button
+                    displayHowToPlayMenuWhatDoesTheGridMean()  # Displays what does the grid mean asset
+                    state = "howToPlayMenuSubMenu"  # State change
+                    break
+                if ( howToPlayMenuhatIsALogicGateButton_click(event) ):  # What is a logic gate button
+                    displayHowToPlayMenuhatIsALogicGate()  # Displays what is a logic gate asset
+                    state = "howToPlayMenuSubMenu"  # State change
+                    break
+                if ( howToPlayMenuHowDoIPlayButton_click(event) ):  # How do I play button
+                    displayHowToPlayMenuHowDoIPlay()  # Displays the how do I play asset
+                    state = "howToPlayMenuSubMenu"  # State change
                     break
 
             # Scoreboard Menu Button Control Flow
