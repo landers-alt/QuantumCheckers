@@ -436,7 +436,7 @@ def levelSelectMenuBackButton(event, level):
                 print("Level Select Menu Back Button Has Been Clicked")
                 return True
 
-def displayGameUIAfterLevelSelectButtonClick():
+def displayGameUIAfterLevelSelectButtonClick():  # Displays the game screen fresh without resetting the circuit or gates
     displayWhiteScreen()
     displayBlankGameScreen(level)
     displayCurrentGates(leftGateState, rightGateState)
@@ -591,7 +591,7 @@ def levelExplanationBackButton(event):
     x, y = pygame.mouse.get_pos()
     if event.type == pygame.MOUSEBUTTONDOWN:
         if (state == "levelExplanation"):
-            if (x > 435 and x < 568) and (y > 398 and y < 458):  # THE X IS ALREADY GOOD, WORRY ABOUT THE Y VALUES
+            if (x > 435 and x < 568) and (y > 395 and y < 458):  # THE X IS ALREADY GOOD, WORRY ABOUT THE Y VALUES
                 print("Level Explanation Back Button Has Been Clicked")
                 return True
     # STOP - Level Explanation Buttons
@@ -609,10 +609,46 @@ def levelGoalExplanationBackButton(event):
     x, y = pygame.mouse.get_pos()
     if event.type == pygame.MOUSEBUTTONDOWN:
         if (state == "levelGoalExplanation"):
-            if (x > 435 and x < 568) and (y > 398 and y < 458):  # THE X IS ALREADY GOOD, WORRY ABOUT THE Y VALUES
+            if (x > 435 and x < 568) and (y > 395 and y < 458):  # THE X IS ALREADY GOOD, WORRY ABOUT THE Y VALUES
                 print("Level Goal Explanation Back Button Has Been Clicked")
                 return True
     # STOP - Level Goal Explanation Buttons
+
+    # START - You Won Screen Buttons
+def youWonScreenMainMenuButton(event):
+    x, y = pygame.mouse.get_pos()
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        if (state == "levelGoalExplanation"):
+            if (x > 232 and x < 366) and (y > 395 and y < 458):  # THE X IS ALREADY GOOD, WORRY ABOUT THE Y VALUES
+                print("You Won Screen Main Menu Button")
+                return True
+
+def youWonScreenNextLevelButton(event):
+    x, y = pygame.mouse.get_pos()
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        if (state == "levelGoalExplanation"):
+            if (x > 435 and x < 568) and (y > 395 and y < 458):  # THE X IS ALREADY GOOD, WORRY ABOUT THE Y VALUES
+                print("You Won Screen Next Level Button")
+                return True
+    # STOP - You Won Screen Buttons
+
+    # START - You Lost Screen Buttons
+def youLostScreenMainMenuButton(event):
+    x, y = pygame.mouse.get_pos()
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        if (state == "levelGoalExplanation"):
+            if (x > 232 and x < 366) and (y > 395 and y < 458):  # THE X IS ALREADY GOOD, WORRY ABOUT THE Y VALUES
+                print("You Lost Screen Main Menu Button")
+                return True
+
+def youLostScreenReplayLevelButton(event):
+    x, y = pygame.mouse.get_pos()
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        if (state == "levelGoalExplanation"):
+            if (x > 435 and x < 568) and (y > 395 and y < 458):  # THE X IS ALREADY GOOD, WORRY ABOUT THE Y VALUES
+                print("You Lost Screen Replay Level Button")
+                return True
+    # START - You Lost Screen Buttons
 
     # START - IMAGE CONVERSION
 def bytes_to_pygame_image(bytes_io):
