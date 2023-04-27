@@ -2,7 +2,7 @@
 # Project: Quantum Checkers (though name has not been decided on as of 2/24/23)
 # Common Issue(s): On line 22 (as of 3/3/23), the path to the google chrome app on a normal mac OS is listed. If you have changed the
 # location of your chrome instance, you must fix this. If it isn't on line 22, check for "chrome_path" as a variable.
-# Known Bugs: None As Of 3/29/23
+# Known Bugs: None As Of 04/27/23
 
 # *FOR TESTING*
 # print("X: " + str(x) + " Y: " + str(y)) # Helps with finding cursor for allocating space for buttons
