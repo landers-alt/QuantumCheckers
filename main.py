@@ -83,36 +83,36 @@ origin = (0,0)  # The location, (x,y) notation, of the goal indicator for any gi
 def displayLevelSelectMenu(): # Displays the level select menu
     # Creation of the level select menu image & placing of image on the screen
     exitGameplayMenu = pygame.image.load('Assets/Third Iteration of Level Select UI.png').convert()
-    screen.blit(exitGameplayMenu, (0, 0))
+    screen.blit(exitGameplayMenu, origin)
     pygame.display.update()
 
 def displayExitGameplayMenu():  # Displays the exit menu for gameplay
     # Creation of the exit gameplay menu image & placing of image on the screen
     exitGameplayMenu = pygame.image.load('Assets/ExitToMainMenuConfirmationMenu.png').convert()
-    screen.blit(exitGameplayMenu, (0, 0))
+    screen.blit(exitGameplayMenu, origin)
     pygame.display.update()
 
 def displayMainMenu(): # Displays the rough outline of a main menu
     # Creation of the main menu's background & placing of image on the screen
     mainMenuBackground = pygame.image.load('Assets/Main Menu.png').convert()
-    screen.blit(mainMenuBackground, (0, 0))
+    screen.blit(mainMenuBackground, origin)
     pygame.display.update()
 
 def displayStartGameMenu(): # Displays the rough outline of the play menu
     # Creation of the play menu's background & placing of image on the screen
     playMenuBackground = pygame.image.load('Assets/Play Menu.png').convert()
-    screen.blit(playMenuBackground, (0, 0))
+    screen.blit(playMenuBackground, origin)
     pygame.display.update()
 
 def displayHowToPlayMenu(): # Displays the rough outline of the how to play menu
     howToPlayMenuBackground = pygame.image.load('Assets/HowToPlay Menu.png').convert()
-    screen.blit(howToPlayMenuBackground, (0,0))
+    screen.blit(howToPlayMenuBackground, origin)
     pygame.display.update()
 
 def displayCreditsMenu(): # Displays the rough outline of a credits menu
     # Creation of the credit menu's background & placing of image on the screen
     creditsMenuBackground = pygame.image.load('Assets/Credits Menu.png').convert()
-    screen.blit(creditsMenuBackground, (0, 0))
+    screen.blit(creditsMenuBackground, origin)
     pygame.display.update()
         # STOP - Menu Display Methods
 
@@ -120,15 +120,26 @@ def displayCreditsMenu(): # Displays the rough outline of a credits menu
 def displayBlankGameScreen(level):  # Displays the blank game screen
     # Creation of the blank game screen & placing of image on the screen
     gamePlayBlankScreen = pygame.image.load('Assets/Fifth Iteration of Gameplay UI.png').convert_alpha()
-    screen.blit(gamePlayBlankScreen, (0, 0))
+    screen.blit(gamePlayBlankScreen, origin)
     displayCurrentLevelGoal(level)
     pygame.display.update()
 
 def displayWhiteScreen():  # Displays a white image on the entire screen
     # Creation of a white image (800x500) & placing the image on the screen
     whiteBackground = pygame.image.load('Assets/800x500WHITE.png').convert_alpha()
-    screen.blit(whiteBackground, (0, 0))
+    screen.blit(whiteBackground, origin)
     pygame.display.update()
+
+def displayYouWonScreen():  # Displays the screen that plays when the player wins a level
+    youWonScreen = pygame.image.load('Assets/YouWonScreen.png').convert_alpha()
+    screen.blit(youWonScreen, origin)
+    pygame.display.update()
+
+def displayYouLostScreen():  # Diplays the screen that plays when the player loses a level
+    youLostScreen = pygame.image.load('Assets/YouLostScreen.png').convert_alpha()
+    screen.blit(youLostScreen, origin)
+    pygame.display.update()
+
         # STOP - Gameplay Display Methods
 
         # START - Level Explanation, Goal Methods
@@ -151,7 +162,7 @@ def displayLevelGoal(level):  # Displays the screen that further explains the le
         # START - Non-image Based Display Methods
 def displayScoreBoardMenu():  # Displays the rough outline of the scoreboard menu
     scoreboardMenu = pygame.image.load('Assets/Scoreboard Menu.png').convert()  # Image shit
-    screen.blit(scoreboardMenu, (0, 0))  # Menu Image Is Put on the Screen
+    screen.blit(scoreboardMenu, origin)  # Menu Image Is Put on the Screen
     for locationTuple in scoreTextLocationList:  # Placing of the text for the score board background
         screen.blit(scoreTextBackground, locationTuple)
     scoreTextListIndex = 0
