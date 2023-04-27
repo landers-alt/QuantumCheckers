@@ -32,13 +32,14 @@ def openDSUWebsite():  # Opens DSU's website
 # START - SCREEN
     # START - PYGAME WINDOW INIT.
 pygame.init()  # Init. Pygame
+gameIcon = pygame.image.load("Assets/32x32Icon.png")  # Image conversion to pygame surface for game icon
+pygame.display.set_icon(gameIcon)  # Changes window icon
 FRAMERATE = 10
 normalScreenRatio = (799,499)  # Screen ratio and game window creation (is supposed to be (800,500) but is smaller because of image conversion issues)
 normalWidth = normalScreenRatio[0]
 normalHeight = normalScreenRatio[1]
 screen = pygame.display.set_mode(normalScreenRatio)
 caption = pygame.display.set_caption("Quantum Checkers")  # Changes window caption
-#icon = pygame.display.set_icon(32x32image)  # Changes window icon (NOT IMPLEMENTED YET, MAKE 32x32 SIZED IMAGE)
     # STOP - PYGAME WINDOW INIT.
 
     # START - SCOREBOARD SCREEN INFORMATION
@@ -1258,5 +1259,6 @@ while running:  # GAME LOOP
             # STOP - BUTTON CONTROL FLOW
 
     pygame.display.update()  # Update the screen
+    pygame.display.set_icon(gameIcon)  # Changes window icon
     clock.tick(FRAMERATE)  # Sets the frame rate to 60
 # END - GAME LOOP
