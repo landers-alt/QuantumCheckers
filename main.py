@@ -641,6 +641,7 @@ gatePossibilitiesList = ['x', 'y', 'z', 'h', 'cz']
 leftGateState = 0  # Init. the state of the left gate selector
 rightGateState = 0  # Init. the state of the right gate selector
 level = 1  # Variable that indicates the current level the player is on
+moveCount = 0  # Variable that holds the number of logic gates the player has enacted onto the circuit
     # Scoreboard Init.
 populateScoreBoardTextList()  # Populates the score board text list so that the scoreboard menu works correctly
     # Pygame Init.
