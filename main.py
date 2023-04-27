@@ -111,7 +111,7 @@ def displayStartGameMenu(): # Displays the rough outline of the play menu
     pygame.display.update()
 
 def displayHowToPlayMenu(): # Displays the rough outline of the how to play menu
-    howToPlayMenuBackground = pygame.image.load('Assets/HowToPlay Menu.png').convert()
+    howToPlayMenuBackground = pygame.image.load('Assets/HowToPlayMenu .png').convert()
     screen.blit(howToPlayMenuBackground, origin)
     pygame.display.update()
 
