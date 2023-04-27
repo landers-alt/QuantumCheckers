@@ -1241,12 +1241,64 @@ while running:  # GAME LOOP
                         game.apply_gate(1, gatePossibilitiesList[rightGateState])  # This will apply the currently selected game to the quantum game instance
                     showGame(game)  # Updates the Qubits on the UI
 
-                # MOVE CAP CONTROL FLOW FOR LEVELS
+                # MOVE CAP CONTROL FLOW FOR LEVELS (Basically loss detecting control flow)
                 if (level == 1 and moveCount == moveCountCapList[level]):  # Checks if the move cap of 1 has been exceeded for level 1
                     displayYouLostScreen()
                     state = "youLostMenu"
                     moveCount = 0
                 if (level == 2 and moveCount == moveCountCapList[level]):  # Checks if the move cap of 2 has been exceeded for level 2
+                    displayYouLostScreen()
+                    state = "youLostMenu"
+                    moveCount = 0
+                if (level == 3 and moveCount == moveCountCapList[level]):  # Checks if the move cap of 2 has been exceeded for level 2
+                    displayYouLostScreen()
+                    state = "youLostMenu"
+                    moveCount = 0
+                if (level == 4 and moveCount == moveCountCapList[level]):  # Checks if the move cap of 2 has been exceeded for level 2
+                    displayYouLostScreen()
+                    state = "youLostMenu"
+                    moveCount = 0
+                if (level == 5 and moveCount == moveCountCapList[level]):  # Checks if the move cap of 2 has been exceeded for level 2
+                    displayYouLostScreen()
+                    state = "youLostMenu"
+                    moveCount = 0
+                if (level == 6 and moveCount == moveCountCapList[level]):  # Checks if the move cap of 1 has been exceeded for level 1
+                    displayYouLostScreen()
+                    state = "youLostMenu"
+                    moveCount = 0
+                if (level == 7 and moveCount == moveCountCapList[level]):  # Checks if the move cap of 2 has been exceeded for level 2
+                    displayYouLostScreen()
+                    state = "youLostMenu"
+                    moveCount = 0
+                if (level == 8 and moveCount == moveCountCapList[level]):  # Checks if the move cap of 2 has been exceeded for level 2
+                    displayYouLostScreen()
+                    state = "youLostMenu"
+                    moveCount = 0
+                if (level == 9 and moveCount == moveCountCapList[level]):  # Checks if the move cap of 2 has been exceeded for level 2
+                    displayYouLostScreen()
+                    state = "youLostMenu"
+                    moveCount = 0
+                if (level == 10 and moveCount == moveCountCapList[level]):  # Checks if the move cap of 2 has been exceeded for level 2
+                    displayYouLostScreen()
+                    state = "youLostMenu"
+                    moveCount = 0
+                if (level == 11 and moveCount == moveCountCapList[level]):  # Checks if the move cap of 1 has been exceeded for level 1
+                    displayYouLostScreen()
+                    state = "youLostMenu"
+                    moveCount = 0
+                if (level == 12 and moveCount == moveCountCapList[level]):  # Checks if the move cap of 2 has been exceeded for level 2
+                    displayYouLostScreen()
+                    state = "youLostMenu"
+                    moveCount = 0
+                if (level == 13 and moveCount == moveCountCapList[level]):  # Checks if the move cap of 2 has been exceeded for level 2
+                    displayYouLostScreen()
+                    state = "youLostMenu"
+                    moveCount = 0
+                if (level == 14 and moveCount == moveCountCapList[level]):  # Checks if the move cap of 2 has been exceeded for level 2
+                    displayYouLostScreen()
+                    state = "youLostMenu"
+                    moveCount = 0
+                if (level == 15 and moveCount == moveCountCapList[level]):  # Checks if the move cap of 2 has been exceeded for level 2
                     displayYouLostScreen()
                     state = "youLostMenu"
                     moveCount = 0
