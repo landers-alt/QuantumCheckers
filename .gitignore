@@ -1,3 +1,5 @@
+# Compiled Python Code
 *.pyc
+# Dumbass IDE shit
 *.iml
 *.xml
