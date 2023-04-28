@@ -306,7 +306,6 @@ def howToPlayMenuBackButton_click(event):  # Back Button
     x, y = pygame.mouse.get_pos()
     if event.type == pygame.MOUSEBUTTONDOWN:
         if ( state == "howToPlayMenu" or state == "howToPlayMenuSubMenu"):
-            print("X: " + str(x) + " Y: " + str(y))  # Helps with finding cursor for allocating space for buttons
             if (x > 346 and x < 454) and (y > 410 and y < 468):
                 print("Back Button Has Been Clicked")
                 return True
@@ -425,7 +424,6 @@ def leftGateUpButton(event):  # Changes the left gate to the previous
     x, y = pygame.mouse.get_pos()
     if event.type == pygame.MOUSEBUTTONDOWN:
         if (state == "gamePlay"):
-            print("X: " + str(x) + " Y: " + str(y))
             if (x > 70 and x < 90) and (y > 282 and y < 297):
                 print("Left Gate Up Button Has Been Clicked")
                 return True
