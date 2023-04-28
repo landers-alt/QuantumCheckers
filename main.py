@@ -42,6 +42,13 @@ screen = pygame.display.set_mode(normalScreenRatio)
 caption = pygame.display.set_caption("Quantum Checkers")  # Changes window caption
     # STOP - PYGAME WINDOW INIT.
 
+    # START - Quantum Game Variables
+DEFAULT_SHOTS = 1024
+DEFAULT_CORR_COLOR = (216, 123, 104)
+DEFAULT_IDEN_COLOR = (216, 123, 104)
+DEFAULT_GRID_RESOLUTION = (640, 400)
+    # STOP - Quantum Game Variables
+
     # START - SCOREBOARD SCREEN INFORMATION
 # List that stores the (x,y) location in a tuple of where each level's score should be put on
 scoreTextLocationList = [(190, 140), (190,188), (190,236), (190, 284), (190, 332), (422, 140), (422,188), (422,236), (422, 284), (422, 332), (654, 140), (654,188), (654,236), (654, 284), (654, 332)]
@@ -726,12 +733,12 @@ def bytes_to_pygame_image(bytes_io):
     # START - Quantum Method(s) Implementing "game_logic.py"
 def initGame(): # init. a quantum game instance and returns said game
     game = QuantumGame(
-        initialize=[],
-        allowed_gates=SUPPORTED_GATES,
-        shots=1024,
-        corr_color=(216, 123, 104),
-        iden_color=(216, 123, 104),
-        grid_resolution=(640, 400)
+        initialize = [],
+        allowed_gates = SUPPORTED_GATES,
+        shots = DEFAULT_SHOTS,
+        corr_color = DEFAULT_CORR_COLOR,
+        iden_color = DEFAULT_IDEN_COLOR,
+        grid_resolution = DEFAULT_GRID_RESOLUTION
     )
     return game
 
