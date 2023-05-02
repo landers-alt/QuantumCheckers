@@ -95,8 +95,8 @@ origin = (0,0)  # The location, (x,y) notation, of the goal indicator for any gi
         # START - Menu Display Methods
 def displayLevelSelectMenu(): # Displays the level select menu
     # Creation of the level select menu image & placing of image on the screen
-    exitGameplayMenu = pygame.image.load('Assets/Third Iteration of Level Select UI.png').convert()
-    screen.blit(exitGameplayMenu, origin)
+    levelSelectMenu = pygame.image.load('Assets/Fourth Iteration of Level Select UI.png').convert()
+    screen.blit(levelSelectMenu, origin)
     pygame.display.update()
 
 def displayExitGameplayMenu():  # Displays the exit menu for gameplay
@@ -161,8 +161,10 @@ def displayBlankGameScreen(level):  # Displays the blank game screen
     # Creation of the blank game screen & placing of image on the screen
     gamePlayBlankScreen = pygame.image.load('Assets/Seventh Iteration of Gameplay UI.png').convert_alpha()
     screen.blit(gamePlayBlankScreen, origin)
-    displayCurrentLevelGoal(level)
+    if ( level != "sandbox" ):  # Only show the current level goal if the user isn't in sandbox mode
+        displayCurrentLevelGoal(level)
     pygame.display.update()
+
 
 def displayWhiteScreen():  # Displays a white image on the entire screen
     # Creation of a white image (800x500) & placing the image on the screen
@@ -183,9 +185,15 @@ def displayYouLostScreen():  # Diplays the screen that plays when the player los
 
         # START - Level Explanation, Goal Methods
 def displayCurrentLevelGoal(level):  # Displays the current level's goal to the player
-    gameplayLevelGoalFileLocation = "Assets/Level" + str(level) + "Assets/Level " + str(level) + " Circuit Goal.png"
-    goal = pygame.image.load(gameplayLevelGoalFileLocation).convert_alpha()
-    screen.blit(goal, origin)  # Displays the current level goal based on the passed parameter
+    if ( level != "sandbox" ):  # If the user is actually playing a level
+        gameplayLevelGoalFileLocation = "Assets/Level" + str(level) + "Assets/Level " + str(level) + " Circuit Goal.png"
+        goal = pygame.image.load(gameplayLevelGoalFileLocation).convert_alpha()
+        screen.blit(goal, origin)  # Displays the current level goal based on the passed parameter
+    elif ( level == "sandbox" ):  # If user is in the sandbox
+        print("Sandbox mode...")
+    else:  # Error handling
+        raise Exception("Inputted level is not valid.")
+
 
 def displayLevelExplanation(level):  # Displays the explanation for the level
     levelExplanationFileLocation = "Assets/Level" + str(level) + "Assets/Level " + str(level) + " Explanation.png"
@@ -228,8 +236,12 @@ def displayCurrentGates(leftGateState, rightGateState):  # Displays the currentl
     else:
         screen.blit(rightGateText, rightGateIndicatorTextLocation)
 
-def displayCurrentLevel(level):  # Displays the current level the player is on, LEVEL MUST BE INPUTTED AS AN INTEGER
-    if ( level <= 0 or level >= 16 or level == None ):  # Makes sure that you're only passing an integer between 1 and 15
+def displayCurrentLevel(level):  # Displays the current level the player is on, LEVEL MUST BE INPUTTED AS AN INTEGER OR SANDBOX AS A STR
+    if ( level == "sandbox" ):  # If the user is in sandbox mode
+        currentLevelText = currentLevelIndicatorTextFont.render("N/A", True, black)  # Init. text
+        screen.blit(currentLevelIndicatorOverlay, currentLevelIndicatorOverlayLocation)  # Puts overlay on
+        screen.blit(currentLevelText, currentLevelIndicatorTextLocation)  # Prints text
+    elif ( level <= 0 or level >= 16 or level == None ):  # Makes sure that you're only passing an integer between 1 and 15
         raise Exception("Level provided can't less than 1 or greater than 15.")
     else:  # If inputted parameter value is valid
         currentLevelText = currentLevelIndicatorTextFont.render(str(level), True, black)  # Init. text
@@ -237,7 +249,11 @@ def displayCurrentLevel(level):  # Displays the current level the player is on, 
         screen.blit(currentLevelText, currentLevelIndicatorTextLocation)  # Prints text
 
 def displayMovesLeft(level, moveCount):  # Displays the current moves the player has left
-    if (level <= 0 or level >= 16 or level == None):  # Makes sure that you're only passing an integer between 1 and 15
+    if (level == "sandbox"):
+        movesLeftText = movesLeftIndicatorTextFont.render("N/A", True, black)  # Init. text
+        screen.blit(movesLeftIndicatorOverlay, movesLeftIndicatorOverlayLocation)  # Puts overlay on
+        screen.blit(movesLeftText, movesLeftIndicatorTextLocation)  # Prints text
+    elif (level <= 0 or level >= 16 or level == None):  # Makes sure that you're only passing an integer between 1 and 15
         raise Exception("Level provided can't less than 1 or greater than 15.")
     else:  # If inputted parameter value is valid
         movesLeftText = movesLeftIndicatorTextFont.render(str(moveCountCapList[level] - moveCount), True, black)  # Init. text
@@ -527,6 +543,14 @@ def displayGameUIAfterLevelSelectButtonClick():  # Displays the game screen fres
     displayMovesLeft(level, moveCount)
     displayCurrentLevel(level)
     showGame(game)
+
+def levelSelectSandboxButton(event):
+    x, y = pygame.mouse.get_pos()
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        if (state == "levelSelectMenuGame" or state == "levelSelectMenuMain"):
+            if (x > 646 and x < 762) and (y > 34 and y < 70):
+                print("Sandbox Button Has Been Clicked")
+                return True
 
 def levelSelectLevel1Button(event):
     x, y = pygame.mouse.get_pos()
@@ -886,7 +910,21 @@ while running:  # GAME LOOP
                     state = "gamePlay"
                     displayWhiteScreen()
                     showGame(game)
+                if (levelSelectSandboxButton(event)):  # if the sandbox button has been clicked
+                    level = "sandbox"
+                    displayWhiteScreen()  # Clears screen
+                    displayCurrentLevel(level)  # Displays "N/A"
+                    displayBlankGameScreen(level)  # Displays gameplay UI
+                    leftGateState = 0  # Resets both gate states
+                    rightGateState = 0  # ^
+                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                    displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
+                    game = initGame()  # Initializes a blank game
+                    showGame(game)  # Displays the qubits
+                    state = "gamePlay"
+                    break
                 if (levelSelectLevel1Button(event)):
+                    moveCount = 0
                     leftGateState = 0  # Resets both gate states
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
@@ -898,6 +936,7 @@ while running:  # GAME LOOP
                     displayGameUIAfterLevelSelectButtonClick()
                     break
                 elif (levelSelectLevel2Button(event)):
+                    moveCount = 0
                     leftGateState = 0  # Resets both gate states
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
@@ -909,6 +948,7 @@ while running:  # GAME LOOP
                     displayGameUIAfterLevelSelectButtonClick()
                     break
                 elif (levelSelectLevel3Button(event)):
+                    moveCount = 0
                     leftGateState = 0  # Resets both gate states
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
@@ -920,6 +960,7 @@ while running:  # GAME LOOP
                     displayGameUIAfterLevelSelectButtonClick()
                     break
                 elif (levelSelectLevel4Button(event)):
+                    moveCount = 0
                     leftGateState = 0  # Resets both gate states
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
@@ -931,6 +972,7 @@ while running:  # GAME LOOP
                     displayGameUIAfterLevelSelectButtonClick()
                     break
                 elif (levelSelectLevel5Button(event)):
+                    moveCount = 0
                     leftGateState = 0  # Resets both gate states
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
@@ -942,6 +984,7 @@ while running:  # GAME LOOP
                     displayGameUIAfterLevelSelectButtonClick()
                     break
                 elif (levelSelectLevel6Button(event)):
+                    moveCount = 0
                     leftGateState = 0  # Resets both gate states
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
@@ -953,6 +996,7 @@ while running:  # GAME LOOP
                     displayGameUIAfterLevelSelectButtonClick()
                     break
                 elif (levelSelectLevel7Button(event)):
+                    moveCount = 0
                     leftGateState = 0  # Resets both gate states
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
@@ -964,6 +1008,7 @@ while running:  # GAME LOOP
                     displayGameUIAfterLevelSelectButtonClick()
                     break
                 elif (levelSelectLevel8Button(event)):
+                    moveCount = 0
                     leftGateState = 0  # Resets both gate states
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
@@ -975,6 +1020,7 @@ while running:  # GAME LOOP
                     displayGameUIAfterLevelSelectButtonClick()
                     break
                 elif (levelSelectLevel9Button(event)):
+                    moveCount = 0
                     leftGateState = 0  # Resets both gate states
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
@@ -986,6 +1032,7 @@ while running:  # GAME LOOP
                     displayGameUIAfterLevelSelectButtonClick()
                     break
                 elif (levelSelectLevel10Button(event)):
+                    moveCount = 0
                     leftGateState = 0  # Resets both gate states
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
@@ -997,6 +1044,7 @@ while running:  # GAME LOOP
                     displayGameUIAfterLevelSelectButtonClick()
                     break
                 elif (levelSelectLevel11Button(event)):
+                    moveCount = 0
                     leftGateState = 0  # Resets both gate states
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
@@ -1008,6 +1056,7 @@ while running:  # GAME LOOP
                     displayGameUIAfterLevelSelectButtonClick()
                     break
                 elif (levelSelectLevel12Button(event)):
+                    moveCount = 0
                     leftGateState = 0  # Resets both gate states
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
@@ -1019,6 +1068,7 @@ while running:  # GAME LOOP
                     displayGameUIAfterLevelSelectButtonClick()
                     break
                 elif (levelSelectLevel13Button(event)):
+                    moveCount = 0
                     leftGateState = 0  # Resets both gate states
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
@@ -1030,6 +1080,7 @@ while running:  # GAME LOOP
                     displayGameUIAfterLevelSelectButtonClick()
                     break
                 elif (levelSelectLevel14Button(event)):
+                    moveCount = 0
                     leftGateState = 0  # Resets both gate states
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
@@ -1041,6 +1092,7 @@ while running:  # GAME LOOP
                     displayGameUIAfterLevelSelectButtonClick()
                     break
                 elif (levelSelectLevel15Button(event)):
+                    moveCount = 0
                     leftGateState = 0  # Resets both gate states
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
@@ -1058,7 +1110,21 @@ while running:  # GAME LOOP
                     displayMainMenu()  # Displays the main menu
                     state = "mainMenu"  # State change
                     break
+                if (levelSelectSandboxButton(event)):  # if the sandbox button has been clicked
+                    level = "sandbox"
+                    displayWhiteScreen()  # Clears screen
+                    displayBlankGameScreen(level)  # Displays gameplay UI
+                    displayCurrentLevel(level)  # Displays "N/A"
+                    leftGateState = 0  # Resets both gate states
+                    rightGateState = 0  # ^
+                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                    displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
+                    game = initGame()  # Initializes a blank game
+                    showGame(game)  # Displays the qubits
+                    state = "gamePlay"
+                    break
                 if (levelSelectLevel1Button(event)):
+                    moveCount = 0
                     leftGateState = 0  # Resets both gate states
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
@@ -1070,6 +1136,7 @@ while running:  # GAME LOOP
                     displayLevelExplanation(level)  # Displays the currently selected level's explanation
                     break
                 elif (levelSelectLevel2Button(event)):
+                    moveCount = 0
                     leftGateState = 0  # Resets both gate states
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
@@ -1081,6 +1148,7 @@ while running:  # GAME LOOP
                     displayLevelExplanation(level)  # Displays the currently selected level's explanation
                     break
                 elif (levelSelectLevel3Button(event)):
+                    moveCount = 0
                     leftGateState = 0  # Resets both gate states
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
@@ -1092,6 +1160,7 @@ while running:  # GAME LOOP
                     displayLevelExplanation(level)  # Displays the currently selected level's explanation
                     break
                 elif (levelSelectLevel4Button(event)):
+                    moveCount = 0
                     leftGateState = 0  # Resets both gate states
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
@@ -1103,6 +1172,7 @@ while running:  # GAME LOOP
                     displayLevelExplanation(level)  # Displays the currently selected level's explanation
                     break
                 elif (levelSelectLevel5Button(event)):
+                    moveCount = 0
                     leftGateState = 0  # Resets both gate states
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
@@ -1114,6 +1184,7 @@ while running:  # GAME LOOP
                     displayLevelExplanation(level)  # Displays the currently selected level's explanation
                     break
                 elif (levelSelectLevel6Button(event)):
+                    moveCount = 0
                     leftGateState = 0  # Resets both gate states
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
@@ -1125,6 +1196,7 @@ while running:  # GAME LOOP
                     displayLevelExplanation(level)  # Displays the currently selected level's explanation
                     break
                 elif (levelSelectLevel7Button(event)):
+                    moveCount = 0
                     leftGateState = 0  # Resets both gate states
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
@@ -1136,6 +1208,7 @@ while running:  # GAME LOOP
                     displayLevelExplanation(level)  # Displays the currently selected level's explanation
                     break
                 elif (levelSelectLevel8Button(event)):
+                    moveCount = 0
                     leftGateState = 0  # Resets both gate states
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
@@ -1147,6 +1220,7 @@ while running:  # GAME LOOP
                     displayLevelExplanation(level)  # Displays the currently selected level's explanation
                     break
                 elif (levelSelectLevel9Button(event)):
+                    moveCount = 0
                     leftGateState = 0  # Resets both gate states
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
@@ -1158,6 +1232,7 @@ while running:  # GAME LOOP
                     displayLevelExplanation(level)  # Displays the currently selected level's explanation
                     break
                 elif (levelSelectLevel10Button(event)):
+                    moveCount = 0
                     leftGateState = 0  # Resets both gate states
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
@@ -1169,6 +1244,7 @@ while running:  # GAME LOOP
                     displayLevelExplanation(level)  # Displays the currently selected level's explanation
                     break
                 elif (levelSelectLevel11Button(event)):
+                    moveCount = 0
                     leftGateState = 0  # Resets both gate states
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
@@ -1180,6 +1256,7 @@ while running:  # GAME LOOP
                     displayLevelExplanation(level)  # Displays the currently selected level's explanation
                     break
                 elif (levelSelectLevel12Button(event)):
+                    moveCount = 0
                     leftGateState = 0  # Resets both gate states
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
@@ -1191,6 +1268,7 @@ while running:  # GAME LOOP
                     displayLevelExplanation(level)  # Displays the currently selected level's explanation
                     break
                 elif (levelSelectLevel13Button(event)):
+                    moveCount = 0
                     leftGateState = 0  # Resets both gate states
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
@@ -1202,6 +1280,7 @@ while running:  # GAME LOOP
                     displayLevelExplanation(level)  # Displays the currently selected level's explanation
                     break
                 elif (levelSelectLevel14Button(event)):
+                    moveCount = 0
                     leftGateState = 0  # Resets both gate states
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
@@ -1213,6 +1292,7 @@ while running:  # GAME LOOP
                     displayLevelExplanation(level)  # Displays the currently selected level's explanation
                     break
                 elif (levelSelectLevel15Button(event)):
+                    moveCount = 0
                     leftGateState = 0  # Resets both gate states
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
@@ -1335,6 +1415,8 @@ while running:  # GAME LOOP
                     showGame(game)  # Updates the Qubits on the UI
 
                 # MOVE CAP CONTROL FLOW FOR LEVELS (Basically loss detecting control flow)
+                if (level == "sandbox"):  # If the user is in sandbox mode reset moveCount to 0 to mitigate bugs
+                    moveCount = 0
                 if (level == 1 and moveCount == moveCountCapList[level]):  # Checks if the move cap of 1 has been exceeded for level 1
                     displayYouLostScreen()
                     state = "youLostMenu"
