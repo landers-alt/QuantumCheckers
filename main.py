@@ -253,8 +253,8 @@ def displayMovesLeft(level, moveCount):  # Displays the current moves the player
         movesLeftText = movesLeftIndicatorTextFont.render("N/A", True, black)  # Init. text
         screen.blit(movesLeftIndicatorOverlay, movesLeftIndicatorOverlayLocation)  # Puts overlay on
         screen.blit(movesLeftText, movesLeftIndicatorTextLocation)  # Prints text
-    elif (level <= 0 or level >= 16 or level == None):  # Makes sure that you're only passing an integer between 1 and 15
-        raise Exception("Level provided can't less than 1 or greater than 15.")
+    elif (level <= 0 or level >= 16 or level == None or level == "Undecided" or level == "Placeholder"):  # Makes sure that you're only passing an integer between 1 and 15
+        raise Exception("Level provided can't less than 1 or greater than 15, and cannot be a string.")
     else:  # If inputted parameter value is valid
         movesLeftText = movesLeftIndicatorTextFont.render(str(moveCountCapList[level] - moveCount), True, black)  # Init. text
         screen.blit(movesLeftIndicatorOverlay, movesLeftIndicatorOverlayLocation)  # Puts overlay on
@@ -784,7 +784,7 @@ leftGateState = 0  # Init. the state of the left gate selector
 rightGateState = 0  # Init. the state of the right gate selector
 level = 1  # Variable that indicates the current level the player is on
 moveCount = 0  # Variable that holds the number of logic gates the player has enacted onto the circuit
-moveCountCapList = ["Placeholder",1,2,"Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided"]  # The move cap for each level is state in index order of each level, hence the placeholder in index 0
+moveCountCapList = ["Placeholder",1,2,1,"Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided"]  # The move cap for each level is state in index order of each level, hence the placeholder in index 0
     # Scoreboard Init.
 populateScoreBoardTextList()  # Populates the score board text list so that the scoreboard menu works correctly
     # Pygame Init.
