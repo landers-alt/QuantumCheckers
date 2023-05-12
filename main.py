@@ -764,6 +764,18 @@ def initGame(): # init. a quantum game instance and returns said game
     )
     return game
 
+def initLevelOne():  # Init. a quantum game instance with win conditions for level 1
+    game = QuantumGame(
+        initialize=[],
+        allowed_gates=SUPPORTED_GATES,
+        shots=DEFAULT_SHOTS,
+        corr_color=DEFAULT_CORR_COLOR,
+        iden_color=DEFAULT_IDEN_COLOR,
+        grid_resolution=DEFAULT_GRID_RESOLUTION,
+        win_condition = {'IZ': 1, 'ZI': 0, 'IX': 0, 'XI': 0, 'ZZ': 0, 'ZX': 0, 'XZ': 0, 'XX': 0}
+    )
+    return game
+
 def showGame(game): # returns an image of the game inputted into the parameter
     image, win = game.draw_grid() # win is a boolean representing if the user won with this configuration or not
     if win:
@@ -771,6 +783,11 @@ def showGame(game): # returns an image of the game inputted into the parameter
     newImage = bytes_to_pygame_image(image)
     screen.blit(newImage, (79,0))
     # STOP - Quantum Method(s) Implementing "game_logic.py"
+
+def checkWin(game):  # Returns a boolean on whether or not the game has been won
+    image, win = game.draw_grid()
+    if win:
+        print("GAME HAS BEEN WON")
 # END - METHODS
 
 
@@ -1129,7 +1146,10 @@ while running:  # GAME LOOP
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
                     displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
-                    game = initGame()  # Initializes a blank game
+                    # TESTING BELOW
+                    game = initLevelOne()
+                    #game = initGame()  # Initializes a blank game
+                    # TESTING ABOVE
                     showGame(game)  # Displays the qubits
                     level = 1
                     state = "levelExplanation"
@@ -1413,6 +1433,10 @@ while running:  # GAME LOOP
                     else:  # Handles non-CZ gate applications
                         game.apply_gate(1, gatePossibilitiesList[rightGateState])  # This will apply the currently selected game to the quantum game instance
                     showGame(game)  # Updates the Qubits on the UI
+
+                # WIN CONDITION CONTROL FLOW
+                if (checkWin(game)):  # Checks if the level has been won
+                    break
 
                 # MOVE CAP CONTROL FLOW FOR LEVELS (Basically loss detecting control flow)
                 if (level == "sandbox"):  # If the user is in sandbox mode reset moveCount to 0 to mitigate bugs
