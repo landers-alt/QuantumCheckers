@@ -91,12 +91,14 @@ youLostScoreInfoIndicatorOverlay.fill(youLostScoreInfoIndicatorOverlayColor)
 youLostScoreInfoIndicatorTextLocation = (youLostScoreInfoIndicatorOverlayLocation[0], youLostScoreInfoIndicatorOverlayLocation[1])
 youLostScoreInfoIndicatorTextFont = pygame.font.SysFont("timesnewroman",22)  # Stores the font times new roman in size 12 in a variable
         # You Won Score Info Text
-youWonScoreInfoIndicatorOverlayLocation = (722, 128)  # The location, (x,y) notation of the current level indicator overlay
+youWonScoreInfoIndicatorOverlayLocation = (470, 225)  # The location, (x,y) notation of the current level indicator overlay
 youWonScoreInfoIndicatorOverlayColor = (216, 123, 104)  # The color of the peach background of the buttons
 youWonScoreInfoIndicatorOverlay = pygame.Surface((30, 25))  # Makes the shape that will be the background of the current gate indicator
 youWonScoreInfoIndicatorOverlay.fill(youWonScoreInfoIndicatorOverlayColor)
 youWonScoreInfoIndicatorTextLocation = (youWonScoreInfoIndicatorOverlayLocation[0], youWonScoreInfoIndicatorOverlayLocation[1])
 youWonScoreInfoIndicatorTextFont = pygame.font.SysFont("timesnewroman",22)  # Stores the font times new roman in size 12 in a variable
+youWonScoreInfoTextHighScoreOverlayLocation = (435, 253)
+youWonScoreInfoTextHighScoreTextLocation = (youWonScoreInfoTextHighScoreOverlayLocation[0], youWonScoreInfoTextHighScoreOverlayLocation[1])
         # Location of the origin
 origin = (0,0)  # The location, (x,y) notation, of the goal indicator for any given level
     # STOP - GAMEPLAY UI SCREEN INFORMATION
@@ -186,9 +188,10 @@ def displayWhiteScreen():  # Displays a white image on the entire screen
     screen.blit(whiteBackground, origin)
     pygame.display.update()
 
-def displayYouWonScreen():  # Displays the screen that plays when the player wins a level
+def displayYouWonScreen(level, moveCount):  # Displays the screen that plays when the player wins a level
     youWonScreen = pygame.image.load('Assets/YouWonScreen.png').convert_alpha()
     screen.blit(youWonScreen, origin)
+    displayYouWonScoreInfo(level, moveCount)
     pygame.display.update()
 
 def displayYouLostScreen(level):  # Diplays the screen that plays when the player loses a level
@@ -279,12 +282,21 @@ def displayYouLostScoreInfo(level):  # Displays the high score of the user on th
     if (level == "sandbox" or level <= 0 or level >= 16 or level == None or level == "Undecided" or level == "Placeholder"):
         raise Exception("Level provided can't less than 1 or greater than 15, also can't be in sandbox.")
     else:  # If inputted parameter value is valid
-        youLostScoreInfoText = youLostScoreInfoIndicatorTextFont.render("PLACEHOLDER", True, black)  # Init. text
+        youLostScoreInfoText = youLostScoreInfoIndicatorTextFont.render(readScoreBoardTextText(level), True, black)  # Init. text
         screen.blit(youLostScoreInfoIndicatorOverlay, youLostScoreInfoIndicatorOverlayLocation)  # Puts overlay on
         screen.blit(youLostScoreInfoText, youLostScoreInfoIndicatorTextLocation)  # Prints text
 
 def displayYouWonScoreInfo(level, moveCount): # Displays both the high score of the user and their current score (their moveCount)
-    pass
+    if (level == "sandbox" or level <= 0 or level >= 16 or level == None or level == "Undecided" or level == "Placeholder"):
+        raise Exception("Level provided can't less than 1 or greater than 15, also can't be in sandbox.")
+    else:  # If inputted parameter value is valid
+        youWonScoreInfoTextCurrentScore = youWonScoreInfoIndicatorTextFont.render(str(moveCount), True, black)  # Init. text
+        screen.blit(youWonScoreInfoIndicatorOverlay, youWonScoreInfoIndicatorOverlayLocation)  # Puts overlay on
+        screen.blit(youWonScoreInfoTextCurrentScore, youWonScoreInfoIndicatorTextLocation)  # Prints text
+
+        youWonScoreInfoTextHighScore = youWonScoreInfoIndicatorTextFont.render(readScoreBoardTextText(level), True, black)  # Init. text
+        screen.blit(youWonScoreInfoIndicatorOverlay, youWonScoreInfoTextHighScoreOverlayLocation)  # Puts overlay on
+        screen.blit(youWonScoreInfoTextHighScore, youWonScoreInfoTextHighScoreTextLocation)  # Prints text
         # STOP - Non-image Based Display Methods
     # STOP - Display Methods
 
@@ -432,7 +444,8 @@ def creditsMenuDSUButton_click(event):  # Git Hub Button
         # Writes to the file in order to update the player's high score for any respective level
         # Takes "level" and "score" as parameters, "level" denotes what line of the file should be changed, which also denotes
         # what level to change the score of. "Score" denotes what integer value is to be placed on the respective line in the file
-def updateScoreBoardTextList(level, score):
+def updateScoreBoardTextFile(level, score):
+    score = returnHighScore(level, score)
     if (level > 0 and level < 15 and score >= 0 and score <= 100):
         with open('scoreBoard.txt', 'r') as file:
             lines = file.readlines()
@@ -444,14 +457,48 @@ def updateScoreBoardTextList(level, score):
         print("       The values inputted into the function were: " + "level: " + str(level) + " score: " + str(score))
         raise Exception("Invalid Input in Function Call")
 
-    # Populates a list of score board values based on the player's high score on each level
-def populateScoreBoardTextList():
+def readScoreBoardTextText(level):  # Reads the file and returns the value specified on the level parameter
+    if (level > 0 and level < 15):
+        try:
+            with open('scoreBoard.txt', 'r') as file:
+                lines = file.readlines()
+                line = lines[level]
+                line = str(line)
+                if (line != '\n'):
+                    return line.strip()
+                else:
+                    return "N/A"
+        except FileNotFoundError:
+            return "File not found."
+    else:
+        print("ERROR: The value(s) inputted into the 'updateScoreBoardTextList' function are not valid.")
+        print("       The values inputted into the function were: " + "level: " + str(level))
+        raise Exception("Invalid Input in Function Call")
+
+def populateScoreBoardTextList(): # Populates a list of score board values based on the player's high score on each level
     with open('scoreBoard.txt') as f:
         scoreBoardTextList = []  # Initializes a list to hold the scores of the user for the various levels in the game
         for line in f:  # Loops thru each line in the file
             scoreBoardTextList.append(line.strip())  # Appends the text from the file into a list to be used in order to display the scoreboard
     return scoreBoardTextList
     # STOP - Scoreboard File Reading Methods
+
+    # START - Highscore Checking method
+def returnHighScore(level, score):  # Returns the high score of a level based on the previous high score and the current score
+    if (score == 0):
+        raise Exception("You can't have a score of 0, something went wrong.")
+    if (level <= 0 or level >= 16):
+        raise Exception("You can't have a level 0 or below, or 16 or above.")
+
+    previousScore = readScoreBoardTextText(level)
+    if ( previousScore == "N/A"):
+        previousScore = 0
+    playerScore = score
+    if ( previousScore > playerScore):
+        return previousScore
+    else:
+        return playerScore
+    # STOP - Highscore Checking method
 
     # START - Gameplay Buttons
 def levelSelectButton(event):  # Level Select Button
@@ -1479,7 +1526,9 @@ while running:  # GAME LOOP
 
                 # WIN CONDITION CONTROL FLOW
                 if (checkWin(game)):  # Checks if the level has been won
-                    displayYouWonScreen()  # Displays the you won screen
+                    updateScoreBoardTextFile(level,moveCount)  # Updates the high score of the player
+                    displayYouWonScreen(level, moveCount)  # Displays the you won screen
+                    displayYouWonScoreInfo(level, moveCount)  # Displays the you won screen score info
                     print("Level " + level + " has been won.")
                     state = "youWonMenu"
                     moveCount = 0
