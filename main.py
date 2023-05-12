@@ -728,7 +728,7 @@ def youWonScreenNextLevelButton(event):
     # STOP - You Won Screen Buttons
 
     # START - You Lost Screen Buttons
-def youLostScreenMainMenuButton(event):
+def loseWinScreenMainMenuButton(event):
     x, y = pygame.mouse.get_pos()
     if event.type == pygame.MOUSEBUTTONDOWN:
         if (state == "youLostMenu"):
@@ -736,7 +736,7 @@ def youLostScreenMainMenuButton(event):
                 print("You Lost Screen Main Menu Button")
                 return True
 
-def youLostScreenReplayLevelButton(event):
+def loseWinLevelButton(event):
     x, y = pygame.mouse.get_pos()
     if event.type == pygame.MOUSEBUTTONDOWN:
         if (state == "youLostMenu"):
@@ -1348,12 +1348,12 @@ while running:  # GAME LOOP
 
             # You Lost Screen Button Control Flow
             if (state == "youLostMenu"):
-                if (youLostScreenMainMenuButton(event)):  # Continue button is clicked
+                if (loseWinScreenMainMenuButton(event)):  # Continue button is clicked
                     state = "mainMenu"  # State change
                     displayWhiteScreen()  # Blanks the screen
                     displayMainMenu()  # Main Menu
                     break
-                if (youLostScreenReplayLevelButton(event)):  # Back button is clicked
+                if (loseWinLevelButton(event)):  # Replay level button is clicked
                     state = "gamePlay"  # State change
                     displayWhiteScreen()  # Blanks the screen
                     leftGateState = 0  # Resets both gate states
@@ -1364,6 +1364,23 @@ while running:  # GAME LOOP
                     displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
                     game = initGame()  # Initializes a blank game
                     showGame(game)  # Displays the qubits
+                    break
+
+            # You Won Screen Button Control Flow
+            if (state == "youWonMenu"):
+                if (loseWinScreenMainMenuButton(event)):  # Continue button is clicked
+                    state = "mainMenu"  # State change
+                    displayWhiteScreen()  # Blanks the screen
+                    displayMainMenu()  # Main Menu
+                    break
+                if (loseWinLevelButton(event)):  # Next level button is clicked
+                    level += 1  # Increments the level the user is on
+                    displayWhiteScreen()  # Blanks the screen
+                    leftGateState = 0  # Resets both gate states
+                    rightGateState = 0  # ^
+                    displayBlankGameScreen(level)
+                    state = "levelExplanation"  # Changes the state
+                    displayLevelExplanation(level)  # Displays the currently selected level's explanation
                     break
 
             # Gameplay Button Control Flow
@@ -1436,7 +1453,11 @@ while running:  # GAME LOOP
 
                 # WIN CONDITION CONTROL FLOW
                 if (checkWin(game)):  # Checks if the level has been won
-                    break
+                    displayYouWonScreen()  # Displays the you won screen
+                    print("Level " + level + " has been won.")
+                    state = "youWonMenu"
+                    moveCount = 0
+
 
                 # MOVE CAP CONTROL FLOW FOR LEVELS (Basically loss detecting control flow)
                 if (level == "sandbox"):  # If the user is in sandbox mode reset moveCount to 0 to mitigate bugs
