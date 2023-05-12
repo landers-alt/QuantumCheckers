@@ -83,7 +83,21 @@ movesLeftIndicatorOverlay = pygame.Surface((30, 25))  # Makes the shape that wil
 movesLeftIndicatorOverlay.fill(movesLeftIndicatorOverlayColor)
 movesLeftIndicatorTextLocation = (movesLeftIndicatorOverlayLocation[0], movesLeftIndicatorOverlayLocation[1])
 movesLeftIndicatorTextFont = pygame.font.SysFont("timesnewroman",22)  # Stores the font times new roman in size 12 in a variable
-    # Location of the origin
+        # You Lost Score Info Text
+youLostScoreInfoIndicatorOverlayLocation = (455, 230)  # The location, (x,y) notation of the current level indicator overlay
+youLostScoreInfoIndicatorOverlayColor = (216, 123, 104)  # The color of the peach background of the buttons
+youLostScoreInfoIndicatorOverlay = pygame.Surface((30, 25))  # Makes the shape that will be the background of the current gate indicator
+youLostScoreInfoIndicatorOverlay.fill(youLostScoreInfoIndicatorOverlayColor)
+youLostScoreInfoIndicatorTextLocation = (youLostScoreInfoIndicatorOverlayLocation[0], youLostScoreInfoIndicatorOverlayLocation[1])
+youLostScoreInfoIndicatorTextFont = pygame.font.SysFont("timesnewroman",22)  # Stores the font times new roman in size 12 in a variable
+        # You Won Score Info Text
+youWonScoreInfoIndicatorOverlayLocation = (722, 128)  # The location, (x,y) notation of the current level indicator overlay
+youWonScoreInfoIndicatorOverlayColor = (216, 123, 104)  # The color of the peach background of the buttons
+youWonScoreInfoIndicatorOverlay = pygame.Surface((30, 25))  # Makes the shape that will be the background of the current gate indicator
+youWonScoreInfoIndicatorOverlay.fill(youWonScoreInfoIndicatorOverlayColor)
+youWonScoreInfoIndicatorTextLocation = (youWonScoreInfoIndicatorOverlayLocation[0], youWonScoreInfoIndicatorOverlayLocation[1])
+youWonScoreInfoIndicatorTextFont = pygame.font.SysFont("timesnewroman",22)  # Stores the font times new roman in size 12 in a variable
+        # Location of the origin
 origin = (0,0)  # The location, (x,y) notation, of the goal indicator for any given level
     # STOP - GAMEPLAY UI SCREEN INFORMATION
 # END - SCREEN
@@ -177,9 +191,10 @@ def displayYouWonScreen():  # Displays the screen that plays when the player win
     screen.blit(youWonScreen, origin)
     pygame.display.update()
 
-def displayYouLostScreen():  # Diplays the screen that plays when the player loses a level
+def displayYouLostScreen(level):  # Diplays the screen that plays when the player loses a level
     youLostScreen = pygame.image.load('Assets/YouLostScreen.png').convert_alpha()
     screen.blit(youLostScreen, origin)
+    displayYouLostScoreInfo(level)  # Displays the user's high score (if any)
     pygame.display.update()
         # STOP - Gameplay Display Methods
 
@@ -259,6 +274,17 @@ def displayMovesLeft(level, moveCount):  # Displays the current moves the player
         movesLeftText = movesLeftIndicatorTextFont.render(str(moveCountCapList[level] - moveCount), True, black)  # Init. text
         screen.blit(movesLeftIndicatorOverlay, movesLeftIndicatorOverlayLocation)  # Puts overlay on
         screen.blit(movesLeftText, movesLeftIndicatorTextLocation)  # Prints text
+
+def displayYouLostScoreInfo(level):  # Displays the high score of the user on the you lost menu screen
+    if (level == "sandbox" or level <= 0 or level >= 16 or level == None or level == "Undecided" or level == "Placeholder"):
+        raise Exception("Level provided can't less than 1 or greater than 15, also can't be in sandbox.")
+    else:  # If inputted parameter value is valid
+        youLostScoreInfoText = youLostScoreInfoIndicatorTextFont.render("PLACEHOLDER", True, black)  # Init. text
+        screen.blit(youLostScoreInfoIndicatorOverlay, youLostScoreInfoIndicatorOverlayLocation)  # Puts overlay on
+        screen.blit(youLostScoreInfoText, youLostScoreInfoIndicatorTextLocation)  # Prints text
+
+def displayYouWonScoreInfo(level, moveCount): # Displays both the high score of the user and their current score (their moveCount)
+    pass
         # STOP - Non-image Based Display Methods
     # STOP - Display Methods
 
@@ -1463,63 +1489,63 @@ while running:  # GAME LOOP
                 if (level == "sandbox"):  # If the user is in sandbox mode reset moveCount to 0 to mitigate bugs
                     moveCount = 0
                 if (level == 1 and moveCount == moveCountCapList[level]):  # Checks if the move cap of 1 has been exceeded for level 1
-                    displayYouLostScreen()
+                    displayYouLostScreen(level)
                     state = "youLostMenu"
                     moveCount = 0
                 if (level == 2 and moveCount == moveCountCapList[level]):  # Checks if the move cap of 2 has been exceeded for level 2
-                    displayYouLostScreen()
+                    displayYouLostScreen(level)
                     state = "youLostMenu"
                     moveCount = 0
                 if (level == 3 and moveCount == moveCountCapList[level]):  # Checks if the move cap of 2 has been exceeded for level 2
-                    displayYouLostScreen()
+                    displayYouLostScreen(level)
                     state = "youLostMenu"
                     moveCount = 0
                 if (level == 4 and moveCount == moveCountCapList[level]):  # Checks if the move cap of 2 has been exceeded for level 2
-                    displayYouLostScreen()
+                    displayYouLostScreen(level)
                     state = "youLostMenu"
                     moveCount = 0
                 if (level == 5 and moveCount == moveCountCapList[level]):  # Checks if the move cap of 2 has been exceeded for level 2
-                    displayYouLostScreen()
+                    displayYouLostScreen(level)
                     state = "youLostMenu"
                     moveCount = 0
                 if (level == 6 and moveCount == moveCountCapList[level]):  # Checks if the move cap of 1 has been exceeded for level 1
-                    displayYouLostScreen()
+                    displayYouLostScreen(level)
                     state = "youLostMenu"
                     moveCount = 0
                 if (level == 7 and moveCount == moveCountCapList[level]):  # Checks if the move cap of 2 has been exceeded for level 2
-                    displayYouLostScreen()
+                    displayYouLostScreen(level)
                     state = "youLostMenu"
                     moveCount = 0
                 if (level == 8 and moveCount == moveCountCapList[level]):  # Checks if the move cap of 2 has been exceeded for level 2
-                    displayYouLostScreen()
+                    displayYouLostScreen(level)
                     state = "youLostMenu"
                     moveCount = 0
                 if (level == 9 and moveCount == moveCountCapList[level]):  # Checks if the move cap of 2 has been exceeded for level 2
-                    displayYouLostScreen()
+                    displayYouLostScreen(level)
                     state = "youLostMenu"
                     moveCount = 0
                 if (level == 10 and moveCount == moveCountCapList[level]):  # Checks if the move cap of 2 has been exceeded for level 2
-                    displayYouLostScreen()
+                    displayYouLostScreen(level)
                     state = "youLostMenu"
                     moveCount = 0
                 if (level == 11 and moveCount == moveCountCapList[level]):  # Checks if the move cap of 1 has been exceeded for level 1
-                    displayYouLostScreen()
+                    displayYouLostScreen(level)
                     state = "youLostMenu"
                     moveCount = 0
                 if (level == 12 and moveCount == moveCountCapList[level]):  # Checks if the move cap of 2 has been exceeded for level 2
-                    displayYouLostScreen()
+                    displayYouLostScreen(level)
                     state = "youLostMenu"
                     moveCount = 0
                 if (level == 13 and moveCount == moveCountCapList[level]):  # Checks if the move cap of 2 has been exceeded for level 2
-                    displayYouLostScreen()
+                    displayYouLostScreen(level)
                     state = "youLostMenu"
                     moveCount = 0
                 if (level == 14 and moveCount == moveCountCapList[level]):  # Checks if the move cap of 2 has been exceeded for level 2
-                    displayYouLostScreen()
+                    displayYouLostScreen(level)
                     state = "youLostMenu"
                     moveCount = 0
                 if (level == 15 and moveCount == moveCountCapList[level]):  # Checks if the move cap of 2 has been exceeded for level 2
-                    displayYouLostScreen()
+                    displayYouLostScreen(level)
                     state = "youLostMenu"
                     moveCount = 0
 
