@@ -784,7 +784,7 @@ leftGateState = 0  # Init. the state of the left gate selector
 rightGateState = 0  # Init. the state of the right gate selector
 level = 1  # Variable that indicates the current level the player is on
 moveCount = 0  # Variable that holds the number of logic gates the player has enacted onto the circuit
-moveCountCapList = ["Placeholder",1,2,1,"Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided"]  # The move cap for each level is state in index order of each level, hence the placeholder in index 0
+moveCountCapList = ["Placeholder",2,3,2,"Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided"]  # The move cap for each level is state in index order of each level, hence the placeholder in index 0
     # Scoreboard Init.
 populateScoreBoardTextList()  # Populates the score board text list so that the scoreboard menu works correctly
     # Pygame Init.
