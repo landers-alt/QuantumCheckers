@@ -870,11 +870,12 @@ def checkWin(game):  # Returns a boolean on whether or not the game has been won
 game = initGame()
     # Gameplay Variables and List Init.
 gatePossibilitiesList = ['x', 'y', 'z', 'h', 'cz']
+hGateLevelList = [4,5,6]  # Levels who's init. gate states should be the 'H' gate
 leftGateState = 0  # Init. the state of the left gate selector
 rightGateState = 0  # Init. the state of the right gate selector
 level = 1  # Variable that indicates the current level the player is on
 moveCount = 0  # Variable that holds the number of logic gates the player has enacted onto the circuit
-moveCountCapList = ["Placeholder",2,3,2,"Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided"]  # The move cap for each level is state in index order of each level, hence the placeholder in index 0
+moveCountCapList = ["Placeholder",2,3,2,2,"Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided"]  # The move cap for each level is state in index order of each level, hence the placeholder in index 0
     # Scoreboard Init.
 populateScoreBoardTextList()  # Populates the score board text list so that the scoreboard menu works correctly
     # Pygame Init.
@@ -1051,8 +1052,8 @@ while running:  # GAME LOOP
                     break
                 elif (levelSelectLevel4Button(event)):
                     moveCount = 0
-                    leftGateState = 0  # Resets both gate states
-                    rightGateState = 0  # ^
+                    leftGateState = 3  # Resets both gate states
+                    rightGateState = 3  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
                     displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
                     game = initGame()  # Initializes a blank game
@@ -1063,8 +1064,8 @@ while running:  # GAME LOOP
                     break
                 elif (levelSelectLevel5Button(event)):
                     moveCount = 0
-                    leftGateState = 0  # Resets both gate states
-                    rightGateState = 0  # ^
+                    leftGateState = 3  # Resets both gate states
+                    rightGateState = 3  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
                     displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
                     game = initGame()  # Initializes a blank game
@@ -1075,8 +1076,8 @@ while running:  # GAME LOOP
                     break
                 elif (levelSelectLevel6Button(event)):
                     moveCount = 0
-                    leftGateState = 0  # Resets both gate states
-                    rightGateState = 0  # ^
+                    leftGateState = 3  # Resets both gate states
+                    rightGateState = 3  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
                     displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
                     game = initGame()  # Initializes a blank game
@@ -1254,8 +1255,8 @@ while running:  # GAME LOOP
                     break
                 elif (levelSelectLevel4Button(event)):
                     moveCount = 0
-                    leftGateState = 0  # Resets both gate states
-                    rightGateState = 0  # ^
+                    leftGateState = 3  # Resets both gate states
+                    rightGateState = 3  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
                     displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
                     game = initGame()  # Initializes a blank game
@@ -1266,8 +1267,8 @@ while running:  # GAME LOOP
                     break
                 elif (levelSelectLevel5Button(event)):
                     moveCount = 0
-                    leftGateState = 0  # Resets both gate states
-                    rightGateState = 0  # ^
+                    leftGateState = 3  # Resets both gate states
+                    rightGateState = 3  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
                     displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
                     game = initGame()  # Initializes a blank game
@@ -1278,8 +1279,8 @@ while running:  # GAME LOOP
                     break
                 elif (levelSelectLevel6Button(event)):
                     moveCount = 0
-                    leftGateState = 0  # Resets both gate states
-                    rightGateState = 0  # ^
+                    leftGateState = 3  # Resets both gate states
+                    rightGateState = 3  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
                     displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
                     game = initGame()  # Initializes a blank game
@@ -1429,8 +1430,12 @@ while running:  # GAME LOOP
                 if (loseWinLevelButton(event)):  # Replay level button is clicked
                     state = "gamePlay"  # State change
                     displayWhiteScreen()  # Blanks the screen
-                    leftGateState = 0  # Resets both gate states
-                    rightGateState = 0  # ^
+                    if (level in hGateLevelList):  # If the level is an 'H' gate level, resets gates to the 'H' gate
+                        leftGateState = 3
+                        rightGateState = 3
+                    else:  # If the level's init. gate orientation is unimportant or if the level in an 'X' gate level
+                        leftGateState = 0  # Resets both gate states
+                        rightGateState = 0  # ^
                     displayBlankGameScreen(level)
                     displayCurrentLevel(level)  # Displays the current level the player is on
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
@@ -1449,8 +1454,12 @@ while running:  # GAME LOOP
                 if (loseWinLevelButton(event)):  # Next level button is clicked
                     displayWhiteScreen()  # Clears screen
                     moveCount = 0
-                    leftGateState = 0  # Resets both gate states
-                    rightGateState = 0  # ^
+                    if (level in hGateLevelList):  # If the level is an 'H' gate level, resets gates to the 'H' gate
+                        leftGateState = 3
+                        rightGateState = 3
+                    else:  # If the level's init. gate orientation is unimportant or if the level in an 'X' gate level
+                        leftGateState = 0  # Resets both gate states
+                        rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
                     displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
                     game = initGame()  # Initializes a blank game
