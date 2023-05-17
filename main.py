@@ -804,7 +804,7 @@ def youWonScreenNextLevelButton(event):
 def loseWinScreenMainMenuButton(event):
     x, y = pygame.mouse.get_pos()
     if event.type == pygame.MOUSEBUTTONDOWN:
-        if (state == "youLostMenu"):
+        if (state == "youLostMenu" or state == "youWonMenu"):
             if (x > 232 and x < 366) and (y > 395 and y < 458):  # THE X IS ALREADY GOOD, WORRY ABOUT THE Y VALUES
                 print("You Lost Screen Main Menu Button")
                 return True
@@ -812,7 +812,7 @@ def loseWinScreenMainMenuButton(event):
 def loseWinLevelButton(event):
     x, y = pygame.mouse.get_pos()
     if event.type == pygame.MOUSEBUTTONDOWN:
-        if (state == "youLostMenu"):
+        if (state == "youLostMenu" or state == "youWonMenu"):
             if (x > 435 and x < 568) and (y > 395 and y < 458):  # THE X IS ALREADY GOOD, WORRY ABOUT THE Y VALUES
                 print("You Lost Screen Replay Level Button")
                 return True
@@ -1441,18 +1441,22 @@ while running:  # GAME LOOP
 
             # You Won Screen Button Control Flow
             if (state == "youWonMenu"):
-                if (loseWinScreenMainMenuButton(event)):  # Continue button is clicked
+                if (loseWinScreenMainMenuButton(event)):  # Main menu button is clicked
                     state = "mainMenu"  # State change
                     displayWhiteScreen()  # Blanks the screen
                     displayMainMenu()  # Main Menu
                     break
                 if (loseWinLevelButton(event)):  # Next level button is clicked
-                    level += 1  # Increments the level the user is on
-                    displayWhiteScreen()  # Blanks the screen
+                    displayWhiteScreen()  # Clears screen
+                    moveCount = 0
                     leftGateState = 0  # Resets both gate states
                     rightGateState = 0  # ^
-                    displayBlankGameScreen(level)
-                    state = "levelExplanation"  # Changes the state
+                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
+                    displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
+                    game = initGame()  # Initializes a blank game
+                    showGame(game)  # Displays the qubits
+                    level += 1  # Increments the level
+                    state = "levelExplanation"
                     displayLevelExplanation(level)  # Displays the currently selected level's explanation
                     break
 
@@ -1539,10 +1543,12 @@ while running:  # GAME LOOP
                     moveCount = 0
                 if (level == 1 and moveCount == moveCountCapList[level]):  # Checks if the move cap of 1 has been exceeded for level 1
                     displayYouLostScreen(level)
+                    displayYouLostScoreInfo(level)
                     state = "youLostMenu"
                     moveCount = 0
                 if (level == 2 and moveCount == moveCountCapList[level]):  # Checks if the move cap of 2 has been exceeded for level 2
                     displayYouLostScreen(level)
+                    displayYouLostScoreInfo(level)
                     state = "youLostMenu"
                     moveCount = 0
                 if (level == 3 and moveCount == moveCountCapList[level]):  # Checks if the move cap of 2 has been exceeded for level 2
