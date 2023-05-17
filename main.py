@@ -860,7 +860,7 @@ def showGame(game): # returns an image of the game inputted into the parameter
 def checkWin(game):  # Returns a boolean on whether or not the game has been won
     image, win = game.draw_grid()
     if win:
-        print("GAME HAS BEEN WON")
+        print("GAME HAS BEEN WON (THIS IS BEING PRINTED FROM 'checkWin(game)'")
 # END - METHODS
 
 
@@ -875,7 +875,7 @@ leftGateState = 0  # Init. the state of the left gate selector
 rightGateState = 0  # Init. the state of the right gate selector
 level = 1  # Variable that indicates the current level the player is on
 moveCount = 0  # Variable that holds the number of logic gates the player has enacted onto the circuit
-moveCountCapList = ["Placeholder",2,3,2,2,2,"Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided"]  # The move cap for each level is state in index order of each level, hence the placeholder in index 0
+moveCountCapList = ["Placeholder",2,3,2,2,2,3,5,"Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided"]  # The move cap for each level is state in index order of each level, hence the placeholder in index 0
     # Scoreboard Init.
 populateScoreBoardTextList()  # Populates the score board text list so that the scoreboard menu works correctly
     # Pygame Init.
