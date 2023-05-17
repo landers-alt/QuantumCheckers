@@ -875,7 +875,7 @@ leftGateState = 0  # Init. the state of the left gate selector
 rightGateState = 0  # Init. the state of the right gate selector
 level = 1  # Variable that indicates the current level the player is on
 moveCount = 0  # Variable that holds the number of logic gates the player has enacted onto the circuit
-moveCountCapList = ["Placeholder",2,3,2,2,"Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided"]  # The move cap for each level is state in index order of each level, hence the placeholder in index 0
+moveCountCapList = ["Placeholder",2,3,2,2,2,"Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided"]  # The move cap for each level is state in index order of each level, hence the placeholder in index 0
     # Scoreboard Init.
 populateScoreBoardTextList()  # Populates the score board text list so that the scoreboard menu works correctly
     # Pygame Init.
@@ -1508,8 +1508,12 @@ while running:  # GAME LOOP
                 # RESET LEVEL BUTTON
                 if ( resetLevelButton(event) ):  # Reset Level Button
                     moveCount = 0  # Resets move count to zero
-                    leftGateState = 0  # Resets both gate states
-                    rightGateState = 0  # ^
+                    if (level in hGateLevelList):  # If the level is an 'H' gate level, resets gates to the 'H' gate
+                        leftGateState = 3
+                        rightGateState = 3
+                    else:  # If the level's init. gate orientation is unimportant or if the level in an 'X' gate level
+                        leftGateState = 0  # Resets both gate states
+                        rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
                     displayMovesLeft(level, moveCount)  # Displays the current moves left
                     game = initGame()  # Initializes a blank game
