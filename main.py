@@ -181,7 +181,6 @@ def displayBlankGameScreen(level):  # Displays the blank game screen
         displayCurrentLevelGoal(level)
     pygame.display.update()
 
-
 def displayWhiteScreen():  # Displays a white image on the entire screen
     # Creation of a white image (800x500) & placing the image on the screen
     whiteBackground = pygame.image.load('Assets/800x500WHITE.png').convert_alpha()
@@ -212,7 +211,6 @@ def displayCurrentLevelGoal(level):  # Displays the current level's goal to the 
     else:  # Error handling
         raise Exception("Inputted level is not valid.")
 
-
 def displayLevelExplanation(level):  # Displays the explanation for the level
     levelExplanationFileLocation = "Assets/Level" + str(level) + "Assets/Level " + str(level) + " Explanation.png"
     explanation = pygame.image.load(levelExplanationFileLocation).convert_alpha()
@@ -223,6 +221,13 @@ def displayLevelGoal(level):  # Displays the screen that further explains the le
     goal = pygame.image.load(levelEGoalFileLocation).convert_alpha()
     screen.blit(goal, origin)
         # STOP - Level Explanation, Goal Methods
+
+        # START - Scoreboard Menu Display Methods
+def displayScoreBoardMenuAreYouSure():
+    FileLocation = "Assets/Scoreboard AreYouSure Menu.png"
+    areYouSureMenu = pygame.image.load(FileLocation).convert_alpha()
+    screen.blit(areYouSureMenu, origin)
+        # STOP - Scoreboard Menu Display Methods
 
         # START - Non-image Based Display Methods
 def displayScoreBoardMenu():  # Displays the rough outline of the scoreboard menu
@@ -409,9 +414,35 @@ def howToPlayMenuHowDoIPlayButton_click(event):  # Displays the how to play menu
 def scoreBoardMenuBackButton_click(event):  # Back Button
     x, y = pygame.mouse.get_pos()
     if event.type == pygame.MOUSEBUTTONDOWN:
-        if (x > 320 and x < 480) and (y > 410 and y < 462):
-            print("Back Button Has Been Clicked")
-            return True
+        if ( state == "scoreBoardMenu"):
+            if (x > 320 and x < 480) and (y > 410 and y < 462):
+                print("Back Button Has Been Clicked")
+                return True
+
+def scoreBoardMenuClearProgressButton_click(event):  # Clears user progress
+    x, y = pygame.mouse.get_pos()
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        if (state == "scoreBoardMenu"):
+            if (x > 628 and x < 740) and (y > 32 and y < 88):
+                print("Clear Progress Button Has Been Clicked")
+                return True
+
+            # START - Scoreboard Menu Are You Sure Buttons
+def scoreBoardAreYouSureMenuYesButton_click(event):
+    x, y = pygame.mouse.get_pos()
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        if (state == "scoreBoardAreYouSureMenu"):
+            if (x > 150 and x < 352) and (y > 280 and y < 332):
+                print("Yes Button Has Been Clicked")
+                return True
+def scoreBoardAreYouSureMenuNoButton_click(event):
+    x, y = pygame.mouse.get_pos()
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        if (state == "scoreBoardAreYouSureMenu"):
+            if (x > 440 and x < 644) and (y > 280 and y < 332):
+                print("No Button Has Been Clicked")
+                return True
+            # START - Scoreboard Menu Are You Sure Buttons
         # STOP - Scoreboard Menu
 
     # START - Credits Menu Buttons
@@ -481,6 +512,15 @@ def populateScoreBoardTextList(): # Populates a list of score board values based
         for line in f:  # Loops thru each line in the file
             scoreBoardTextList.append(line.strip())  # Appends the text from the file into a list to be used in order to display the scoreboard
     return scoreBoardTextList
+
+def clearUserProgress():  # Clears the scoreBoard.txt of data
+    scoreBoardFile = "scoreBoard.txt"
+    with open(scoreBoardFile, 'r') as file:
+        lines = file.readlines()
+
+    with open(scoreBoardFile, 'w') as file:
+        for _ in lines:
+            file.write('\n')
     # STOP - Scoreboard File Reading Methods
 
     # START - Highscore Checking method
@@ -539,7 +579,6 @@ def leftGateSelectButton(event):  # Changes the left qubit based on the selected
                 return True
 
 def resetLevelButton(event):  # Resets the level based on whatever level the player is currently on
-    # MISSING IMPLEMENTATION OF LEVEL-DEPENDENT RESET
     x, y = pygame.mouse.get_pos()
     if event.type == pygame.MOUSEBUTTONDOWN:
         if (state == "gamePlay"):
@@ -613,14 +652,6 @@ def levelSelectMenuBackButton(event, level):
             if (x > 635 and x < 772) and (y > 442 and y < 478):
                 print("Level Select Menu Back Button Has Been Clicked")
                 return True
-
-def displayGameUIAfterLevelSelectButtonClick():  # Displays the game screen fresh without resetting the circuit or gates
-    displayWhiteScreen()
-    displayBlankGameScreen(level)
-    displayCurrentGates(leftGateState, rightGateState)
-    displayMovesLeft(level, moveCount)
-    displayCurrentLevel(level)
-    showGame(game)
 
 def levelSelectSandboxButton(event):
     x, y = pygame.mouse.get_pos()
@@ -831,6 +862,14 @@ def bytes_to_pygame_image(bytes_io):
     # END - IMAGE CONVERSION
 
     # START - Quantum Method(s) Implementing "game_logic.py"
+def displayGameUIAfterLevelSelectButtonClick():  # Displays the game screen fresh without resetting the circuit or gates
+    displayWhiteScreen()
+    displayBlankGameScreen(level)
+    displayCurrentGates(leftGateState, rightGateState)
+    displayMovesLeft(level, moveCount)
+    displayCurrentLevel(level)
+    showGame(game)
+
 def initGame(): # init. a quantum game instance and returns said game
     game = QuantumGame(
         initialize = [],
@@ -1059,16 +1098,6 @@ while running:  # GAME LOOP
                     quit()
                     break
 
-            # Start Game Menu Button Control Flow
-            if ( state == "startGameMenu" ):
-                if ( startGameMenuBackButton_click(event) ):  # Back Button On Start Game Menu
-                    displayMainMenu()  # Displays the main menu
-                    state = "mainMenu"  # State change
-                    break
-                if ( startGameMenuGithubButton_click(event) ):  # Github Button On Start Game Menu
-                    openGithub()  # Opens the project's Github repository in a native google chrome instance
-                    break
-
             # How To Play Submenu(s) Button Control Flow
             if ( state == "howToPlayMenuSubMenu" ):
                 if ( howToPlayMenuBackButton_click(event) ):  # Back button (same function used in actual HTP menu)
@@ -1104,10 +1133,33 @@ while running:  # GAME LOOP
                     break
 
             # Scoreboard Menu Button Control Flow
-            if ( state == "scoreBoardMenu" ):
+            if ( state == "scoreBoardAreYouSureMenu"):  # Are you sure menu
+                x, y = pygame.mouse.get_pos()
+                print("X: " + str(x) + " Y: " + str(y))  # Helps with finding cursor for allocating space for buttons
+                if ( scoreBoardAreYouSureMenuYesButton_click(event)):  # If the yes button is clicked
+                    clearUserProgress()  # Clears the user's progress
+                    state = "scoreBoardMenu"  # State update
+                    displayScoreBoardMenu()  # Displays the scoreboard menu
+                    pygame.display.update()  # Update the screen
+                    break
+                pygame.display.update()  # Update the screen
+                if ( scoreBoardAreYouSureMenuNoButton_click(event)):  # If the no button is clicked
+                    state = "scoreBoardMenu"  # State update
+                    displayScoreBoardMenu()  # Displays the scoreboard menu
+                    pygame.display.update()  # Update the screen
+                    break
+
+
+
+            if ( state == "scoreBoardMenu" ):  # Normal scoreboard menu
                 if ( scoreBoardMenuBackButton_click(event) ):  # Back Button On How To Play Menu
                     displayMainMenu()  # Displays the main menu
                     state = "mainMenu"  # State change
+                    break
+                if ( scoreBoardMenuClearProgressButton_click(event) ):  # Clears the progress of the user
+                    displayScoreBoardMenuAreYouSure()  # Displays the are you sure menu
+                    pygame.display.update()  # Update the screen
+                    state = "scoreBoardAreYouSureMenu"  # State change
                     break
 
             # Credits Menu Button Control Flow
@@ -1654,7 +1706,7 @@ while running:  # GAME LOOP
                         rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
                     displayMovesLeft(level, moveCount)  # Displays the current moves left
-                    game = initGame()  # Initializes a blank game
+                    game = initGameBasedOnLevel(level)  # Initializes game based on the current level
                     showGame(game)  # Displays the qubits
 
                 # RIGHT GATE BUTTONS
@@ -1689,7 +1741,6 @@ while running:  # GAME LOOP
                     level += 1
                     game = initGameBasedOnLevel(level)
                     moveCount = 0
-
 
                 # MOVE CAP CONTROL FLOW FOR LEVELS (Basically loss detecting control flow)
                 if (level == "sandbox"):  # If the user is in sandbox mode reset moveCount to 0 to mitigate bugs
