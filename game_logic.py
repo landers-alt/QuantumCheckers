@@ -110,6 +110,8 @@ class QuantumGame():
             self.run_circuit()
 
         for pauli, prob in self.probabilities.items():
+            if self.win_condition[pauli] == None:
+                continue
             win_proximity = abs(prob - self.win_condition[pauli])
             if win_proximity > self.win_threshold:
                 return False
