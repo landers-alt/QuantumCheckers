@@ -845,7 +845,7 @@ def initLevelOne():  # Init. a quantum game instance with win conditions for lev
         corr_color=DEFAULT_CORR_COLOR,
         iden_color=DEFAULT_IDEN_COLOR,
         grid_resolution=DEFAULT_GRID_RESOLUTION,
-        win_condition = {'IZ': 1, 'ZI': 0, 'IX': 0, 'XI': 0, 'ZZ': 0, 'ZX': 0, 'XZ': 0, 'XX': 0}
+        win_condition = {'XI': 0, 'XZ': 0, 'XX': 0, 'ZI': 0, 'ZZ': 0, 'ZX': 0, 'IZ': 1, 'IX': 0}
     )
     return game
 
@@ -858,9 +858,8 @@ def showGame(game): # returns an image of the game inputted into the parameter
     # STOP - Quantum Method(s) Implementing "game_logic.py"
 
 def checkWin(game):  # Returns a boolean on whether or not the game has been won
-    image, win = game.draw_grid()
-    if win:
-        print("GAME HAS BEEN WON (THIS IS BEING PRINTED FROM 'checkWin(game)'")
+    win = game.check_win()
+    return win
 # END - METHODS
 
 
@@ -1020,8 +1019,14 @@ while running:  # GAME LOOP
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
                     displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
-                    game = initGame()  # Initializes a blank game
-                    showGame(game)  # Displays the qubits
+                    # START - REMOVE COMMENTS AFTER TESTING
+                    #game = initGame()  # Initializes a blank game
+                    #showGame(game)  # Displays the qubits
+                    # STOP  - REMOVE COMMENTS AFTER TESTING
+                    # START - TESTING
+                    game = initLevelOne()
+                    showGame(game)
+                    # STOP  - TESTING
                     level = 1
                     state = "gamePlay"
                     displayGameUIAfterLevelSelectButtonClick()
@@ -1543,6 +1548,9 @@ while running:  # GAME LOOP
 
                 # WIN CONDITION CONTROL FLOW
                 if (checkWin(game)):  # Checks if the level has been won
+                    # START - TESTING
+                    print(checkWin(game))
+                    # STOP  - TESTING
                     updateScoreBoardTextFile(level,moveCount)  # Updates the high score of the player
                     displayYouWonScreen(level, moveCount)  # Displays the you won screen
                     displayYouWonScoreInfo(level, moveCount)  # Displays the you won screen score info
