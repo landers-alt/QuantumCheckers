@@ -10,6 +10,7 @@
 
 # START - IMPORTS
 import pygame
+import time
 import webbrowser
 from game_logic import QuantumGame
 from game_logic import SUPPORTED_GATES
@@ -187,10 +188,20 @@ def displayYouWonScreen(level, moveCount):  # Displays the screen that plays whe
     displayYouWonScoreInfo(level, moveCount)
     pygame.display.update()
 
+def displayWinBorder():  # Displays a green border surrounding the qubit display
+    winBorder = pygame.image.load('Assets/WinLoseAssets/WinBorder.png').convert_alpha()
+    screen.blit(winBorder, origin)
+    pygame.display.update()
+
 def displayYouLostScreen(level):  # Diplays the screen that plays when the player loses a level
     youLostScreen = pygame.image.load('Assets/WinLoseAssets/YouLostScreen.png').convert_alpha()
     screen.blit(youLostScreen, origin)
     displayYouLostScoreInfo(level)  # Displays the user's high score (if any)
+    pygame.display.update()
+
+def displayLoseBorder():  # Displays a red border surrounding the qubit display
+    loseBorder = pygame.image.load("Assets/WinLoseAssets/LoseBorder.png").convert_alpha()
+    screen.blit(loseBorder, origin)
     pygame.display.update()
         # STOP - Gameplay Display Methods
 
@@ -218,7 +229,7 @@ def displayLevelGoal(level):  # Displays the screen that further explains the le
 
         # START - Scoreboard Menu Display Methods
 def displayScoreBoardMenuAreYouSure():
-    FileLocation = "Assets/Scoreboard AreYouSure Menu.png"
+    FileLocation = "Assets/ScoreBoardMenuAssets/Scoreboard AreYouSure Menu.png"
     areYouSureMenu = pygame.image.load(FileLocation).convert_alpha()
     screen.blit(areYouSureMenu, origin)
         # STOP - Scoreboard Menu Display Methods
@@ -812,30 +823,12 @@ def levelGoalExplanationBackButton(event):
                 return True
     # STOP - Level Goal Explanation Buttons
 
-    # START - You Won Screen Buttons
-def youWonScreenMainMenuButton(event):
-    x, y = pygame.mouse.get_pos()
-    if event.type == pygame.MOUSEBUTTONDOWN:
-        if (state == "youWonMenu"):
-            if (x > 232 and x < 366) and (y > 395 and y < 458):  # THE X IS ALREADY GOOD, WORRY ABOUT THE Y VALUES
-                print("You Won Screen Main Menu Button")
-                return True
-
-def youWonScreenNextLevelButton(event):
-    x, y = pygame.mouse.get_pos()
-    if event.type == pygame.MOUSEBUTTONDOWN:
-        if (state == "youWonMenu"):
-            if (x > 435 and x < 568) and (y > 395 and y < 458):  # THE X IS ALREADY GOOD, WORRY ABOUT THE Y VALUES
-                print("You Won Screen Next Level Button")
-                return True
-    # STOP - You Won Screen Buttons
-
-    # START - You Lost Screen Buttons
+    # START - You Lost/Won Screen Buttons
 def loseWinScreenMainMenuButton(event):
     x, y = pygame.mouse.get_pos()
     if event.type == pygame.MOUSEBUTTONDOWN:
         if (state == "youLostMenu" or state == "youWonMenu"):
-            if (x > 232 and x < 366) and (y > 395 and y < 458):  # THE X IS ALREADY GOOD, WORRY ABOUT THE Y VALUES
+            if (x > 232 and x < 366) and (y > 395 and y < 458):
                 print("You Lost Screen Main Menu Button")
                 return True
 
@@ -843,10 +836,10 @@ def loseWinLevelButton(event):
     x, y = pygame.mouse.get_pos()
     if event.type == pygame.MOUSEBUTTONDOWN:
         if (state == "youLostMenu" or state == "youWonMenu"):
-            if (x > 435 and x < 568) and (y > 395 and y < 458):  # THE X IS ALREADY GOOD, WORRY ABOUT THE Y VALUES
+            if (x > 435 and x < 568) and (y > 395 and y < 458):
                 print("You Lost Screen Replay Level Button")
                 return True
-    # START - You Lost Screen Buttons
+    # START - You Lost/Won Screen Buttons
 
     # START - IMAGE CONVERSION
 def bytes_to_pygame_image(bytes_io):
@@ -1608,12 +1601,12 @@ while running:  # GAME LOOP
 
             # You Lost Screen Button Control Flow
             if (state == "youLostMenu"):
-                if (loseWinScreenMainMenuButton(event)):  # Continue button is clicked
+                if (loseWinLevelButton(event)):  # Continue button is clicked
                     state = "mainMenu"  # State change
                     displayWhiteScreen()  # Blanks the screen
                     displayMainMenu()  # Main Menu
                     break
-                if (loseWinLevelButton(event)):  # Replay level button is clicked
+                if (loseWinScreenMainMenuButton(event)):  # Replay level button is clicked
                     state = "gamePlay"  # State change
                     displayWhiteScreen()  # Blanks the screen
                     if (level in hGateLevelList):  # If the level is an 'H' gate level, resets gates to the 'H' gate
@@ -1632,13 +1625,13 @@ while running:  # GAME LOOP
 
             # You Won Screen Button Control Flow
             if (state == "youWonMenu"):
-                if (loseWinScreenMainMenuButton(event)):  # Main menu button is clicked
+                if (loseWinLevelButton(event)):  # Main menu button is clicked
                     level -= 1 # Sets the level back
                     state = "mainMenu"  # State change
                     displayWhiteScreen()  # Blanks the screen
                     displayMainMenu()  # Main Menu
                     break
-                if (loseWinLevelButton(event)):  # Next level button is clicked
+                if (loseWinScreenMainMenuButton(event)):  # Next level button is clicked
                     displayWhiteScreen()  # Clears screen
                     moveCount = 0
                     if (level in hGateLevelList):  # If the level is an 'H' gate level, resets gates to the 'H' gate
@@ -1727,6 +1720,8 @@ while running:  # GAME LOOP
 
                 # WIN CONDITION CONTROL FLOW
                 if (winCheck(save_screen_as_image(screen), game.getWinConditions())):  # Checks if the level has been won
+                    displayWinBorder()  # Displays the win border
+                    time.sleep(3)  # Pauses for 3 second
                     updateScoreBoardTextFile(level,moveCount)  # Updates the high score of the player
                     displayYouWonScreen(level, moveCount)  # Displays the you won screen
                     displayYouWonScoreInfo(level, moveCount)  # Displays the you won screen score info
@@ -1740,64 +1735,94 @@ while running:  # GAME LOOP
                 if (level == "sandbox"):  # If the user is in sandbox mode reset moveCount to 0 to mitigate bugs
                     moveCount = 0
                 if (level == 1 and moveCount == moveCountCapList[level]):  # Checks if the move cap of 1 has been exceeded for level 1
+                    displayLoseBorder()  # Displays the lose border
+                    time.sleep(2)  # Waits for 3 seconds
                     displayYouLostScreen(level)
                     displayYouLostScoreInfo(level)
                     state = "youLostMenu"
                     moveCount = 0
                 if (level == 2 and moveCount == moveCountCapList[level]):  # Checks if the move cap of 2 has been exceeded for level 2
+                    displayLoseBorder()  # Displays the lose border
+                    time.sleep(2)  # Waits for 3 seconds
                     displayYouLostScreen(level)
                     displayYouLostScoreInfo(level)
                     state = "youLostMenu"
                     moveCount = 0
                 if (level == 3 and moveCount == moveCountCapList[level]):  # Checks if the move cap of 2 has been exceeded for level 2
+                    displayLoseBorder()  # Displays the lose border
+                    time.sleep(2)  # Waits for 3 seconds
                     displayYouLostScreen(level)
                     state = "youLostMenu"
                     moveCount = 0
                 if (level == 4 and moveCount == moveCountCapList[level]):  # Checks if the move cap of 2 has been exceeded for level 2
+                    displayLoseBorder()  # Displays the lose border
+                    time.sleep(2)  # Waits for 3 seconds
                     displayYouLostScreen(level)
                     state = "youLostMenu"
                     moveCount = 0
                 if (level == 5 and moveCount == moveCountCapList[level]):  # Checks if the move cap of 2 has been exceeded for level 2
+                    displayLoseBorder()  # Displays the lose border
+                    time.sleep(2)  # Waits for 3 seconds
                     displayYouLostScreen(level)
                     state = "youLostMenu"
                     moveCount = 0
                 if (level == 6 and moveCount == moveCountCapList[level]):  # Checks if the move cap of 1 has been exceeded for level 1
+                    displayLoseBorder()  # Displays the lose border
+                    time.sleep(2)  # Waits for 3 seconds
                     displayYouLostScreen(level)
                     state = "youLostMenu"
                     moveCount = 0
                 if (level == 7 and moveCount == moveCountCapList[level]):  # Checks if the move cap of 2 has been exceeded for level 2
+                    displayLoseBorder()  # Displays the lose border
+                    time.sleep(2)  # Waits for 3 seconds
                     displayYouLostScreen(level)
                     state = "youLostMenu"
                     moveCount = 0
                 if (level == 8 and moveCount == moveCountCapList[level]):  # Checks if the move cap of 2 has been exceeded for level 2
+                    displayLoseBorder()  # Displays the lose border
+                    time.sleep(2)  # Waits for 3 seconds
                     displayYouLostScreen(level)
                     state = "youLostMenu"
                     moveCount = 0
                 if (level == 9 and moveCount == moveCountCapList[level]):  # Checks if the move cap of 2 has been exceeded for level 2
+                    displayLoseBorder()  # Displays the lose border
+                    time.sleep(2)  # Waits for 3 seconds
                     displayYouLostScreen(level)
                     state = "youLostMenu"
                     moveCount = 0
                 if (level == 10 and moveCount == moveCountCapList[level]):  # Checks if the move cap of 2 has been exceeded for level 2
+                    displayLoseBorder()  # Displays the lose border
+                    time.sleep(2)  # Waits for 3 seconds
                     displayYouLostScreen(level)
                     state = "youLostMenu"
                     moveCount = 0
                 if (level == 11 and moveCount == moveCountCapList[level]):  # Checks if the move cap of 1 has been exceeded for level 1
+                    displayLoseBorder()  # Displays the lose border
+                    time.sleep(2)  # Waits for 3 seconds
                     displayYouLostScreen(level)
                     state = "youLostMenu"
                     moveCount = 0
                 if (level == 12 and moveCount == moveCountCapList[level]):  # Checks if the move cap of 2 has been exceeded for level 2
+                    displayLoseBorder()  # Displays the lose border
+                    time.sleep(2)  # Waits for 3 seconds
                     displayYouLostScreen(level)
                     state = "youLostMenu"
                     moveCount = 0
                 if (level == 13 and moveCount == moveCountCapList[level]):  # Checks if the move cap of 2 has been exceeded for level 2
+                    displayLoseBorder()  # Displays the lose border
+                    time.sleep(2)  # Waits for 3 seconds
                     displayYouLostScreen(level)
                     state = "youLostMenu"
                     moveCount = 0
                 if (level == 14 and moveCount == moveCountCapList[level]):  # Checks if the move cap of 2 has been exceeded for level 2
+                    displayLoseBorder()  # Displays the lose border
+                    time.sleep(2)  # Waits for 3 seconds
                     displayYouLostScreen(level)
                     state = "youLostMenu"
                     moveCount = 0
                 if (level == 15 and moveCount == moveCountCapList[level]):  # Checks if the move cap of 2 has been exceeded for level 2
+                    displayLoseBorder()  # Displays the lose border
+                    time.sleep(2)  # Waits for 3 seconds
                     displayYouLostScreen(level)
                     state = "youLostMenu"
                     moveCount = 0
