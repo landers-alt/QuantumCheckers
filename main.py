@@ -32,7 +32,7 @@ def openDSUWebsite():  # Opens DSU's website
 # START - SCREEN
     # START - PYGAME WINDOW INIT.
 pygame.init()  # Init. Pygame
-gameIcon = pygame.image.load("Assets/32x32Icon.png")  # Image conversion to pygame surface for game icon
+gameIcon = pygame.image.load("Assets/IconAssets/32x32Icon.png")  # Image conversion to pygame surface for game icon
 pygame.display.set_icon(gameIcon)  # Changes window icon
 FRAMERATE = 10
 normalScreenRatio = (799,499)  # Screen ratio and game window creation (is supposed to be (800,500) but is smaller because of image conversion issues)
@@ -127,12 +127,6 @@ def displayMainMenu(): # Displays the rough outline of a main menu
     screen.blit(mainMenuBackground, origin)
     pygame.display.update()
 
-def displayStartGameMenu(): # Displays the rough outline of the play menu
-    # Creation of the play menu's background & placing of image on the screen
-    playMenuBackground = pygame.image.load('Assets/Play Menu.png').convert()
-    screen.blit(playMenuBackground, origin)
-    pygame.display.update()
-
 def displayCreditsMenu(): # Displays the rough outline of a credits menu
     # Creation of the credit menu's background & placing of image on the screen
     creditsMenuBackground = pygame.image.load('Assets/Credits Menu.png').convert()
@@ -188,13 +182,13 @@ def displayWhiteScreen():  # Displays a white image on the entire screen
     pygame.display.update()
 
 def displayYouWonScreen(level, moveCount):  # Displays the screen that plays when the player wins a level
-    youWonScreen = pygame.image.load('Assets/YouWonScreen.png').convert_alpha()
+    youWonScreen = pygame.image.load('Assets/WinLoseAssets/YouWonScreen.png').convert_alpha()
     screen.blit(youWonScreen, origin)
     displayYouWonScoreInfo(level, moveCount)
     pygame.display.update()
 
 def displayYouLostScreen(level):  # Diplays the screen that plays when the player loses a level
-    youLostScreen = pygame.image.load('Assets/YouLostScreen.png').convert_alpha()
+    youLostScreen = pygame.image.load('Assets/WinLoseAssets/YouLostScreen.png').convert_alpha()
     screen.blit(youLostScreen, origin)
     displayYouLostScoreInfo(level)  # Displays the user's high score (if any)
     pygame.display.update()
@@ -231,7 +225,7 @@ def displayScoreBoardMenuAreYouSure():
 
         # START - Non-image Based Display Methods
 def displayScoreBoardMenu():  # Displays the rough outline of the scoreboard menu
-    scoreboardMenu = pygame.image.load('Assets/Scoreboard Menu.png').convert()  # Image shit
+    scoreboardMenu = pygame.image.load('Assets/ScoreBoardMenuAssets/Scoreboard Menu.png').convert()  # Image shit
     screen.blit(scoreboardMenu, origin)  # Menu Image Is Put on the Screen
     for locationTuple in scoreTextLocationList:  # Placing of the text for the score board background
         screen.blit(scoreTextBackground, locationTuple)
