@@ -458,11 +458,11 @@ def updateScoreBoardTextFile(level, score):
         raise Exception("Invalid Input in Function Call")
 
 def readScoreBoardTextText(level):  # Reads the file and returns the value specified on the level parameter
-    if (level > 0 and level < 15):
+    if (level >= 0 and level < 16):
         try:
             with open('scoreBoard.txt', 'r') as file:
                 lines = file.readlines()
-                line = lines[level]
+                line = lines[level - 1]
                 line = str(line)
                 if (line != '\n'):
                     return line.strip()
@@ -490,14 +490,14 @@ def returnHighScore(level, score):  # Returns the high score of a level based on
     if (level <= 0 or level >= 16):
         raise Exception("You can't have a level 0 or below, or 16 or above.")
 
-    previousScore = readScoreBoardTextText(level)
+    previousScore = int(readScoreBoardTextText(level))
     if ( previousScore == "N/A"):
         previousScore = 0
     playerScore = score
     if ( previousScore > playerScore):
-        return previousScore
-    else:
         return playerScore
+    else:
+        return previousScore
     # STOP - Highscore Checking method
 
     # START - Gameplay Buttons
@@ -856,6 +856,39 @@ def showGame(game): # returns an image of the game inputted into the parameter
     newImage = bytes_to_pygame_image(image)
     screen.blit(newImage, (79,0))
     # STOP - Quantum Method(s) Implementing "game_logic.py"
+
+def save_screen_as_image(screen):
+    filename = "screenshot.png"  # Specify the filename here
+    pygame.image.save(screen, filename)
+    print(f"Screen saved as {filename}")
+    return pygame.image.load(filename)
+
+def colorFinder(screenshot):
+    # Define the 8 arbitrary points as (x, y) coordinates
+    points = {
+        "XI": (242, 240), "XZ": (320, 160), "XX": (400, 80), # X-Row
+        "ZI": (320, 322), "ZZ": (400, 240), "ZX": (480, 160), # Z-Row
+        "IZ": (480, 324), "IX": (556, 240)                    # I-Row
+    }
+
+    # Dictionary to store the colors of the points
+    colors = {}
+
+    # Iterate over the points and get the color at each point
+    for point, (x, y) in points.items():
+        color = screenshot.get_at((x, y))
+        if color == (0, 0, 0):
+            colors[point] = 1
+        else:
+            colors[point] = 0
+
+    return colors
+
+def winCheck(gameImage, winConditions): # game Image is self explanatory, win conditions is the same dictionary as in the class def.
+    if (colorFinder(gameImage) == winConditions): # If the win conditions match what is on the board
+        return True
+    else:
+        return False
 
 def checkWin(game):  # Returns a boolean on whether or not the game has been won
     win = game.check_win()
@@ -1547,14 +1580,11 @@ while running:  # GAME LOOP
                     showGame(game)  # Updates the Qubits on the UI
 
                 # WIN CONDITION CONTROL FLOW
-                if (checkWin(game)):  # Checks if the level has been won
-                    # START - TESTING
-                    print(checkWin(game))
-                    # STOP  - TESTING
+                if (winCheck(save_screen_as_image(screen), game.getWinConditions())):  # Checks if the level has been won
                     updateScoreBoardTextFile(level,moveCount)  # Updates the high score of the player
                     displayYouWonScreen(level, moveCount)  # Displays the you won screen
                     displayYouWonScoreInfo(level, moveCount)  # Displays the you won screen score info
-                    print("Level " + level + " has been won.")
+                    print("Level " + str(level) + " has been won.")
                     state = "youWonMenu"
                     moveCount = 0
 
@@ -1624,6 +1654,10 @@ while running:  # GAME LOOP
                     displayYouLostScreen(level)
                     state = "youLostMenu"
                     moveCount = 0
+
+                # TESTING
+                print(colorFinder(save_screen_as_image(screen)))
+                # TESTING
 
                 # EXIT LEVEL BUTTON
                 if ( exitGameplayButton(event) ):  # If the exit level button has been clicked

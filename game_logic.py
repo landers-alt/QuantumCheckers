@@ -175,3 +175,6 @@ class QuantumGame():
 
         for basis, probability in probabilities.items():
             self.probabilities[basis] = 1-2*probability
+
+    def getWinConditions(self): # Function that returns the game's win conditions
+        return self.win_condition

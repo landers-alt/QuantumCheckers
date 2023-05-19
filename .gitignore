@@ -3,3 +3,5 @@
 # Dumbass IDE shit
 *.iml
 *.xml
+# Win Checking Screenshot
+screenshot.png
