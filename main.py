@@ -842,6 +842,29 @@ def initGame(): # init. a quantum game instance and returns said game
     )
     return game
 
+def initGameBasedOnLevel(level):  # Function that inits. a game based on the current level
+    if (level == 1):
+        return initLevelOne()
+    elif (level == 2):
+        return initLevelTwo()
+    elif (level == 3):
+        return initLevelThree()
+    elif (level == 4):
+        return initLevelFour()
+    elif (level == 5):
+        return initLevelFive()
+    elif (level == 6):
+        return initLevelSix()
+    elif (level == 7):
+        return initLevelSeven()
+    elif (level == 8):
+        return initLevelEight()
+    # IMPORTANT!!!
+    # MAKE SURE TO PUT THE REST OF THE CONTROL FLOW FOR THE OTHER 12 LEVELS!!!
+    # IMPORTANT!!!
+    else:
+        print("AN ERROR IN THE initGameBasedOnLevel FUNCTION HAS OCCURED, MOST LIKELY DUE TO BAD INPUT")
+
 def initLevelOne():  # Init. a quantum game instance with win conditions for level 1
     game = QuantumGame(
         initialize=[],
@@ -878,6 +901,66 @@ def initLevelThree():  # Init. a quantum game instance with win conditions for l
     )
     return game
 
+def initLevelFour():  # Init. a quantum game instance with win conditions for level 3
+    game = QuantumGame(
+        initialize=[],
+        allowed_gates=SUPPORTED_GATES,
+        shots=DEFAULT_SHOTS,
+        corr_color=DEFAULT_CORR_COLOR,
+        iden_color=DEFAULT_IDEN_COLOR,
+        grid_resolution=DEFAULT_GRID_RESOLUTION,
+        win_condition={'XI': 1, 'XZ': 1, 'XX': 0, 'ZI': 0, 'ZZ': 0, 'ZX': 0, 'IZ': 1, 'IX': 0}
+    )
+    return game
+
+def initLevelFive():  # Init. a quantum game instance with win conditions for level 3
+    game = QuantumGame(
+        initialize=[],
+        allowed_gates=SUPPORTED_GATES,
+        shots=DEFAULT_SHOTS,
+        corr_color=DEFAULT_CORR_COLOR,
+        iden_color=DEFAULT_IDEN_COLOR,
+        grid_resolution=DEFAULT_GRID_RESOLUTION,
+        win_condition={'XI': 0, 'XZ': 0, 'XX': 0, 'ZI': 1, 'ZZ': 0, 'ZX': 1, 'IZ': 0, 'IX': 1}
+    )
+    return game
+
+def initLevelSix():  # Init. a quantum game instance with win conditions for level 3
+    game = QuantumGame(
+        initialize=[],
+        allowed_gates=SUPPORTED_GATES,
+        shots=DEFAULT_SHOTS,
+        corr_color=DEFAULT_CORR_COLOR,
+        iden_color=DEFAULT_IDEN_COLOR,
+        grid_resolution=DEFAULT_GRID_RESOLUTION,
+        win_condition={'XI': 1, 'XZ': 0, 'XX': 1, 'ZI': 0, 'ZZ': 0, 'ZX': 0, 'IZ': 0, 'IX': 1}
+    )
+    return game
+
+def initLevelSeven():  # Init. a quantum game instance with win conditions for level 3
+    game = QuantumGame(
+        initialize=[],
+        allowed_gates=SUPPORTED_GATES,
+        shots=DEFAULT_SHOTS,
+        corr_color=DEFAULT_CORR_COLOR,
+        iden_color=DEFAULT_IDEN_COLOR,
+        grid_resolution=DEFAULT_GRID_RESOLUTION,
+        win_condition={'XI': 1, 'XZ': 0, 'XX': 0, 'ZI': 0, 'ZZ': 0, 'ZX': 0, 'IZ': 0, 'IX': 0}
+    )
+    return game
+
+def initLevelEight():  # Init. a quantum game instance with win conditions for level 3
+    game = QuantumGame(
+        initialize=[],
+        allowed_gates=SUPPORTED_GATES,
+        shots=DEFAULT_SHOTS,
+        corr_color=DEFAULT_CORR_COLOR,
+        iden_color=DEFAULT_IDEN_COLOR,
+        grid_resolution=DEFAULT_GRID_RESOLUTION,
+        win_condition={'XI': 0, 'XZ': 0, 'XX': 0, 'ZI': 0, 'ZZ': 0, 'ZX': 0, 'IZ': 0, 'IX': 1}
+    )
+    return game
+
 def showGame(game): # returns an image of the game inputted into the parameter
     image, win = game.draw_grid() # win is a boolean representing if the user won with this configuration or not
     if win:
@@ -889,7 +972,6 @@ def showGame(game): # returns an image of the game inputted into the parameter
 def save_screen_as_image(screen):
     filename = "screenshot.png"  # Specify the filename here
     pygame.image.save(screen, filename)
-    print(f"Screen saved as {filename}")
     return pygame.image.load(filename)
 
 def colorFinder(screenshot):
@@ -936,7 +1018,7 @@ leftGateState = 0  # Init. the state of the left gate selector
 rightGateState = 0  # Init. the state of the right gate selector
 level = 1  # Variable that indicates the current level the player is on
 moveCount = 0  # Variable that holds the number of logic gates the player has enacted onto the circuit
-moveCountCapList = ["Placeholder",2,3,2,2,2,3,5,7,"Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided"]  # The move cap for each level is state in index order of each level, hence the placeholder in index 0
+moveCountCapList = ["Placeholder",4,6,4,4,4,6,10,12,"Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided"]  # The move cap for each level is state in index order of each level, hence the placeholder in index 0
     # Scoreboard Init.
 populateScoreBoardTextList()  # Populates the score board text list so that the scoreboard menu works correctly
     # Pygame Init.
@@ -1081,9 +1163,9 @@ while running:  # GAME LOOP
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
                     displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
-                    game = initLevelOne()
-                    showGame(game)
                     level = 1
+                    game = initGameBasedOnLevel(level)
+                    showGame(game)
                     state = "gamePlay"
                     displayGameUIAfterLevelSelectButtonClick()
                     break
@@ -1093,9 +1175,9 @@ while running:  # GAME LOOP
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
                     displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
-                    game = initLevelTwo()
-                    showGame(game)  # Displays the qubits
                     level = 2
+                    game = initGameBasedOnLevel(level)
+                    showGame(game)  # Displays the qubits
                     state = "gamePlay"
                     displayGameUIAfterLevelSelectButtonClick()
                     break
@@ -1105,9 +1187,9 @@ while running:  # GAME LOOP
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
                     displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
-                    game = initLevelThree()
-                    showGame(game)  # Displays the qubits
                     level = 3
+                    game = initGameBasedOnLevel(level)
+                    showGame(game)  # Displays the qubits
                     state = "gamePlay"
                     displayGameUIAfterLevelSelectButtonClick()
                     break
@@ -1117,9 +1199,9 @@ while running:  # GAME LOOP
                     rightGateState = 3  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
                     displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
-                    game = initGame()  # Initializes a blank game
-                    showGame(game)  # Displays the qubits
                     level = 4
+                    game = initGameBasedOnLevel(level)
+                    showGame(game)  # Displays the qubits
                     state = "gamePlay"
                     displayGameUIAfterLevelSelectButtonClick()
                     break
@@ -1129,9 +1211,9 @@ while running:  # GAME LOOP
                     rightGateState = 3  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
                     displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
-                    game = initGame()  # Initializes a blank game
-                    showGame(game)  # Displays the qubits
                     level = 5
+                    game = initGameBasedOnLevel(level)
+                    showGame(game)  # Displays the qubits
                     state = "gamePlay"
                     displayGameUIAfterLevelSelectButtonClick()
                     break
@@ -1141,9 +1223,9 @@ while running:  # GAME LOOP
                     rightGateState = 3  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
                     displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
-                    game = initGame()  # Initializes a blank game
-                    showGame(game)  # Displays the qubits
                     level = 6
+                    game = initGameBasedOnLevel(level)
+                    showGame(game)  # Displays the qubits
                     state = "gamePlay"
                     displayGameUIAfterLevelSelectButtonClick()
                     break
@@ -1153,9 +1235,9 @@ while running:  # GAME LOOP
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
                     displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
-                    game = initGame()  # Initializes a blank game
-                    showGame(game)  # Displays the qubits
                     level = 7
+                    game = initGameBasedOnLevel(level)
+                    showGame(game)  # Displays the qubits
                     state = "gamePlay"
                     displayGameUIAfterLevelSelectButtonClick()
                     break
@@ -1165,9 +1247,9 @@ while running:  # GAME LOOP
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
                     displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
-                    game = initGame()  # Initializes a blank game
-                    showGame(game)  # Displays the qubits
                     level = 8
+                    game = initGameBasedOnLevel(level)
+                    showGame(game)  # Displays the qubits
                     state = "gamePlay"
                     displayGameUIAfterLevelSelectButtonClick()
                     break
@@ -1177,9 +1259,9 @@ while running:  # GAME LOOP
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
                     displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
-                    game = initGame()  # Initializes a blank game
-                    showGame(game)  # Displays the qubits
                     level = 9
+                    game = initGameBasedOnLevel(level)
+                    showGame(game)  # Displays the qubits
                     state = "gamePlay"
                     displayGameUIAfterLevelSelectButtonClick()
                     break
@@ -1189,9 +1271,9 @@ while running:  # GAME LOOP
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
                     displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
-                    game = initGame()  # Initializes a blank game
-                    showGame(game)  # Displays the qubits
                     level = 10
+                    game = initGameBasedOnLevel(level)
+                    showGame(game)  # Displays the qubits
                     state = "gamePlay"
                     displayGameUIAfterLevelSelectButtonClick()
                     break
@@ -1201,9 +1283,9 @@ while running:  # GAME LOOP
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
                     displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
-                    game = initGame()  # Initializes a blank game
-                    showGame(game)  # Displays the qubits
                     level = 11
+                    game = initGameBasedOnLevel(level)
+                    showGame(game)  # Displays the qubits
                     state = "gamePlay"
                     displayGameUIAfterLevelSelectButtonClick()
                     break
@@ -1213,9 +1295,9 @@ while running:  # GAME LOOP
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
                     displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
-                    game = initGame()  # Initializes a blank game
-                    showGame(game)  # Displays the qubits
                     level = 12
+                    game = initGameBasedOnLevel(level)
+                    showGame(game)  # Displays the qubits
                     state = "gamePlay"
                     displayGameUIAfterLevelSelectButtonClick()
                     break
@@ -1225,9 +1307,9 @@ while running:  # GAME LOOP
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
                     displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
-                    game = initGame()  # Initializes a blank game
-                    showGame(game)  # Displays the qubits
                     level = 13
+                    game = initGameBasedOnLevel(level)
+                    showGame(game)  # Displays the qubits
                     state = "gamePlay"
                     displayGameUIAfterLevelSelectButtonClick()
                     break
@@ -1237,9 +1319,9 @@ while running:  # GAME LOOP
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
                     displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
-                    game = initGame()  # Initializes a blank game
-                    showGame(game)  # Displays the qubits
                     level = 14
+                    game = initGameBasedOnLevel(level)
+                    showGame(game)  # Displays the qubits
                     state = "gamePlay"
                     displayGameUIAfterLevelSelectButtonClick()
                     break
@@ -1249,9 +1331,9 @@ while running:  # GAME LOOP
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
                     displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
-                    game = initGame()  # Initializes a blank game
-                    showGame(game)  # Displays the qubits
                     level = 15
+                    game = initGameBasedOnLevel(level)
+                    showGame(game)  # Displays the qubits
                     state = "gamePlay"
                     displayGameUIAfterLevelSelectButtonClick()
                     break
@@ -1281,9 +1363,9 @@ while running:  # GAME LOOP
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
                     displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
-                    game = initLevelOne()
-                    showGame(game)  # Displays the qubits
                     level = 1
+                    game = initGameBasedOnLevel(level)
+                    showGame(game)  # Displays the qubits
                     state = "levelExplanation"
                     displayLevelExplanation(level)  # Displays the currently selected level's explanation
                     break
@@ -1293,9 +1375,9 @@ while running:  # GAME LOOP
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
                     displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
-                    game = initLevelTwo()
-                    showGame(game)  # Displays the qubits
                     level = 2
+                    game = initGameBasedOnLevel(level)
+                    showGame(game)  # Displays the qubits
                     state = "levelExplanation"
                     displayLevelExplanation(level)  # Displays the currently selected level's explanation
                     break
@@ -1305,9 +1387,9 @@ while running:  # GAME LOOP
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
                     displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
-                    game = initLevelThree()
-                    showGame(game)  # Displays the qubits
                     level = 3
+                    game = initGameBasedOnLevel(level)
+                    showGame(game)  # Displays the qubits
                     state = "levelExplanation"
                     displayLevelExplanation(level)  # Displays the currently selected level's explanation
                     break
@@ -1317,9 +1399,9 @@ while running:  # GAME LOOP
                     rightGateState = 3  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
                     displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
-                    game = initGame()  # Initializes a blank game
-                    showGame(game)  # Displays the qubits
                     level = 4
+                    game = initGameBasedOnLevel(level)
+                    showGame(game)  # Displays the qubits
                     state = "levelExplanation"
                     displayLevelExplanation(level)  # Displays the currently selected level's explanation
                     break
@@ -1329,9 +1411,9 @@ while running:  # GAME LOOP
                     rightGateState = 3  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
                     displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
-                    game = initGame()  # Initializes a blank game
-                    showGame(game)  # Displays the qubits
                     level = 5
+                    game = initGameBasedOnLevel(level)
+                    showGame(game)  # Displays the qubits
                     state = "levelExplanation"
                     displayLevelExplanation(level)  # Displays the currently selected level's explanation
                     break
@@ -1341,9 +1423,9 @@ while running:  # GAME LOOP
                     rightGateState = 3  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
                     displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
-                    game = initGame()  # Initializes a blank game
-                    showGame(game)  # Displays the qubits
                     level = 6
+                    game = initGameBasedOnLevel(level)
+                    showGame(game)  # Displays the qubits
                     state = "levelExplanation"
                     displayLevelExplanation(level)  # Displays the currently selected level's explanation
                     break
@@ -1353,9 +1435,9 @@ while running:  # GAME LOOP
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
                     displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
-                    game = initGame()  # Initializes a blank game
-                    showGame(game)  # Displays the qubits
                     level = 7
+                    game = initGameBasedOnLevel(level)
+                    showGame(game)  # Displays the qubits
                     state = "levelExplanation"
                     displayLevelExplanation(level)  # Displays the currently selected level's explanation
                     break
@@ -1365,9 +1447,9 @@ while running:  # GAME LOOP
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
                     displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
-                    game = initGame()  # Initializes a blank game
-                    showGame(game)  # Displays the qubits
                     level = 8
+                    game = initGameBasedOnLevel(level)
+                    showGame(game)  # Displays the qubits
                     state = "levelExplanation"
                     displayLevelExplanation(level)  # Displays the currently selected level's explanation
                     break
@@ -1377,9 +1459,9 @@ while running:  # GAME LOOP
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
                     displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
-                    game = initGame()  # Initializes a blank game
-                    showGame(game)  # Displays the qubits
                     level = 9
+                    game = initGameBasedOnLevel(level)
+                    showGame(game)  # Displays the qubits
                     state = "levelExplanation"
                     displayLevelExplanation(level)  # Displays the currently selected level's explanation
                     break
@@ -1389,9 +1471,9 @@ while running:  # GAME LOOP
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
                     displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
-                    game = initGame()  # Initializes a blank game
-                    showGame(game)  # Displays the qubits
                     level = 10
+                    game = initGameBasedOnLevel(level)
+                    showGame(game)  # Displays the qubits
                     state = "levelExplanation"
                     displayLevelExplanation(level)  # Displays the currently selected level's explanation
                     break
@@ -1401,9 +1483,9 @@ while running:  # GAME LOOP
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
                     displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
-                    game = initGame()  # Initializes a blank game
-                    showGame(game)  # Displays the qubits
                     level = 11
+                    game = initGameBasedOnLevel(level)
+                    showGame(game)  # Displays the qubits
                     state = "levelExplanation"
                     displayLevelExplanation(level)  # Displays the currently selected level's explanation
                     break
@@ -1413,9 +1495,9 @@ while running:  # GAME LOOP
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
                     displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
-                    game = initGame()  # Initializes a blank game
-                    showGame(game)  # Displays the qubits
                     level = 12
+                    game = initGameBasedOnLevel(level)
+                    showGame(game)  # Displays the qubits
                     state = "levelExplanation"
                     displayLevelExplanation(level)  # Displays the currently selected level's explanation
                     break
@@ -1425,9 +1507,9 @@ while running:  # GAME LOOP
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
                     displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
-                    game = initGame()  # Initializes a blank game
-                    showGame(game)  # Displays the qubits
                     level = 13
+                    game = initGameBasedOnLevel(level)
+                    showGame(game)  # Displays the qubits
                     state = "levelExplanation"
                     displayLevelExplanation(level)  # Displays the currently selected level's explanation
                     break
@@ -1437,9 +1519,9 @@ while running:  # GAME LOOP
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
                     displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
-                    game = initGame()  # Initializes a blank game
-                    showGame(game)  # Displays the qubits
                     level = 14
+                    game = initGameBasedOnLevel(level)
+                    showGame(game)  # Displays the qubits
                     state = "levelExplanation"
                     displayLevelExplanation(level)  # Displays the currently selected level's explanation
                     break
@@ -1449,9 +1531,9 @@ while running:  # GAME LOOP
                     rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
                     displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
-                    game = initGame()  # Initializes a blank game
-                    showGame(game)  # Displays the qubits
                     level = 15
+                    game = initGameBasedOnLevel(level)
+                    showGame(game)  # Displays the qubits
                     state = "levelExplanation"
                     displayLevelExplanation(level)  # Displays the currently selected level's explanation
                     break
@@ -1498,13 +1580,14 @@ while running:  # GAME LOOP
                     displayCurrentLevel(level)  # Displays the current level the player is on
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
                     displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
-                    game = initGame()  # Initializes a blank game
+                    game = initGameBasedOnLevel(level)
                     showGame(game)  # Displays the qubits
                     break
 
             # You Won Screen Button Control Flow
             if (state == "youWonMenu"):
                 if (loseWinScreenMainMenuButton(event)):  # Main menu button is clicked
+                    level -= 1 # Sets the level back
                     state = "mainMenu"  # State change
                     displayWhiteScreen()  # Blanks the screen
                     displayMainMenu()  # Main Menu
@@ -1520,9 +1603,6 @@ while running:  # GAME LOOP
                         rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
                     displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
-                    game = initGame()  # Initializes a blank game
-                    showGame(game)  # Displays the qubits
-                    level += 1  # Increments the level
                     state = "levelExplanation"
                     displayLevelExplanation(level)  # Displays the currently selected level's explanation
                     break
@@ -1606,6 +1686,8 @@ while running:  # GAME LOOP
                     displayYouWonScoreInfo(level, moveCount)  # Displays the you won screen score info
                     print("Level " + str(level) + " has been won.")
                     state = "youWonMenu"
+                    level += 1
+                    game = initGameBasedOnLevel(level)
                     moveCount = 0
 
 
