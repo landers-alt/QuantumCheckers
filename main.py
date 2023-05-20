@@ -1108,8 +1108,19 @@ def colorFinder(screenshot):
 
     # Dictionary to store the colors of the points
     colors = {}
+    inclusiveColors = {}
 
     # Iterate over the points and get the color at each point
+    for point, (x, y) in points.items():
+        color = screenshot.get_at((x, y))
+        #print(color)
+        if color == (0, 0, 0):
+            inclusiveColors[point] = 1
+        elif color[0] > 100 and color[0] < 200:
+            inclusiveColors[point] = -1
+        else:
+            inclusiveColors[point] = 0
+
     for point, (x, y) in points.items():
         color = screenshot.get_at((x, y))
         if color == (0, 0, 0):
@@ -1117,10 +1128,12 @@ def colorFinder(screenshot):
         else:
             colors[point] = 0
 
-    return colors
+
+
+    return colors, inclusiveColors
 
 def winCheck(gameImage, winConditions): # game Image is self explanatory, win conditions is the same dictionary as in the class def.
-    if (colorFinder(gameImage) == winConditions): # If the win conditions match what is on the board
+    if (colorFinder(gameImage)[0] == winConditions): # If the win conditions match what is on the board
         return True
     else:
         return False
@@ -1821,7 +1834,19 @@ while running:  # GAME LOOP
 
                 # WIN CONDITION CONTROL FLOW
                 if ( level != "sandbox"):
-                    if (winCheck(save_screen_as_image(screen), game.getWinConditions())):  # Checks if the level has been won
+                    level12WinConditions = {'XI': -1, 'XZ': -1, 'XX': 0, 'ZI': -1, 'ZZ': 0, 'ZX': -1, 'IZ': -1, 'IX': -1}
+                    if ( level == 12 and colorFinder(save_screen_as_image(screen))[1] ==  level12WinConditions):  # Doesn't allow the user to use the win con for level 11 to beat level 12
+                        displayWinBorder()  # Displays the win border
+                        time.sleep(3)  # Pauses for 3 second
+                        updateScoreBoardTextFile(level, moveCount)  # Updates the high score of the player
+                        displayYouWonScreen(level, moveCount)  # Displays the you won screen
+                        displayYouWonScoreInfo(level, moveCount)  # Displays the you won screen score info
+                        print("Level " + str(level) + " has been won.")
+                        state = "youWonMenu"
+                        level += 1
+                        game = initGameBasedOnLevel(level)
+                        moveCount = 0
+                    elif (winCheck(save_screen_as_image(screen), game.getWinConditions())):  # Checks if the level has been won
                         displayWinBorder()  # Displays the win border
                         time.sleep(3)  # Pauses for 3 second
                         updateScoreBoardTextFile(level,moveCount)  # Updates the high score of the player
