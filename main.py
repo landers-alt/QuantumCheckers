@@ -886,6 +886,18 @@ def initGameBasedOnLevel(level):  # Function that inits. a game based on the cur
         return initLevelEight()
     elif (level == 9):
         return initLevelNine()
+    elif (level == 10):
+        return initLevelTen()
+    elif (level == 11):
+        return initLevelEleven()
+    elif (level == 12):
+        return initLevelTwelve()
+    elif (level == 13):
+        return initLevelThirteen()
+    elif (level == 14):
+        return initLevelFourteen()
+    elif (level == 15):
+        return initLevelFifteen()
     # IMPORTANT!!!
     # MAKE SURE TO PUT THE REST OF THE CONTROL FLOW FOR THE OTHER 12 LEVELS!!!
     # IMPORTANT!!!
