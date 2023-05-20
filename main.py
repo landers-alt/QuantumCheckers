@@ -208,7 +208,7 @@ def displayLoseBorder():  # Displays a red border surrounding the qubit display
         # START - Level Explanation, Goal Methods
 def displayCurrentLevelGoal(level):  # Displays the current level's goal to the player
     if ( level != "sandbox" ):  # If the user is actually playing a level
-        gameplayLevelGoalFileLocation = "Assets/Level" + str(level) + "Assets/Level " + str(level) + " Circuit Goal.png"
+        gameplayLevelGoalFileLocation = "Assets/Level Assets/Level" + str(level) + "Assets/Level " + str(level) + " Circuit Goal.png"
         goal = pygame.image.load(gameplayLevelGoalFileLocation).convert_alpha()
         screen.blit(goal, origin)  # Displays the current level goal based on the passed parameter
     elif ( level == "sandbox" ):  # If user is in the sandbox
@@ -217,12 +217,12 @@ def displayCurrentLevelGoal(level):  # Displays the current level's goal to the 
         raise Exception("Inputted level is not valid.")
 
 def displayLevelExplanation(level):  # Displays the explanation for the level
-    levelExplanationFileLocation = "Assets/Level" + str(level) + "Assets/Level " + str(level) + " Explanation.png"
+    levelExplanationFileLocation = "Assets/Level Assets/Level" + str(level) + "Assets/Level " + str(level) + " Explanation.png"
     explanation = pygame.image.load(levelExplanationFileLocation).convert_alpha()
     screen.blit(explanation, origin)
 
 def displayLevelGoal(level):  # Displays the screen that further explains the level and what the goal is
-    levelEGoalFileLocation = "Assets/Level" + str(level) + "Assets/Level " + str(level) + " Goal.png"
+    levelEGoalFileLocation = "Assets/Level Assets/Level" + str(level) + "Assets/Level " + str(level) + " Goal.png"
     goal = pygame.image.load(levelEGoalFileLocation).convert_alpha()
     screen.blit(goal, origin)
         # STOP - Level Explanation, Goal Methods
@@ -538,23 +538,15 @@ def clearUserProgress():  # Clears the scoreBoard.txt of data
 def returnHighScore(level, score):  # Returns the high score of a level based on the previous high score and the current score
     if (score == 0):
         raise Exception("You can't have a score of 0, something went wrong.")
-    if ( level != "sandbox" ):
+    if ( level != "sandbox" ):  # This if statement serves to ignore score while in sandbox mode
         if (level <= 0 or level >= 16 ):
             raise Exception("You can't have a level 0 or below, or 16 or above.")
-
-    if ( readScoreBoardTextText(level) != "N/A"):
-        previousScore = int(readScoreBoardTextText(level))
+    if (readScoreBoardTextText(level) != "N/A"):
+        integerA = int(readScoreBoardTextText(level))#  The user's high score for the given level
+        integerB = score  # The user's current score
+        return min(integerA, integerB)
     else:
-        previousScore = 0
-    playerScore = score
-    print("Player: " + str(playerScore))
-    print("Previous: " + str(previousScore))
-    if ( previousScore > playerScore):
-        print("Previous Won")
-        return previousScore
-    else:
-        print("Player Won")
-        return playerScore
+        return score  # If there was no high score, return the user's score
     # STOP - Highscore Checking method
 
     # START - Gameplay Buttons
@@ -1138,7 +1130,7 @@ leftGateState = 0  # Init. the state of the left gate selector
 rightGateState = 0  # Init. the state of the right gate selector
 level = 1  # Variable that indicates the current level the player is on
 moveCount = 0  # Variable that holds the number of logic gates the player has enacted onto the circuit
-moveCountCapList = ["Placeholder",4,6,4,4,4,6,10,12,15,"Undecided","Undecided","Undecided","Undecided","Undecided","Undecided"]  # The move cap for each level is state in index order of each level, hence the placeholder in index 0
+moveCountCapList = ["Placeholder",4,6,4,4,4,6,10,12,15,10,10,10,10,10,10]  # The move cap for each level is state in index order of each level, hence the placeholder in index 0
     # Scoreboard Init.
 populateScoreBoardTextList()  # Populates the score board text list so that the scoreboard menu works correctly
     # Pygame Init.
