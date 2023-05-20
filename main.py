@@ -1846,7 +1846,7 @@ while running:  # GAME LOOP
                         level += 1
                         game = initGameBasedOnLevel(level)
                         moveCount = 0
-                    elif (winCheck(save_screen_as_image(screen), game.getWinConditions())):  # Checks if the level has been won
+                    elif (level != 12 and winCheck(save_screen_as_image(screen), game.getWinConditions())):  # Checks if the level has been won
                         displayWinBorder()  # Displays the win border
                         time.sleep(3)  # Pauses for 3 second
                         updateScoreBoardTextFile(level,moveCount)  # Updates the high score of the player
