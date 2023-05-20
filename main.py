@@ -1008,6 +1008,79 @@ def initLevelNine():  # Init. a quantum game instance with win conditions for le
     )
     return game
 
+def initLevelTen():
+    game = QuantumGame(
+        initialize=[],
+        allowed_gates=SUPPORTED_GATES,
+        shots=DEFAULT_SHOTS,
+        corr_color=DEFAULT_CORR_COLOR,
+        iden_color=DEFAULT_IDEN_COLOR,
+        grid_resolution=DEFAULT_GRID_RESOLUTION,
+        win_condition={'XI': 0, 'XZ': 1, 'XX': 0, 'ZI': 0, 'ZZ': 0, 'ZX': 0, 'IZ': 0, 'IX': 0}
+    )
+    return game
+
+def initLevelEleven():
+    game = QuantumGame(
+        initialize=[],
+        allowed_gates=SUPPORTED_GATES,
+        shots=DEFAULT_SHOTS,
+        corr_color=DEFAULT_CORR_COLOR,
+        iden_color=DEFAULT_IDEN_COLOR,
+        grid_resolution=DEFAULT_GRID_RESOLUTION,
+        win_condition={'XI': 0, 'XZ': 0, 'XX': 0, 'ZI': 0, 'ZZ': 0, 'ZX': 0, 'IZ': 0, 'IX': 0}
+    )
+    return game
+
+def initLevelTwelve():
+    game = QuantumGame(
+        initialize=[],
+        allowed_gates=SUPPORTED_GATES,
+        shots=DEFAULT_SHOTS,
+        corr_color=DEFAULT_CORR_COLOR,
+        iden_color=DEFAULT_IDEN_COLOR,
+        grid_resolution=DEFAULT_GRID_RESOLUTION,
+        win_condition={'XI': 0, 'XZ': 0, 'XX': 0, 'ZI': 0, 'ZZ': 0, 'ZX': 0, 'IZ': 0, 'IX': 0}
+    )
+    return game
+
+def initLevelThirteen():
+    game = QuantumGame(
+        initialize=[],
+        allowed_gates=SUPPORTED_GATES,
+        shots=DEFAULT_SHOTS,
+        corr_color=DEFAULT_CORR_COLOR,
+        iden_color=DEFAULT_IDEN_COLOR,
+        grid_resolution=DEFAULT_GRID_RESOLUTION,
+        win_condition={'XI': 0, 'XZ': 0, 'XX': 1, 'ZI': 0, 'ZZ': 0, 'ZX': 0, 'IZ': 0, 'IX': 0}
+    )
+    return game
+
+def initLevelFourteen():
+    game = QuantumGame(
+        initialize=[],
+        allowed_gates=SUPPORTED_GATES,
+        shots=DEFAULT_SHOTS,
+        corr_color=DEFAULT_CORR_COLOR,
+        iden_color=DEFAULT_IDEN_COLOR,
+        grid_resolution=DEFAULT_GRID_RESOLUTION,
+        win_condition={'XI': 0, 'XZ': 0, 'XX': 0, 'ZI': 0, 'ZZ': 1, 'ZX': 0, 'IZ': 0, 'IX': 0}
+    )
+    return game
+
+def initLevelFifteen():
+    game = QuantumGame(
+        initialize=[],
+        allowed_gates=SUPPORTED_GATES,
+        shots=DEFAULT_SHOTS,
+        corr_color=DEFAULT_CORR_COLOR,
+        iden_color=DEFAULT_IDEN_COLOR,
+        grid_resolution=DEFAULT_GRID_RESOLUTION,
+        win_condition={'XI': 0, 'XZ': 0, 'XX': 1, 'ZI': 0, 'ZZ': 1, 'ZX': 0, 'IZ': 0, 'IX': 0}
+    )
+    return game
+
+
 def showGame(game): # returns an image of the game inputted into the parameter
     image, win = game.draw_grid() # win is a boolean representing if the user won with this configuration or not
     if win:
