@@ -482,30 +482,36 @@ def creditsMenuDSUButton_click(event):  # Git Hub Button
         # what level to change the score of. "Score" denotes what integer value is to be placed on the respective line in the file
 def updateScoreBoardTextFile(level, score):
     score = returnHighScore(level, score)
-    if (level > 0 and level < 15 and score >= 0 and score <= 100):
-        with open('scoreBoard.txt', 'r') as file:
-            lines = file.readlines()
-        lines[level - 1] = str(score) + '\n'
-        with open('scoreBoard.txt', 'w') as file:
-            file.writelines(lines)
+    if (level != "sandbox"):
+        if (level > 0 and level < 15 and score >= 0 and score <= 100):
+            with open('scoreBoard.txt', 'r') as file:
+                lines = file.readlines()
+            lines[level - 1] = str(score) + '\n'
+            with open('scoreBoard.txt', 'w') as file:
+                file.writelines(lines)
+    elif(level == "sandbox"):
+        pass
     else:
         print("ERROR: The value(s) inputted into the 'updateScoreBoardTextList' function are not valid.")
         print("       The values inputted into the function were: " + "level: " + str(level) + " score: " + str(score))
         raise Exception("Invalid Input in Function Call")
 
 def readScoreBoardTextText(level):  # Reads the file and returns the value specified on the level parameter
-    if (level >= 0 and level < 16):
-        try:
-            with open('scoreBoard.txt', 'r') as file:
-                lines = file.readlines()
-                line = lines[level - 1]
-                line = str(line)
-                if (line != '\n'):
-                    return line.strip()
-                else:
-                    return "N/A"
-        except FileNotFoundError:
-            return "File not found."
+    if ( level != "sandbox"):
+        if (level >= 0 and level < 16):
+            try:
+                with open('scoreBoard.txt', 'r') as file:
+                    lines = file.readlines()
+                    line = lines[level - 1]
+                    line = str(line)
+                    if (line != '\n'):
+                        return line.strip()
+                    else:
+                        return "N/A"
+            except FileNotFoundError:
+                return "File not found."
+    elif ( level == "sandbox"):
+        return "N/A"
     else:
         print("ERROR: The value(s) inputted into the 'updateScoreBoardTextList' function are not valid.")
         print("       The values inputted into the function were: " + "level: " + str(level))
@@ -532,8 +538,9 @@ def clearUserProgress():  # Clears the scoreBoard.txt of data
 def returnHighScore(level, score):  # Returns the high score of a level based on the previous high score and the current score
     if (score == 0):
         raise Exception("You can't have a score of 0, something went wrong.")
-    if (level <= 0 or level >= 16):
-        raise Exception("You can't have a level 0 or below, or 16 or above.")
+    if ( level != "sandbox" ):
+        if (level <= 0 or level >= 16 ):
+            raise Exception("You can't have a level 0 or below, or 16 or above.")
 
     if ( readScoreBoardTextText(level) != "N/A"):
         previousScore = int(readScoreBoardTextText(level))
@@ -885,6 +892,8 @@ def initGameBasedOnLevel(level):  # Function that inits. a game based on the cur
         return initLevelSeven()
     elif (level == 8):
         return initLevelEight()
+    elif (level == 9):
+        return initLevelNine()
     # IMPORTANT!!!
     # MAKE SURE TO PUT THE REST OF THE CONTROL FLOW FOR THE OTHER 12 LEVELS!!!
     # IMPORTANT!!!
@@ -927,7 +936,7 @@ def initLevelThree():  # Init. a quantum game instance with win conditions for l
     )
     return game
 
-def initLevelFour():  # Init. a quantum game instance with win conditions for level 3
+def initLevelFour():  # Init. a quantum game instance with win conditions for level 4
     game = QuantumGame(
         initialize=[],
         allowed_gates=SUPPORTED_GATES,
@@ -939,7 +948,7 @@ def initLevelFour():  # Init. a quantum game instance with win conditions for le
     )
     return game
 
-def initLevelFive():  # Init. a quantum game instance with win conditions for level 3
+def initLevelFive():  # Init. a quantum game instance with win conditions for level 5
     game = QuantumGame(
         initialize=[],
         allowed_gates=SUPPORTED_GATES,
@@ -951,7 +960,7 @@ def initLevelFive():  # Init. a quantum game instance with win conditions for le
     )
     return game
 
-def initLevelSix():  # Init. a quantum game instance with win conditions for level 3
+def initLevelSix():  # Init. a quantum game instance with win conditions for level 6
     game = QuantumGame(
         initialize=[],
         allowed_gates=SUPPORTED_GATES,
@@ -963,7 +972,7 @@ def initLevelSix():  # Init. a quantum game instance with win conditions for lev
     )
     return game
 
-def initLevelSeven():  # Init. a quantum game instance with win conditions for level 3
+def initLevelSeven():  # Init. a quantum game instance with win conditions for level 7
     game = QuantumGame(
         initialize=[],
         allowed_gates=SUPPORTED_GATES,
@@ -975,7 +984,7 @@ def initLevelSeven():  # Init. a quantum game instance with win conditions for l
     )
     return game
 
-def initLevelEight():  # Init. a quantum game instance with win conditions for level 3
+def initLevelEight():  # Init. a quantum game instance with win conditions for level 8
     game = QuantumGame(
         initialize=[],
         allowed_gates=SUPPORTED_GATES,
@@ -984,6 +993,18 @@ def initLevelEight():  # Init. a quantum game instance with win conditions for l
         iden_color=DEFAULT_IDEN_COLOR,
         grid_resolution=DEFAULT_GRID_RESOLUTION,
         win_condition={'XI': 0, 'XZ': 0, 'XX': 0, 'ZI': 0, 'ZZ': 0, 'ZX': 0, 'IZ': 0, 'IX': 1}
+    )
+    return game
+
+def initLevelNine():  # Init. a quantum game instance with win conditions for level 8
+    game = QuantumGame(
+        initialize=[],
+        allowed_gates=SUPPORTED_GATES,
+        shots=DEFAULT_SHOTS,
+        corr_color=DEFAULT_CORR_COLOR,
+        iden_color=DEFAULT_IDEN_COLOR,
+        grid_resolution=DEFAULT_GRID_RESOLUTION,
+        win_condition={'XI': 0, 'XZ': 1, 'XX': 0, 'ZI': 0, 'ZZ': 0, 'ZX': 1, 'IZ': 0, 'IX': 0}
     )
     return game
 
@@ -1044,7 +1065,7 @@ leftGateState = 0  # Init. the state of the left gate selector
 rightGateState = 0  # Init. the state of the right gate selector
 level = 1  # Variable that indicates the current level the player is on
 moveCount = 0  # Variable that holds the number of logic gates the player has enacted onto the circuit
-moveCountCapList = ["Placeholder",4,6,4,4,4,6,10,12,"Undecided","Undecided","Undecided","Undecided","Undecided","Undecided","Undecided"]  # The move cap for each level is state in index order of each level, hence the placeholder in index 0
+moveCountCapList = ["Placeholder",4,6,4,4,4,6,10,12,15,"Undecided","Undecided","Undecided","Undecided","Undecided","Undecided"]  # The move cap for each level is state in index order of each level, hence the placeholder in index 0
     # Scoreboard Init.
 populateScoreBoardTextList()  # Populates the score board text list so that the scoreboard menu works correctly
     # Pygame Init.
@@ -1693,7 +1714,10 @@ while running:  # GAME LOOP
                         rightGateState = 0  # ^
                     displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
                     displayMovesLeft(level, moveCount)  # Displays the current moves left
-                    game = initGameBasedOnLevel(level)  # Initializes game based on the current level
+                    if (level != "sandbox"):
+                        game = initGameBasedOnLevel(level)  # Initializes game based on the current level
+                    elif(level == "sandbox"):
+                        game = initGame()  # Init. a blank game instance
                     showGame(game)  # Displays the qubits
 
                 # RIGHT GATE BUTTONS
@@ -1719,17 +1743,18 @@ while running:  # GAME LOOP
                     showGame(game)  # Updates the Qubits on the UI
 
                 # WIN CONDITION CONTROL FLOW
-                if (winCheck(save_screen_as_image(screen), game.getWinConditions())):  # Checks if the level has been won
-                    displayWinBorder()  # Displays the win border
-                    time.sleep(3)  # Pauses for 3 second
-                    updateScoreBoardTextFile(level,moveCount)  # Updates the high score of the player
-                    displayYouWonScreen(level, moveCount)  # Displays the you won screen
-                    displayYouWonScoreInfo(level, moveCount)  # Displays the you won screen score info
-                    print("Level " + str(level) + " has been won.")
-                    state = "youWonMenu"
-                    level += 1
-                    game = initGameBasedOnLevel(level)
-                    moveCount = 0
+                if ( level != "sandbox"):
+                    if (winCheck(save_screen_as_image(screen), game.getWinConditions())):  # Checks if the level has been won
+                        displayWinBorder()  # Displays the win border
+                        time.sleep(3)  # Pauses for 3 second
+                        updateScoreBoardTextFile(level,moveCount)  # Updates the high score of the player
+                        displayYouWonScreen(level, moveCount)  # Displays the you won screen
+                        displayYouWonScoreInfo(level, moveCount)  # Displays the you won screen score info
+                        print("Level " + str(level) + " has been won.")
+                        state = "youWonMenu"
+                        level += 1
+                        game = initGameBasedOnLevel(level)
+                        moveCount = 0
 
                 # MOVE CAP CONTROL FLOW FOR LEVELS (Basically loss detecting control flow)
                 if (level == "sandbox"):  # If the user is in sandbox mode reset moveCount to 0 to mitigate bugs
