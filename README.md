@@ -9,6 +9,8 @@ Our goal is to make an interactive game geared towards high school students in o
 ## Our Game:
 Our game, called <i>Quantum Checkers</i>, is a game where you manipulate qubits (quantum bits) in order to mimic a pattern created by the specific use of certain quantum gates on the aforementioned qubits.
 
+![alt text]([http://url/to/img.png](https://d2r55xnwy6nx47.cloudfront.net/uploads/2023/03/KillingHorizons-byKristinaArmitage-Lede-scaled.webp))
+
 ## Our Team:
 Our team consists of three sub-teams: Supervisors, Backend Developers, and Frontend Developers.
 #### Our Supervisor: Dr. Ren
