@@ -483,7 +483,7 @@ def creditsMenuDSUButton_click(event):  # Git Hub Button
 def updateScoreBoardTextFile(level, score):
     score = returnHighScore(level, score)
     if (level != "sandbox"):
-        if (level > 0 and level < 15 and score >= 0 and score <= 100):
+        if (level > 0 and level < 16 and score >= 0 and score <= 100):
             with open('scoreBoard.txt', 'r') as file:
                 lines = file.readlines()
             lines[level - 1] = str(score) + '\n'
@@ -544,8 +544,10 @@ def returnHighScore(level, score):  # Returns the high score of a level based on
     if (readScoreBoardTextText(level) != "N/A"):
         integerA = int(readScoreBoardTextText(level))#  The user's high score for the given level
         integerB = score  # The user's current score
+        print("AAAAA")
         return min(integerA, integerB)
     else:
+        print("BBBBB")
         return score  # If there was no high score, return the user's score
     # STOP - Highscore Checking method
 
@@ -1854,7 +1856,8 @@ while running:  # GAME LOOP
                         displayYouWonScoreInfo(level, moveCount)  # Displays the you won screen score info
                         print("Level " + str(level) + " has been won.")
                         state = "youWonMenu"
-                        level += 1
+                        if ( level != 15 ):
+                            level += 1
                         game = initGameBasedOnLevel(level)
                         moveCount = 0
 
