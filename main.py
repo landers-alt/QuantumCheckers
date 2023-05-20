@@ -1827,10 +1827,6 @@ while running:  # GAME LOOP
                     state = "youLostMenu"
                     moveCount = 0
 
-                # TESTING
-                print(colorFinder(save_screen_as_image(screen)))
-                # TESTING
-
                 # EXIT LEVEL BUTTON
                 if ( exitGameplayButton(event) ):  # If the exit level button has been clicked
                     displayExitGameplayMenu()  # Displays the exit gameplay menu
