@@ -109,6 +109,13 @@ origin = (0,0)  # The location, (x,y) notation, of the goal indicator for any gi
 
 # START - METHODS
     # START - Display Methods
+        # START - Logo Display Method
+def displayLogo():  # Displays the Quantum Checkers game logo
+    logoImage = pygame.image.load('Assets/Quantum Checkers Logo.png').convert_alpha()
+    screen.blit(logoImage, origin)
+    pygame.display.update()
+        # STOP - Logo Display Method
+
         # START - Menu Display Methods
 def displayLevelSelectMenu(): # Displays the level select menu
     # Creation of the level select menu image & placing of image on the screen
@@ -1178,6 +1185,11 @@ moveCountCapList = ["Placeholder",4,6,4,4,4,6,10,12,15,10,10,10,10,10,10]  # The
     # Scoreboard Init.
 populateScoreBoardTextList()  # Populates the score board text list so that the scoreboard menu works correctly
     # Pygame Init.
+pygame.display.set_icon(gameIcon)  # Changes window icon
+displayLogo()  # Displays the QC logo
+pygame.display.set_icon(gameIcon)  # Changes window icon
+time.sleep(2)
+pygame.display.set_icon(gameIcon)  # Changes window icon
 displayMainMenu()  # Places the main menu screen on the game window to initialize the game
 state = "mainMenu"  # Initializing the FSM in the "mainMenu" state because the game starts on the main menu
 clock = pygame.time.Clock()  # Clock (used in game loop to limit frame rate)
