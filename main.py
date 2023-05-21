@@ -1119,6 +1119,7 @@ def showGame(game): # returns an image of the game inputted into the parameter
     screen.blit(newImage, (79,0))
     # STOP - Quantum Method(s) Implementing "game_logic.py"
 
+    # START - Screen Methods
 def save_screen_as_image(screen):
     filename = "screenshot.png"  # Specify the filename here
     pygame.image.save(screen, filename)
@@ -1154,19 +1155,16 @@ def colorFinder(screenshot):
         else:
             colors[point] = 0
 
-
-
     return colors, inclusiveColors
+    # STOP - Screen Methods
 
+    # START - Win Checking Method
 def winCheck(gameImage, winConditions): # game Image is self explanatory, win conditions is the same dictionary as in the class def.
     if (colorFinder(gameImage)[0] == winConditions): # If the win conditions match what is on the board
         return True
     else:
         return False
-
-def checkWin(game):  # Returns a boolean on whether or not the game has been won
-    win = game.check_win()
-    return win
+    # STOP - Win Checking Method
 # END - METHODS
 
 
@@ -1312,10 +1310,15 @@ while running:  # GAME LOOP
 
             # Level Select Menu Button Control Flow
             if (state == "levelSelectMenu"):
-                if (levelSelectMenuMainMenuButton(event) or levelSelectMenuBackButton(event, level)):  # Both the main menu and back button will bring the user back to the main menu, hence why there isn't control flow for both buttons separately
+                if (levelSelectMenuMainMenuButton(event)):  # Main Menu Button
                     displayMainMenu()  # Displays the main menu
                     state = "mainMenu"  # State change
                     break
+                if (levelSelectMenuBackButton(event, level)):  # Back Button
+                    displayWhiteScreen()  # Clear screen
+                    displayBlankGameScreen(level)
+                    showGame(game)
+                    state = "gamePlay"
                 if (levelSelectSandboxButton(event)):  # if the sandbox button has been clicked
                     level = "sandbox"
                     displayWhiteScreen()  # Clears screen
