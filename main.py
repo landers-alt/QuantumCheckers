@@ -554,12 +554,10 @@ def returnHighScore(level, score):  # Returns the high score of a level based on
         if (level <= 0 or level >= 16 ):
             raise Exception("You can't have a level 0 or below, or 16 or above.")
     if (readScoreBoardTextText(level) != "N/A"):
-        integerA = int(readScoreBoardTextText(level))#  The user's high score for the given level
+        integerA = int(readScoreBoardTextText(level))  # The user's high score for the given level
         integerB = score  # The user's current score
-        print("AAAAA")
         return min(integerA, integerB)
     else:
-        print("BBBBB")
         return score  # If there was no high score, return the user's score
     # STOP - Highscore Checking method
 
@@ -723,7 +721,7 @@ def levelSelectLevel6Button(event):
     x, y = pygame.mouse.get_pos()
     if event.type == pygame.MOUSEBUTTONDOWN:
         if (state == "levelSelectMenu"):
-            if (x > 368 and x < 425) and (y > 262 and y < 290):  # THE X IS ALREADY GOOD, WORRY ABOUT THE Y VALUES
+            if (x > 368 and x < 425) and (y > 262 and y < 290):
                 print("Level 6 Button Has Been Clicked")
                 return True
 
@@ -795,7 +793,7 @@ def levelSelectLevel15Button(event):
     x, y = pygame.mouse.get_pos()
     if event.type == pygame.MOUSEBUTTONDOWN:
         if (state == "levelSelectMenu"):
-            if (x > 368 and x < 425) and (y > 82 and y < 112):  # THE X IS ALREADY GOOD, WORRY ABOUT THE Y VALUES
+            if (x > 368 and x < 425) and (y > 82 and y < 112):
                 print("Level 15 Button Has Been Clicked")
                 return True
     # STOP - Level Select Menu Buttons
@@ -805,7 +803,7 @@ def levelExplanationContinueButton(event):
     x, y = pygame.mouse.get_pos()
     if event.type == pygame.MOUSEBUTTONDOWN:
         if (state == "levelExplanation"):
-            if (x > 232 and x < 366) and (y > 395 and y < 458):  # THE X IS ALREADY GOOD, WORRY ABOUT THE Y VALUES
+            if (x > 232 and x < 366) and (y > 395 and y < 458):
                 print("Level Explanation Continue Button Has Been Clicked")
                 return True
 
@@ -813,7 +811,7 @@ def levelExplanationBackButton(event):
     x, y = pygame.mouse.get_pos()
     if event.type == pygame.MOUSEBUTTONDOWN:
         if (state == "levelExplanation"):
-            if (x > 435 and x < 568) and (y > 395 and y < 458):  # THE X IS ALREADY GOOD, WORRY ABOUT THE Y VALUES
+            if (x > 435 and x < 568) and (y > 395 and y < 458):
                 print("Level Explanation Back Button Has Been Clicked")
                 return True
     # STOP - Level Explanation Buttons
@@ -862,7 +860,6 @@ def youWonLevel15MainMenuButton(event):
             if (x > 332 and x < 466) and (y > 400 and y < 460):
                 print("Main Menu Button was clicked")
                 return True
-
         # STOP - You Won Level 15 Menu Buttons
     # START - You Lost/Won Screen Buttons
 
@@ -1109,7 +1106,6 @@ def initLevelFifteen():
         win_condition={'XI': 0, 'XZ': 0, 'XX': 1, 'ZI': 0, 'ZZ': 1, 'ZX': 0, 'IZ': 0, 'IX': 0}
     )
     return game
-
 
 def showGame(game): # returns an image of the game inputted into the parameter
     image, win = game.draw_grid() # win is a boolean representing if the user won with this configuration or not
