@@ -658,7 +658,7 @@ def exitGameplayMenuNoButton(event):  # Exit Gameplay Menu No Button
 def levelSelectMenuMainMenuButton(event):
     x, y = pygame.mouse.get_pos()
     if event.type == pygame.MOUSEBUTTONDOWN:
-        if (state == "levelSelectMenuGame" or state == "levelSelectMenuMain"):
+        if (state == "levelSelectMenu"):
             if (x > 45 and x < 225) and (y > 442 and y < 478):
                 print("Level Select Menu Main Menu Button Has Been Clicked")
                 return True
@@ -666,7 +666,7 @@ def levelSelectMenuMainMenuButton(event):
 def levelSelectMenuBackButton(event, level):
     x, y = pygame.mouse.get_pos()
     if event.type == pygame.MOUSEBUTTONDOWN:
-        if (state == "levelSelectMenuGame" or state == "levelSelectMenuMain"):
+        if (state == "levelSelectMenu"):
             if (x > 635 and x < 772) and (y > 442 and y < 478):
                 print("Level Select Menu Back Button Has Been Clicked")
                 return True
@@ -674,7 +674,7 @@ def levelSelectMenuBackButton(event, level):
 def levelSelectSandboxButton(event):
     x, y = pygame.mouse.get_pos()
     if event.type == pygame.MOUSEBUTTONDOWN:
-        if (state == "levelSelectMenuGame" or state == "levelSelectMenuMain"):
+        if (state == "levelSelectMenu"):
             if (x > 646 and x < 762) and (y > 34 and y < 70):
                 print("Sandbox Button Has Been Clicked")
                 return True
@@ -682,7 +682,7 @@ def levelSelectSandboxButton(event):
 def levelSelectLevel1Button(event):
     x, y = pygame.mouse.get_pos()
     if event.type == pygame.MOUSEBUTTONDOWN:
-        if (state == "levelSelectMenuGame" or state == "levelSelectMenuMain"):
+        if (state == "levelSelectMenu"):
             if (x > 368 and x < 425) and (y > 450 and y < 480):
                 print("Level 1 Button Has Been Clicked")
                 return True
@@ -690,7 +690,7 @@ def levelSelectLevel1Button(event):
 def levelSelectLevel2Button(event):
     x, y = pygame.mouse.get_pos()
     if event.type == pygame.MOUSEBUTTONDOWN:
-        if (state == "levelSelectMenuGame" or state == "levelSelectMenuMain"):
+        if (state == "levelSelectMenu"):
             if (x > 368 and x < 425) and (y > 395 and y < 425):
                 print("Level 2 Button Has Been Clicked")
                 return True
@@ -698,7 +698,7 @@ def levelSelectLevel2Button(event):
 def levelSelectLevel3Button(event):
     x, y = pygame.mouse.get_pos()
     if event.type == pygame.MOUSEBUTTONDOWN:
-        if (state == "levelSelectMenuGame" or state == "levelSelectMenuMain"):
+        if (state == "levelSelectMenu"):
             if (x > 368 and x < 425) and (y > 340 and y < 368):
                 print("Level 3 Button Has Been Clicked")
                 return True
@@ -706,7 +706,7 @@ def levelSelectLevel3Button(event):
 def levelSelectLevel4Button(event):
     x, y = pygame.mouse.get_pos()
     if event.type == pygame.MOUSEBUTTONDOWN:
-        if (state == "levelSelectMenuGame" or state == "levelSelectMenuMain"):
+        if (state == "levelSelectMenu"):
              if (x > 315 and x < 372) and (y > 300 and y < 328):
                 print("Level 4 Button Has Been Clicked")
                 return True
@@ -714,7 +714,7 @@ def levelSelectLevel4Button(event):
 def levelSelectLevel5Button(event):
     x, y = pygame.mouse.get_pos()
     if event.type == pygame.MOUSEBUTTONDOWN:
-        if (state == "levelSelectMenuGame" or state == "levelSelectMenuMain"):
+        if (state == "levelSelectMenu"):
             if (x > 425 and x < 480) and (y > 300 and y < 330):
                 print("Level 5 Button Has Been Clicked")
                 return True
@@ -722,7 +722,7 @@ def levelSelectLevel5Button(event):
 def levelSelectLevel6Button(event):
     x, y = pygame.mouse.get_pos()
     if event.type == pygame.MOUSEBUTTONDOWN:
-        if (state == "levelSelectMenuGame" or state == "levelSelectMenuMain"):
+        if (state == "levelSelectMenu"):
             if (x > 368 and x < 425) and (y > 262 and y < 290):  # THE X IS ALREADY GOOD, WORRY ABOUT THE Y VALUES
                 print("Level 6 Button Has Been Clicked")
                 return True
@@ -730,7 +730,7 @@ def levelSelectLevel6Button(event):
 def levelSelectLevel7Button(event):
     x, y = pygame.mouse.get_pos()
     if event.type == pygame.MOUSEBUTTONDOWN:
-        if (state == "levelSelectMenuGame" or state == "levelSelectMenuMain"):
+        if (state == "levelSelectMenu"):
              if (x > 315 and x < 372) and (y > 212 and y < 242):
                 print("Level 7 Button Has Been Clicked")
                 return True
@@ -738,7 +738,7 @@ def levelSelectLevel7Button(event):
 def levelSelectLevel8Button(event):
     x, y = pygame.mouse.get_pos()
     if event.type == pygame.MOUSEBUTTONDOWN:
-        if (state == "levelSelectMenuGame" or state == "levelSelectMenuMain"):
+        if (state == "levelSelectMenu"):
             if (x > 444 and x < 605) and (y > 213 and y < 242):
                 print("Level 8 Button Has Been Clicked")
                 return True
@@ -746,7 +746,7 @@ def levelSelectLevel8Button(event):
 def levelSelectLevel9Button(event):
     x, y = pygame.mouse.get_pos()
     if event.type == pygame.MOUSEBUTTONDOWN:
-        if (state == "levelSelectMenuGame" or state == "levelSelectMenuMain"):
+        if (state == "levelSelectMenu"):
             if (x > 260 and x < 320) and (y > 170 and y < 200):
                 print("Level 9 Button Has Been Clicked")
                 return True
@@ -754,7 +754,7 @@ def levelSelectLevel9Button(event):
 def levelSelectLevel10Button(event):
     x, y = pygame.mouse.get_pos()
     if event.type == pygame.MOUSEBUTTONDOWN:
-        if (state == "levelSelectMenuGame" or state == "levelSelectMenuMain"):
+        if (state == "levelSelectMenu"):
             if (x > 186 and x < 244) and (y > 170 and y < 200):
                 print("Level 10 Button Has Been Clicked")
                 return True
@@ -762,7 +762,7 @@ def levelSelectLevel10Button(event):
 def levelSelectLevel11Button(event):
     x, y = pygame.mouse.get_pos()
     if event.type == pygame.MOUSEBUTTONDOWN:
-        if (state == "levelSelectMenuGame" or state == "levelSelectMenuMain"):
+        if (state == "levelSelectMenu"):
             if (x > 480 and x < 535) and (y > 170 and y < 200):
                 print("Level 11 Button Has Been Clicked")
                 return True
@@ -770,7 +770,7 @@ def levelSelectLevel11Button(event):
 def levelSelectLevel12Button(event):
     x, y = pygame.mouse.get_pos()
     if event.type == pygame.MOUSEBUTTONDOWN:
-        if (state == "levelSelectMenuGame" or state == "levelSelectMenuMain"):
+        if (state == "levelSelectMenu"):
             if (x > 560 and x < 612) and (y > 170 and y < 200):
                 print("Level 12 Button Has Been Clicked")
                 return True
@@ -778,7 +778,7 @@ def levelSelectLevel12Button(event):
 def levelSelectLevel13Button(event):
     x, y = pygame.mouse.get_pos()
     if event.type == pygame.MOUSEBUTTONDOWN:
-        if (state == "levelSelectMenuGame" or state == "levelSelectMenuMain"):
+        if (state == "levelSelectMenu"):
             if (x > 315 and x < 372) and (y > 125 and y < 155):
                 print("Level 13 Button Has Been Clicked")
                 return True
@@ -786,7 +786,7 @@ def levelSelectLevel13Button(event):
 def levelSelectLevel14Button(event):
     x, y = pygame.mouse.get_pos()
     if event.type == pygame.MOUSEBUTTONDOWN:
-        if (state == "levelSelectMenuGame" or state == "levelSelectMenuMain"):
+        if (state == "levelSelectMenu"):
             if (x > 425 and x < 480) and (y > 125 and y < 155):
                 print("Level 14 Button Has Been Clicked")
                 return True
@@ -794,7 +794,7 @@ def levelSelectLevel14Button(event):
 def levelSelectLevel15Button(event):
     x, y = pygame.mouse.get_pos()
     if event.type == pygame.MOUSEBUTTONDOWN:
-        if (state == "levelSelectMenuGame" or state == "levelSelectMenuMain"):
+        if (state == "levelSelectMenu"):
             if (x > 368 and x < 425) and (y > 82 and y < 112):  # THE X IS ALREADY GOOD, WORRY ABOUT THE Y VALUES
                 print("Level 15 Button Has Been Clicked")
                 return True
@@ -1206,7 +1206,7 @@ while running:  # GAME LOOP
         if (event.type == pygame.constants.MOUSEBUTTONDOWN and event.button == 1):  # If the mouse has been clicked
             if ( state == "mainMenu" ):
                 if ( mainMenuStartGameButton_click(event) ):  # If the start game button is clicked
-                    state = "levelSelectMenuMain"
+                    state = "levelSelectMenu"
                     displayLevelSelectMenu()
                     break
                 if ( mainMenuHowToPlayButton_click(event) ):
@@ -1261,7 +1261,7 @@ while running:  # GAME LOOP
                     state = "howToPlayMenuSubMenu"  # State change
                     break
 
-            # Scoreboard Menu Button Control Flow
+            # Scoreboard Menu Button Control Flow (Including are you sure menu)
             if ( state == "scoreBoardAreYouSureMenu"):  # Are you sure menu
                 if ( scoreBoardAreYouSureMenuYesButton_click(event)):  # If the yes button is clicked
                     clearUserProgress()  # Clears the user's progress
@@ -1275,9 +1275,6 @@ while running:  # GAME LOOP
                     displayScoreBoardMenu()  # Displays the scoreboard menu
                     pygame.display.update()  # Update the screen
                     break
-
-
-
             if ( state == "scoreBoardMenu" ):  # Normal scoreboard menu
                 if ( scoreBoardMenuBackButton_click(event) ):  # Back Button On How To Play Menu
                     displayMainMenu()  # Displays the main menu
@@ -1313,212 +1310,8 @@ while running:  # GAME LOOP
                     displayBlankGameScreen(level)
                     showGame(game) # Redisplays the saved game (May need to be moved for this to work)
 
-            # Level Select Menu Button Control Flow (from in a game)
-            if ( state == "levelSelectMenuGame" ):
-                if (levelSelectMenuMainMenuButton(event)):  # Main menu button
-                    displayWhiteScreen()
-                    displayExitGameplayMenu()
-                    state = "exitGameplayMenu"
-                if ( levelSelectMenuBackButton(event, level) ): # Back Button
-                    state = "gamePlay"
-                    displayWhiteScreen()
-                    showGame(game)
-                if (levelSelectSandboxButton(event)):  # if the sandbox button has been clicked
-                    level = "sandbox"
-                    displayWhiteScreen()  # Clears screen
-                    displayCurrentLevel(level)  # Displays "N/A"
-                    displayBlankGameScreen(level)  # Displays gameplay UI
-                    leftGateState = 0  # Resets both gate states
-                    rightGateState = 0  # ^
-                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-                    displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
-                    game = initGame()  # Initializes a blank game
-                    showGame(game)  # Displays the qubits
-                    state = "gamePlay"
-                    break
-                if (levelSelectLevel1Button(event)):
-                    moveCount = 0
-                    leftGateState = 0  # Resets both gate states
-                    rightGateState = 0  # ^
-                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-                    displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
-                    level = 1
-                    game = initGameBasedOnLevel(level)
-                    showGame(game)
-                    state = "gamePlay"
-                    displayGameUIAfterLevelSelectButtonClick()
-                    break
-                elif (levelSelectLevel2Button(event)):
-                    moveCount = 0
-                    leftGateState = 0  # Resets both gate states
-                    rightGateState = 0  # ^
-                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-                    displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
-                    level = 2
-                    game = initGameBasedOnLevel(level)
-                    showGame(game)  # Displays the qubits
-                    state = "gamePlay"
-                    displayGameUIAfterLevelSelectButtonClick()
-                    break
-                elif (levelSelectLevel3Button(event)):
-                    moveCount = 0
-                    leftGateState = 0  # Resets both gate states
-                    rightGateState = 0  # ^
-                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-                    displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
-                    level = 3
-                    game = initGameBasedOnLevel(level)
-                    showGame(game)  # Displays the qubits
-                    state = "gamePlay"
-                    displayGameUIAfterLevelSelectButtonClick()
-                    break
-                elif (levelSelectLevel4Button(event)):
-                    moveCount = 0
-                    leftGateState = 3  # Resets both gate states
-                    rightGateState = 3  # ^
-                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-                    displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
-                    level = 4
-                    game = initGameBasedOnLevel(level)
-                    showGame(game)  # Displays the qubits
-                    state = "gamePlay"
-                    displayGameUIAfterLevelSelectButtonClick()
-                    break
-                elif (levelSelectLevel5Button(event)):
-                    moveCount = 0
-                    leftGateState = 3  # Resets both gate states
-                    rightGateState = 3  # ^
-                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-                    displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
-                    level = 5
-                    game = initGameBasedOnLevel(level)
-                    showGame(game)  # Displays the qubits
-                    state = "gamePlay"
-                    displayGameUIAfterLevelSelectButtonClick()
-                    break
-                elif (levelSelectLevel6Button(event)):
-                    moveCount = 0
-                    leftGateState = 3  # Resets both gate states
-                    rightGateState = 3  # ^
-                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-                    displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
-                    level = 6
-                    game = initGameBasedOnLevel(level)
-                    showGame(game)  # Displays the qubits
-                    state = "gamePlay"
-                    displayGameUIAfterLevelSelectButtonClick()
-                    break
-                elif (levelSelectLevel7Button(event)):
-                    moveCount = 0
-                    leftGateState = 0  # Resets both gate states
-                    rightGateState = 0  # ^
-                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-                    displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
-                    level = 7
-                    game = initGameBasedOnLevel(level)
-                    showGame(game)  # Displays the qubits
-                    state = "gamePlay"
-                    displayGameUIAfterLevelSelectButtonClick()
-                    break
-                elif (levelSelectLevel8Button(event)):
-                    moveCount = 0
-                    leftGateState = 0  # Resets both gate states
-                    rightGateState = 0  # ^
-                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-                    displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
-                    level = 8
-                    game = initGameBasedOnLevel(level)
-                    showGame(game)  # Displays the qubits
-                    state = "gamePlay"
-                    displayGameUIAfterLevelSelectButtonClick()
-                    break
-                elif (levelSelectLevel9Button(event)):
-                    moveCount = 0
-                    leftGateState = 0  # Resets both gate states
-                    rightGateState = 0  # ^
-                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-                    displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
-                    level = 9
-                    game = initGameBasedOnLevel(level)
-                    showGame(game)  # Displays the qubits
-                    state = "gamePlay"
-                    displayGameUIAfterLevelSelectButtonClick()
-                    break
-                elif (levelSelectLevel10Button(event)):
-                    moveCount = 0
-                    leftGateState = 0  # Resets both gate states
-                    rightGateState = 0  # ^
-                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-                    displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
-                    level = 10
-                    game = initGameBasedOnLevel(level)
-                    showGame(game)  # Displays the qubits
-                    state = "gamePlay"
-                    displayGameUIAfterLevelSelectButtonClick()
-                    break
-                elif (levelSelectLevel11Button(event)):
-                    moveCount = 0
-                    leftGateState = 0  # Resets both gate states
-                    rightGateState = 0  # ^
-                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-                    displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
-                    level = 11
-                    game = initGameBasedOnLevel(level)
-                    showGame(game)  # Displays the qubits
-                    state = "gamePlay"
-                    displayGameUIAfterLevelSelectButtonClick()
-                    break
-                elif (levelSelectLevel12Button(event)):
-                    moveCount = 0
-                    leftGateState = 0  # Resets both gate states
-                    rightGateState = 0  # ^
-                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-                    displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
-                    level = 12
-                    game = initGameBasedOnLevel(level)
-                    showGame(game)  # Displays the qubits
-                    state = "gamePlay"
-                    displayGameUIAfterLevelSelectButtonClick()
-                    break
-                elif (levelSelectLevel13Button(event)):
-                    moveCount = 0
-                    leftGateState = 0  # Resets both gate states
-                    rightGateState = 0  # ^
-                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-                    displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
-                    level = 13
-                    game = initGameBasedOnLevel(level)
-                    showGame(game)  # Displays the qubits
-                    state = "gamePlay"
-                    displayGameUIAfterLevelSelectButtonClick()
-                    break
-                elif (levelSelectLevel14Button(event)):
-                    moveCount = 0
-                    leftGateState = 0  # Resets both gate states
-                    rightGateState = 0  # ^
-                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-                    displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
-                    level = 14
-                    game = initGameBasedOnLevel(level)
-                    showGame(game)  # Displays the qubits
-                    state = "gamePlay"
-                    displayGameUIAfterLevelSelectButtonClick()
-                    break
-                elif (levelSelectLevel15Button(event)):
-                    moveCount = 0
-                    leftGateState = 0  # Resets both gate states
-                    rightGateState = 0  # ^
-                    displayCurrentGates(leftGateState, rightGateState)  # Updates the current gate text
-                    displayMovesLeft(level, moveCount)  # Displays the # of moves the user is able to make before losing
-                    level = 15
-                    game = initGameBasedOnLevel(level)
-                    showGame(game)  # Displays the qubits
-                    state = "gamePlay"
-                    displayGameUIAfterLevelSelectButtonClick()
-                    break
-
-            # Level Select Menu Button Control Flow (from main menu)
-            if (state == "levelSelectMenuMain"):
+            # Level Select Menu Button Control Flow
+            if (state == "levelSelectMenu"):
                 if (levelSelectMenuMainMenuButton(event) or levelSelectMenuBackButton(event, level)):  # Both the main menu and back button will bring the user back to the main menu, hence why there isn't control flow for both buttons separately
                     displayMainMenu()  # Displays the main menu
                     state = "mainMenu"  # State change
@@ -1724,7 +1517,7 @@ while running:  # GAME LOOP
                     displayLevelGoal(level)  # Displays a further explanation of the level in conjunction with the goal of the level
                     break
                 if (levelExplanationBackButton(event)):  # Back Button is clicked
-                    state = "levelSelectMenuMain"  # State change
+                    state = "levelSelectMenu"  # State change
                     displayLevelSelectMenu()  # Goes back to the level select menu
 
             # Level Goal Explanation Button Control Flow
@@ -1804,7 +1597,7 @@ while running:  # GAME LOOP
 
                 # LEVEL SELECT BUTTON
                 if ( levelSelectButton(event) ):  # Level Select Button
-                    state = "levelSelectMenuGame"  # THIS SHOULD EVENTUALLY BE MIGRATED TO AN ACTUAL LEVEL SELECT MENU
+                    state = "levelSelectMenu"  # THIS SHOULD EVENTUALLY BE MIGRATED TO AN ACTUAL LEVEL SELECT MENU
                     displayLevelSelectMenu()
                     break
                 # LEFT GATE BUTTONS
