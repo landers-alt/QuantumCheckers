@@ -9,11 +9,14 @@
 # *FOR TESTING*
 
 # START - IMPORTS
-import pygame
+import json
 import time
 import webbrowser
-from game_logic import QuantumGame
-from game_logic import SUPPORTED_GATES
+
+import pygame
+
+from game_logic import SUPPORTED_GATES, QuantumGame
+
 # END - IMPORTS
 
 
@@ -891,41 +894,27 @@ def initGame(): # init. a quantum game instance and returns said game
     return game
 
 def initGameBasedOnLevel(level):  # Function that inits. a game based on the current level
-    if (level == 1):
-        return initLevelOne()
-    elif (level == 2):
-        return initLevelTwo()
-    elif (level == 3):
-        return initLevelThree()
-    elif (level == 4):
-        return initLevelFour()
-    elif (level == 5):
-        return initLevelFive()
-    elif (level == 6):
-        return initLevelSix()
-    elif (level == 7):
-        return initLevelSeven()
-    elif (level == 8):
-        return initLevelEight()
-    elif (level == 9):
-        return initLevelNine()
-    elif (level == 10):
-        return initLevelTen()
-    elif (level == 11):
-        return initLevelEleven()
-    elif (level == 12):
-        return initLevelTwelve()
-    elif (level == 13):
-        return initLevelThirteen()
-    elif (level == 14):
-        return initLevelFourteen()
-    elif (level == 15):
-        return initLevelFifteen()
-    # IMPORTANT!!!
-    # MAKE SURE TO PUT THE REST OF THE CONTROL FLOW FOR THE OTHER 12 LEVELS!!!
-    # IMPORTANT!!!
-    else:
-        print("AN ERROR IN THE initGameBasedOnLevel FUNCTION HAS OCCURED, MOST LIKELY DUE TO BAD INPUT")
+    level_name = f"level_{level}"
+    return initLevelFromJson(level_name)
+
+def initLevelFromJson(level_name):
+    with open('levels.json') as json_file:
+        data = json.load(json_file)
+        try:
+            level = data[level_name]
+        except KeyError:
+            raise KeyError(f"Level {level_name} not found in levels.json, check the level number and file")
+
+    game = QuantumGame(
+        initialize = level['initialize'],
+        allowed_gates = SUPPORTED_GATES,
+        shots = DEFAULT_SHOTS,
+        corr_color = DEFAULT_CORR_COLOR,
+        iden_color = DEFAULT_IDEN_COLOR,
+        grid_resolution = DEFAULT_GRID_RESOLUTION,
+        win_condition = level['win_condition']
+    )
+    return game
 
 def initLevelOne():  # Init. a quantum game instance with win conditions for level 1
     game = QuantumGame(
