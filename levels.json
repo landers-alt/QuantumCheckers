@@ -1,42 +1,197 @@
 {
     "level_1": {
-        "initialize": [
-            {
-                "qubit_idx": 0,
-                "gate": "x"
-            }
-        ],
+        "initialize": [],
         "win_condition": {
-            "IZ": 0,
-            "ZI": 0,
-            "IX": 0,
             "XI": 0,
+            "XZ": 0,
+            "XX": 0,
+            "ZI": 0,
             "ZZ": 0,
             "ZX": 0,
-            "XZ": 0,
-            "XX": 0
+            "IZ": 1,
+            "IX": 0
         }
     },
     "level_2": {
-        "initialize": [
-            {
-                "qubit_idx": 0,
-                "gate": "x"
-            },
-            {
-                "qubit_idx": 1,
-                "gate": "z"
-            }
-        ],
+        "initialize": [],
         "win_condition": {
-            "IZ": 0,
-            "ZI": 0,
-            "IX": 0,
             "XI": 0,
+            "XZ": 0,
+            "XX": 0,
+            "ZI": 0,
+            "ZZ": 1,
+            "ZX": 0,
+            "IZ": 0,
+            "IX": 0
+        }
+    },
+    "level_3": {
+        "initialize": [],
+        "win_condition": {
+            "XI": 0,
+            "XZ": 0,
+            "XX": 0,
+            "ZI": 1,
             "ZZ": 0,
             "ZX": 0,
+            "IZ": 0,
+            "IX": 0
+        }
+    },
+    "level_4": {
+        "initialize": [],
+        "win_condition": {
+            "XI": 1,
+            "XZ": 1,
+            "XX": 0,
+            "ZI": 0,
+            "ZZ": 0,
+            "ZX": 0,
+            "IZ": 1,
+            "IX": 0
+        }
+    },
+    "level_5": {
+        "initialize": [],
+        "win_condition": {
+            "XI": 0,
             "XZ": 0,
-            "XX": 0
+            "XX": 0,
+            "ZI": 1,
+            "ZZ": 0,
+            "ZX": 1,
+            "IZ": 0,
+            "IX": 1
+        }
+    },
+    "level_6": {
+        "initialize": [],
+        "win_condition": {
+            "XI": 1,
+            "XZ": 0,
+            "XX": 1,
+            "ZI": 0,
+            "ZZ": 0,
+            "ZX": 0,
+            "IZ": 0,
+            "IX": 1
+        }
+    },
+    "level_7": {
+        "initialize": [],
+        "win_condition": {
+            "XI": 1,
+            "XZ": 0,
+            "XX": 0,
+            "ZI": 0,
+            "ZZ": 0,
+            "ZX": 0,
+            "IZ": 0,
+            "IX": 0
+        }
+    },
+    "level_8": {
+        "initialize": [],
+        "win_condition": {
+            "XI": 0,
+            "XZ": 0,
+            "XX": 0,
+            "ZI": 0,
+            "ZZ": 0,
+            "ZX": 0,
+            "IZ": 0,
+            "IX": 1
+        }
+    },
+    "level_9": {
+        "initialize": [],
+        "win_condition": {
+            "XI": 0,
+            "XZ": 1,
+            "XX": 0,
+            "ZI": 0,
+            "ZZ": 0,
+            "ZX": 1,
+            "IZ": 0,
+            "IX": 0
+        }
+    },
+    "level_10": {
+        "initialize": [],
+        "win_condition": {
+            "XI": 0,
+            "XZ": 1,
+            "XX": 0,
+            "ZI": 0,
+            "ZZ": 0,
+            "ZX": 0,
+            "IZ": 0,
+            "IX": 0
+        }
+    },
+    "level_11": {
+        "initialize": [],
+        "win_condition": {
+            "XI": 0,
+            "XZ": 0,
+            "XX": 0,
+            "ZI": 0,
+            "ZZ": 0,
+            "ZX": 0,
+            "IZ": 0,
+            "IX": 0
+        }
+    },
+    "level_12": {
+        "initialize": [],
+        "win_condition": {
+            "XI": 0,
+            "XZ": 0,
+            "XX": 0,
+            "ZI": 0,
+            "ZZ": 0,
+            "ZX": 0,
+            "IZ": 0,
+            "IX": 0
+        }
+    },
+    "level_13": {
+        "initialize": [],
+        "win_condition": {
+            "XI": 0,
+            "XZ": 0,
+            "XX": 1,
+            "ZI": 0,
+            "ZZ": 0,
+            "ZX": 0,
+            "IZ": 0,
+            "IX": 0
+        }
+    },
+    "level_14": {
+        "initialize": [],
+        "win_condition": {
+            "XI": 0,
+            "XZ": 0,
+            "XX": 0,
+            "ZI": 0,
+            "ZZ": 1,
+            "ZX": 0,
+            "IZ": 0,
+            "IX": 0
+        }
+    },
+    "level_15": {
+        "initialize": [],
+        "win_condition": {
+            "XI": 0,
+            "XZ": 0,
+            "XX": 1,
+            "ZI": 0,
+            "ZZ": 1,
+            "ZX": 0,
+            "IZ": 0,
+            "IX": 0
         }
     }
 }
