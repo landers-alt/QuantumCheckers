@@ -1,0 +1,42 @@
+{
+    "level_1": {
+        "initialize": [
+            {
+                "qubit_idx": 0,
+                "gate": "x"
+            }
+        ],
+        "win_condition": {
+            "IZ": 0,
+            "ZI": 0,
+            "IX": 0,
+            "XI": 0,
+            "ZZ": 0,
+            "ZX": 0,
+            "XZ": 0,
+            "XX": 0
+        }
+    },
+    "level_2": {
+        "initialize": [
+            {
+                "qubit_idx": 0,
+                "gate": "x"
+            },
+            {
+                "qubit_idx": 1,
+                "gate": "z"
+            }
+        ],
+        "win_condition": {
+            "IZ": 0,
+            "ZI": 0,
+            "IX": 0,
+            "XI": 0,
+            "ZZ": 0,
+            "ZX": 0,
+            "XZ": 0,
+            "XX": 0
+        }
+    }
+}
